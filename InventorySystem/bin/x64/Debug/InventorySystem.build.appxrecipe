@@ -10,22 +10,22 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>704c98f6-3551-4a96-b6f6-f78cdab03ea8</PackageIdentityName>
     <PackageIdentityPublisher>CN=gautam</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\InventorySystem.exe">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.exe">
       <PackagePath>entrypoint\InventorySystem.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
@@ -262,10 +262,10 @@
     <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.objectmodel\4.3.0\lib\netcore50\System.ObjectModel.dll">
       <PackagePath>System.ObjectModel.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.private.datacontractserialization\4.1.1\lib\netstandard1.3\System.Private.DataContractSerialization.dll">
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.private.datacontractserialization\4.1.2\lib\netstandard1.3\System.Private.DataContractSerialization.dll">
       <PackagePath>System.Private.DataContractSerialization.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.private.servicemodel\4.1.0\runtimes\win7\lib\netcore50\System.Private.ServiceModel.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.private.servicemodel\4.1.1\runtimes\win7\lib\netcore50\System.Private.ServiceModel.dll">
       <PackagePath>System.Private.ServiceModel.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.reflection.context\4.0.1\lib\netcore50\System.Reflection.Context.dll">
@@ -298,13 +298,13 @@
     <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.runtime.numerics\4.3.0\lib\netcore50\System.Runtime.Numerics.dll">
       <PackagePath>System.Runtime.Numerics.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.runtime.serialization.json\4.0.2\lib\netcore50\System.Runtime.Serialization.Json.dll">
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.runtime.serialization.json\4.0.3\lib\netcore50\System.Runtime.Serialization.Json.dll">
       <PackagePath>System.Runtime.Serialization.Json.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.runtime.serialization.primitives\4.1.1\lib\netcore50\System.Runtime.Serialization.Primitives.dll">
       <PackagePath>System.Runtime.Serialization.Primitives.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.runtime.serialization.xml\4.1.1\lib\netcore50\System.Runtime.Serialization.Xml.dll">
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.runtime.serialization.xml\4.1.2\lib\netcore50\System.Runtime.Serialization.Xml.dll">
       <PackagePath>System.Runtime.Serialization.Xml.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.runtime.windowsruntime\4.3.0\runtimes\win8\lib\netstandard1.3\System.Runtime.WindowsRuntime.dll">
@@ -334,19 +334,19 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.security.principal\4.0.1\lib\netcore50\System.Security.Principal.dll">
       <PackagePath>System.Security.Principal.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.duplex\4.0.1\lib\netcore50\System.ServiceModel.Duplex.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.duplex\4.0.2\lib\netcore50\System.ServiceModel.Duplex.dll">
       <PackagePath>System.ServiceModel.Duplex.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.http\4.1.0\lib\netcore50\System.ServiceModel.Http.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.http\4.1.1\lib\netcore50\System.ServiceModel.Http.dll">
       <PackagePath>System.ServiceModel.Http.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.nettcp\4.1.0\lib\netcore50\System.ServiceModel.NetTcp.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.nettcp\4.1.1\lib\netcore50\System.ServiceModel.NetTcp.dll">
       <PackagePath>System.ServiceModel.NetTcp.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.primitives\4.1.0\lib\netcore50\System.ServiceModel.Primitives.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.primitives\4.1.1\lib\netcore50\System.ServiceModel.Primitives.dll">
       <PackagePath>System.ServiceModel.Primitives.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.security\4.0.1\lib\netcore50\System.ServiceModel.Security.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.security\4.0.2\lib\netcore50\System.ServiceModel.Security.dll">
       <PackagePath>System.ServiceModel.Security.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.text.encoding.codepages\4.0.1\runtimes\win\lib\netstandard1.3\System.Text.Encoding.CodePages.dll">
@@ -385,52 +385,52 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\InventorySystem.xr.xml">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.xr.xml">
       <PackagePath>InventorySystem.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\Core\InventorySystem.exe">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\InventorySystem.exe">
       <PackagePath>InventorySystem.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

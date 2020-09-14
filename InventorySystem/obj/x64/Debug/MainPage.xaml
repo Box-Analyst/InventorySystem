@@ -9,21 +9,20 @@
     xmlns:muxc="using:Windows.UI.Xaml.Controls">
 
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <muxc:NavigationView x:Name="nvSample" Header="This is Header Text" PaneDisplayMode="Top">
+        <muxc:NavigationView x:ConnectionId='2' x:Name="nvSample" Header="This is Header Text" PaneDisplayMode="Top">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem  Content="Menu Item1" Tag="SamplePage1" />
                 <muxc:NavigationViewItem  Content="Menu Item2" Tag="SamplePage2" />
                 <muxc:NavigationViewItem  Content="Menu Item3" Tag="SamplePage3" />
                 <muxc:NavigationViewItem  Content="Menu Item4" Tag="SamplePage4" />
             </muxc:NavigationView.MenuItems>
-            <Frame x:Name="contentFrame"/>
+            <Frame x:ConnectionId='7' x:Name="contentFrame"/>
         </muxc:NavigationView>
 
-        <!--
         <StackPanel>
-            <TextBox Name="Input_Box"></TextBox>
-            <Button Click="Add_Text" >Add</Button>
-            <ListView Name="Output">
+            <TextBox x:ConnectionId='3' Name="Input_Box"></TextBox>
+            <Button x:ConnectionId='4'                  >Add</Button>
+            <ListView x:ConnectionId='5' Name="Output">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>
@@ -31,6 +30,6 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        -->
     </Grid>
 </Page>
+
