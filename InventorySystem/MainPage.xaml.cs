@@ -85,5 +85,10 @@ namespace InventorySystem
             }
             return entries;
         }
+
+        private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
