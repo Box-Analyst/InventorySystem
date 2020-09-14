@@ -8,4 +8,4 @@ CREATE TABLE Sample (
     ExpirationDate DATE         NOT NULL,
     isExpired      BOOLEAN      NOT NULL
 );
-//
+/*Login Table*/
