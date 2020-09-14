@@ -8,4 +8,12 @@ CREATE TABLE Sample (
     ExpirationDate DATE         NOT NULL,
     isExpired      BOOLEAN      NOT NULL
 );
+
 /*Login Table*/
+CREATE TABLE Login (
+    Emp_id   NUMERIC     PRIMARY KEY
+                         NOT NULL
+                         UNIQUE,
+    Pin      VARCHAR (6) NOT NULL,
+    IsActive BOOLEAN     NOT NULL
+);
