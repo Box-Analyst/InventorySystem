@@ -1,0 +1,11 @@
+/*Sample Table*/
+CREATE TABLE Sample (
+    LotNum         VARCHAR      PRIMARY KEY
+                                NOT NULL
+                                UNIQUE,
+    NameandDosage  VARCHAR (50) NOT NULL,
+    Count          INTEGER      NOT NULL,
+    ExpirationDate DATE         NOT NULL,
+    isExpired      BOOLEAN      NOT NULL
+);
+//
