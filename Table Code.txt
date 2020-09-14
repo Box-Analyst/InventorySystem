@@ -17,3 +17,19 @@ CREATE TABLE Login (
     Pin      VARCHAR (6) NOT NULL,
     IsActive BOOLEAN     NOT NULL
 );
+
+/*Log*/
+CREATE TABLE Log (
+    LogEntryId  INTEGER      PRIMARY KEY AUTOINCREMENT
+                             NOT NULL,
+    Emp_id      INTEGER      CONSTRAINT Emp_idConstraint REFERENCES Login (Emp_id) ON DELETE NO ACTION
+                                                                                   ON UPDATE CASCADE
+                             NOT NULL,
+    LotNum      VARCHAR      REFERENCES Sample (LotNum) ON DELETE NO ACTION
+                                                        ON UPDATE CASCADE
+                             NOT NULL,
+    WhenModifed DATETIME     NOT NULL,
+    Patient_id  VARCHAR (12),
+    Rep_id      VARCHAR (12),
+    LogType     CHAR (1)     NOT NULL
+);
