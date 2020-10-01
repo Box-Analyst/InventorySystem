@@ -8,29 +8,40 @@
     mc:Ignorable="d"
     xmlns:muxc="using:Windows.UI.Xaml.Controls">
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-        <muxc:NavigationView x:Name="nvSample" Header="This is Header Text" PaneDisplayMode="Top">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem  Content="Home" Tag="SamplePage1" />
-                <muxc:NavigationViewItem  Content="Menu Item2" Tag="SamplePage2" />
-                <muxc:NavigationViewItem  Content="Menu Item3" Tag="SamplePage3" />
-                <muxc:NavigationViewItem  Content="Menu Item4" Tag="SamplePage4" />
-            </muxc:NavigationView.MenuItems>
+    <StackPanel Canvas.Left="0" Orientation="Vertical" Canvas.Top="0" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-            <StackPanel>
-                <TextBox Name="Input_Box"></TextBox>
-                <Button Click="Add_Text" >Add</Button>
-                <ListView Name="Output">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
-        </muxc:NavigationView>
+        <NavigationView x:Name="nvSample" PaneDisplayMode="Top">
+            <NavigationView.MenuItems>
+                <NavigationViewItem  Content="Home" Tag="MainPage" />
+                <NavigationViewItem  Content="Console" Tag="Console" />
+                <NavigationViewItem  Content="Add" Tag="SamplePage4" />
+                <NavigationViewItem  Content="Alerts" Tag="SamplePage5" />
+            </NavigationView.MenuItems>
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox PlaceholderText="Search" QueryIcon="Find" Width="200"
+                TextChanged="AutoSuggestBox_TextChanged"
+                QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+            </NavigationView.AutoSuggestBox>
+            <NavigationView.Header>Test</NavigationView.Header>
+            <NavigationView.Content>
 
-    </Grid>
+                <StackPanel Canvas.Left="10" Canvas.Top="101">
+                    <TextBox x:Name="Input_Box"/>
+                    <Button Click="Add_Text" Content="Add" />
+                    <ListView x:Name="Output">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+            </NavigationView.Content>
+        </NavigationView>
+
+    </StackPanel>
 
 </Page>
