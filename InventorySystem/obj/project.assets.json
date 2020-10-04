@@ -8457,11 +8457,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\tmp\\InventorySystem\\InventorySystem\\InventorySystem.csproj",
+      "projectUniqueName": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\InventorySystem.csproj",
       "projectName": "InventorySystem",
-      "projectPath": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\tmp\\InventorySystem\\InventorySystem\\InventorySystem.csproj",
+      "projectPath": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\InventorySystem.csproj",
       "packagesPath": "C:\\Users\\cyan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\tmp\\InventorySystem\\InventorySystem\\obj\\",
+      "outputPath": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SaAq8TvDUSdDOIr+3wKn0it5gEc0DFQGR9mHMCLbcTn7a/miEVrJGygAEt4UVaoA9DKLkIT6GpwXi+2JGQhmFg==",
+  "dgSpecHash": "a+2MkI0U4KFaSihMehe93IdCreCvjdsYQp/qodmbaw1W1eV/FuT2nmX6tyqTRozSkxQ+tpeXV68AWDlYMkFXNg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\tmp\\InventorySystem\\InventorySystem\\InventorySystem.csproj",
+  "projectFilePath": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\InventorySystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cyan\\.nuget\\packages\\fontawesome.uwp\\4.7.0.9\\fontawesome.uwp.4.7.0.9.nupkg.sha512",
     "C:\\Users\\cyan\\.nuget\\packages\\microsoft.data.sqlite\\3.1.8\\microsoft.data.sqlite.3.1.8.nupkg.sha512",

@@ -10,22 +10,22 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>704c98f6-3551-4a96-b6f6-f78cdab03ea8</PackageIdentityName>
     <PackageIdentityPublisher>CN=gautam</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.exe">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.exe">
       <PackagePath>entrypoint\InventorySystem.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP.dll">
@@ -58,58 +58,58 @@
     <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP\FontAwesome.otf">
       <PackagePath>FontAwesome.UWP\FontAwesome.otf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.xr.xml">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.xr.xml">
       <PackagePath>InventorySystem.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\Home.xbf">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Home.xbf">
       <PackagePath>Home.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\Console.xbf">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Console.xbf">
       <PackagePath>Console.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\tmp\InventorySystem\InventorySystem\bin\x64\Debug\Core\InventorySystem.exe">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\InventorySystem.exe">
       <PackagePath>InventorySystem.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

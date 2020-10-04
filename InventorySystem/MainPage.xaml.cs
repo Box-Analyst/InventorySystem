@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+// Import Microsoft.Data.Sqlite namespaces
+using Microsoft.Data.Sqlite;
+
 namespace InventorySystem
 {
     /// <summary>
@@ -96,7 +99,7 @@ namespace InventorySystem
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 //Set the ItemsSource to be your filtered dataset
-                //sender.ItemsSource = dataset;
+                sender.ItemsSource = Grab_Entries(sender.Text);
             }
         }
 
@@ -117,6 +120,37 @@ namespace InventorySystem
             {
                 // Use args.QueryText to determine what to do.
             }
+        }
+
+        // Method to grab Text_Entry column from MyTable table in SQLite database
+        private List<String> Grab_Entries(string search)
+        {
+            List<String> entries = new List<string>();
+            using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT Text_Entry from MyTable", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    //Handle error
+                    return entries;
+                }
+                while (query.Read())
+                {
+                    var tmp = query.GetString(0);
+                    if (tmp.Contains(search))
+                    {
+                        entries.Add(tmp);
+                    }
+                }
+                db.Close();
+            }
+            return entries;
         }
     }
 }
