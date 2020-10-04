@@ -15,9 +15,7 @@ using Windows.UI.Xaml.Navigation;
 
 // Import Microsoft.Data.Sqlite namespaces
 using Microsoft.Data.Sqlite;
-using Microsoft.Data.Sqlite.Internal; // Not technically necessary, only needed for SqliteEngine.UseWinSqlite3() call.
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using Microsoft.Data.Sqlite.Internal;
 
 namespace InventorySystem
 {

@@ -26,7 +26,7 @@
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem x:Uid="AppsNavItem" Content="Console" Tag="apps">
                     <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Terminal" FontSize="90" Foreground="Black" HorizontalAlignment="Center" />
+                        <fa:FontAwesome Icon="Terminal" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Uid="GamesNavItem" Icon="Video" Content="Games" Tag="games"/>
