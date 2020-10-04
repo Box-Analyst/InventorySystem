@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PriInfo>
+	<ResourceMap name="FontAwesome.UWP" version="1.0" primary="true">
+		<Qualifiers/>
+		<ResourceMapSubtree name="Files">
+			<ResourceMapSubtree name="FontAwesome.UWP">
+				<NamedResource name="FontAwesome.otf" uri="ms-resource://FontAwesome.UWP/Files/FontAwesome.UWP/FontAwesome.otf">
+					<Candidate type="Path">
+						<Value>FontAwesome.UWP\FontAwesome.otf</Value>
+					</Candidate>
+				</NamedResource>
+			</ResourceMapSubtree>
+		</ResourceMapSubtree>
+	</ResourceMap>
+</PriInfo>

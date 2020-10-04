@@ -454,3 +454,16 @@ C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\Invento
 C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\ProjectArchitectures.txt
 C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_637112786540000000.json
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\bin\x64\Debug\Console.xbf
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\Console.g.i.cs
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\Console.g.cs
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\Console.xaml
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\Console.xbf
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\bin\x64\Debug\Home.xbf
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\Home.g.i.cs
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\Home.g.cs
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\Home.xaml
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\Home.xbf
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\bin\x64\Debug\FontAwesome.UWP\FontAwesome.otf
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\bin\x64\Debug\FontAwesome.UWP.dll
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\obj\x64\Debug\FontAwesome.UWP.pri.xml

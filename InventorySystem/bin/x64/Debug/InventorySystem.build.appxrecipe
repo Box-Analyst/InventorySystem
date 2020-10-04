@@ -28,6 +28,9 @@
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.exe">
       <PackagePath>entrypoint\InventorySystem.exe</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP.dll">
+      <PackagePath>FontAwesome.UWP.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
     </AppxPackagedFile>
@@ -385,6 +388,9 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP\FontAwesome.otf">
+      <PackagePath>FontAwesome.UWP\FontAwesome.otf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
@@ -420,6 +426,12 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Home.xbf">
+      <PackagePath>Home.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Console.xbf">
+      <PackagePath>Console.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>

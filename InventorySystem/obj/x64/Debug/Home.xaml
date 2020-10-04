@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="InventorySystem.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InventorySystem"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:fa="using:FontAwesome.UWP"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+
+    <GridView Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <GridViewItem Width="25">
+            <Image Source="/Assets/StoreLogo.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="25">
+            <Image Source="/Assets/StoreLogo.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="25">
+            <Image Source="/Assets/StoreLogo.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="25">
+            <Image Source="/Assets/StoreLogo.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="25">
+            <Image Source="/Assets/StoreLogo.png"></Image>
+        </GridViewItem>
+    </GridView>
+</Page>
+

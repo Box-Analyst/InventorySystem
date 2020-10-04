@@ -30,13 +30,17 @@
     <AppXManifest Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-01T19:28:57.097</Modified>
+      <Modified>2020-10-04T00:51:17.248</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.exe">
       <PackagePath>entrypoint\InventorySystem.exe</PackagePath>
-      <Modified>2020-10-01T19:28:56.418</Modified>
+      <Modified>2020-10-04T00:51:16.504</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP.dll">
+      <PackagePath>FontAwesome.UWP.dll</PackagePath>
+      <Modified>2017-01-06T03:15:10.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -514,6 +518,10 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2019-12-07T01:24:14.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP\FontAwesome.otf">
+      <PackagePath>FontAwesome.UWP\FontAwesome.otf</PackagePath>
+      <Modified>2017-01-06T03:15:10.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
       <Modified>2019-08-21T07:53:49.079</Modified>
@@ -554,15 +562,23 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.xr.xml">
       <PackagePath>InventorySystem.xr.xml</PackagePath>
-      <Modified>2020-10-01T19:12:23.938</Modified>
+      <Modified>2020-10-04T00:46:27.627</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-10-01T19:28:56.203</Modified>
+      <Modified>2020-10-04T00:51:16.323</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Home.xbf">
+      <PackagePath>Home.xbf</PackagePath>
+      <Modified>2020-10-04T00:51:16.323</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Console.xbf">
+      <PackagePath>Console.xbf</PackagePath>
+      <Modified>2020-10-04T00:51:16.324</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-10-01T19:28:56.204</Modified>
+      <Modified>2020-10-04T00:51:16.324</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -570,11 +586,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-10-01T04:56:44.407</Modified>
+      <Modified>2020-10-04T00:40:50.663</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\InventorySystem.exe">
       <PackagePath>InventorySystem.exe</PackagePath>
-      <Modified>2020-10-01T19:28:57.079</Modified>
+      <Modified>2020-10-04T00:51:17.230</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

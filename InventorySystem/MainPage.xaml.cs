@@ -33,6 +33,67 @@ namespace InventorySystem
             Output.ItemsSource = Grab_Entries();
         }
 
+        private void NavView_Loaded(object sender, RoutedEventArgs e)
+        {
+            // you can also add items in code behind
+            NavView.MenuItems.Add(new NavigationViewItemSeparator());
+            NavView.MenuItems.Add(new NavigationViewItem()
+            { Content = "My content", Icon = new SymbolIcon(Symbol.Folder), Tag = "content" });
+
+            // set the initial SelectedItem 
+            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == "home")
+                {
+                    NavView.SelectedItem = item;
+                    break;
+                }
+            }
+            // Load Home on app start
+            ContentFrame.Navigate(typeof(Home));
+        }
+
+        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            if (args.IsSettingsInvoked)
+            {
+                // Settings page
+                ContentFrame.Navigate(typeof(MainPage));
+            }
+            else
+            {
+                // find NavigationViewItem with Content that equals InvokedItem
+                var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem);
+                NavView_Navigate(item as NavigationViewItem);
+            }
+        }
+
+        private void NavView_Navigate(NavigationViewItem item)
+        {
+            switch (item.Tag)
+            {
+                case "home":
+                    ContentFrame.Navigate(typeof(Home));
+                    break;
+
+                case "apps":
+                    ContentFrame.Navigate(typeof(Console));
+                    break;
+
+                case "games":
+                    ContentFrame.Navigate(typeof(MainPage));
+                    break;
+
+                case "music":
+                    ContentFrame.Navigate(typeof(MainPage));
+                    break;
+
+                case "content":
+                    ContentFrame.Navigate(typeof(MainPage));
+                    break;
+            }
+        }
+
         // Method to insert text into the SQLite database
         private void Add_Text(object sender, RoutedEventArgs e)
         {
@@ -41,7 +102,7 @@ namespace InventorySystem
                 db.Open();
                 SqliteCommand insertCommand = new SqliteCommand();
                 insertCommand.Connection = db;
-                
+
                 //Use parameterized query to prevent SQL injection attacks
                 insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
                 insertCommand.Parameters.AddWithValue("@Entry", Input_Box.Text);
