@@ -1,1 +1,1 @@
-C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\InventorySystem.csproj;x64
+C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis & Design II\InventorySystem\InventorySystem\InventorySystem.csproj;x64

@@ -15,4 +15,7 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgFontAwesome_UWP Condition=" '$(PkgFontAwesome_UWP)' == '' ">C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9</PkgFontAwesome_UWP>
+  </PropertyGroup>
 </Project>

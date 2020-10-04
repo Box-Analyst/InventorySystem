@@ -10,7 +10,7 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>704c98f6-3551-4a96-b6f6-f78cdab03ea8</PackageIdentityName>
     <PackageIdentityPublisher>CN=gautam</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,8 +18,8 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>0BF17118197C0B74F07DEB6C3DBC12874666A49534291359BD85AEAE25616DCF</RegisteredManifestChecksum>
+    <LayoutDir>C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\AppX</LayoutDir>
+    <RegisteredManifestChecksum>82672CA75B61CDE9B5351FB5ED08EE70DE9B8018AB4DD988483374153CF0B70F</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>704c98f6-3551-4a96-b6f6-f78cdab03ea8_1.0.0.0_x64__q1j7n9hdrajb0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0!App</RegisteredUserModeAppID>
     <RegisteredPackageID>704c98f6-3551-4a96-b6f6-f78cdab03ea8</RegisteredPackageID>
@@ -27,16 +27,20 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-09-08T20:36:07.156</Modified>
+      <Modified>2020-10-04T18:35:29.802</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\InventorySystem.exe">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.exe">
       <PackagePath>entrypoint\InventorySystem.exe</PackagePath>
-      <Modified>2020-09-08T20:33:57.385</Modified>
+      <Modified>2020-10-04T18:35:29.070</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP.dll">
+      <PackagePath>FontAwesome.UWP.dll</PackagePath>
+      <Modified>2017-01-06T03:15:10.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -350,13 +354,13 @@
       <PackagePath>System.ObjectModel.dll</PackagePath>
       <Modified>2016-11-05T09:56:40.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.private.datacontractserialization\4.1.1\lib\netstandard1.3\System.Private.DataContractSerialization.dll">
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.private.datacontractserialization\4.1.2\lib\netstandard1.3\System.Private.DataContractSerialization.dll">
       <PackagePath>System.Private.DataContractSerialization.dll</PackagePath>
-      <Modified>2016-06-12T04:14:10.000</Modified>
+      <Modified>2017-02-09T18:26:02.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.private.servicemodel\4.1.0\runtimes\win7\lib\netcore50\System.Private.ServiceModel.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.private.servicemodel\4.1.1\runtimes\win7\lib\netcore50\System.Private.ServiceModel.dll">
       <PackagePath>System.Private.ServiceModel.dll</PackagePath>
-      <Modified>2016-06-14T02:51:30.000</Modified>
+      <Modified>2017-12-13T06:31:12.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.reflection.context\4.0.1\lib\netcore50\System.Reflection.Context.dll">
       <PackagePath>System.Reflection.Context.dll</PackagePath>
@@ -398,17 +402,17 @@
       <PackagePath>System.Runtime.Numerics.dll</PackagePath>
       <Modified>2016-11-05T09:57:00.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.runtime.serialization.json\4.0.2\lib\netcore50\System.Runtime.Serialization.Json.dll">
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.runtime.serialization.json\4.0.3\lib\netcore50\System.Runtime.Serialization.Json.dll">
       <PackagePath>System.Runtime.Serialization.Json.dll</PackagePath>
-      <Modified>2016-06-12T04:14:30.000</Modified>
+      <Modified>2017-02-09T18:26:02.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.runtime.serialization.primitives\4.1.1\lib\netcore50\System.Runtime.Serialization.Primitives.dll">
       <PackagePath>System.Runtime.Serialization.Primitives.dll</PackagePath>
       <Modified>2016-06-12T03:14:32.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.runtime.serialization.xml\4.1.1\lib\netcore50\System.Runtime.Serialization.Xml.dll">
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.runtime.serialization.xml\4.1.2\lib\netcore50\System.Runtime.Serialization.Xml.dll">
       <PackagePath>System.Runtime.Serialization.Xml.dll</PackagePath>
-      <Modified>2016-06-12T04:14:30.000</Modified>
+      <Modified>2017-02-09T18:26:02.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.runtime.windowsruntime\4.3.0\runtimes\win8\lib\netstandard1.3\System.Runtime.WindowsRuntime.dll">
       <PackagePath>System.Runtime.WindowsRuntime.dll</PackagePath>
@@ -446,25 +450,25 @@
       <PackagePath>System.Security.Principal.dll</PackagePath>
       <Modified>2016-06-12T03:14:46.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.duplex\4.0.1\lib\netcore50\System.ServiceModel.Duplex.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.duplex\4.0.2\lib\netcore50\System.ServiceModel.Duplex.dll">
       <PackagePath>System.ServiceModel.Duplex.dll</PackagePath>
-      <Modified>2016-06-14T02:51:34.000</Modified>
+      <Modified>2017-12-13T06:31:16.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.http\4.1.0\lib\netcore50\System.ServiceModel.Http.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.http\4.1.1\lib\netcore50\System.ServiceModel.Http.dll">
       <PackagePath>System.ServiceModel.Http.dll</PackagePath>
-      <Modified>2016-06-14T02:51:34.000</Modified>
+      <Modified>2017-12-13T06:31:18.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.nettcp\4.1.0\lib\netcore50\System.ServiceModel.NetTcp.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.nettcp\4.1.1\lib\netcore50\System.ServiceModel.NetTcp.dll">
       <PackagePath>System.ServiceModel.NetTcp.dll</PackagePath>
-      <Modified>2016-06-14T02:51:34.000</Modified>
+      <Modified>2017-12-13T06:31:18.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.primitives\4.1.0\lib\netcore50\System.ServiceModel.Primitives.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.primitives\4.1.1\lib\netcore50\System.ServiceModel.Primitives.dll">
       <PackagePath>System.ServiceModel.Primitives.dll</PackagePath>
-      <Modified>2016-06-14T02:51:34.000</Modified>
+      <Modified>2017-12-13T06:31:20.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.security\4.0.1\lib\netcore50\System.ServiceModel.Security.dll">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\system.servicemodel.security\4.0.2\lib\netcore50\System.ServiceModel.Security.dll">
       <PackagePath>System.ServiceModel.Security.dll</PackagePath>
-      <Modified>2016-06-14T02:51:36.000</Modified>
+      <Modified>2017-12-13T06:31:22.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.text.encoding.codepages\4.0.1\runtimes\win\lib\netstandard1.3\System.Text.Encoding.CodePages.dll">
       <PackagePath>System.Text.Encoding.CodePages.dll</PackagePath>
@@ -514,67 +518,79 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2019-12-07T01:24:14.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP\FontAwesome.otf">
+      <PackagePath>FontAwesome.UWP\FontAwesome.otf</PackagePath>
+      <Modified>2017-01-06T03:15:10.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2019-08-21T07:53:49.079</Modified>
+      <Modified>2020-10-04T01:40:39.139</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2019-08-21T07:53:49.077</Modified>
+      <Modified>2020-10-04T01:40:39.128</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-08-21T07:53:49.077</Modified>
+      <Modified>2020-10-04T01:40:39.128</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-08-21T07:53:49.077</Modified>
+      <Modified>2020-10-04T01:40:39.129</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-08-21T07:53:49.077</Modified>
+      <Modified>2020-10-04T01:40:39.130</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-08-21T07:53:49.078</Modified>
+      <Modified>2020-10-04T01:40:39.130</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-08-21T07:53:49.078</Modified>
+      <Modified>2020-10-04T01:40:39.131</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-08-21T07:53:49.078</Modified>
+      <Modified>2020-10-04T01:40:39.132</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\InventorySystem.xr.xml">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.xr.xml">
       <PackagePath>InventorySystem.xr.xml</PackagePath>
-      <Modified>2020-09-08T20:33:57.183</Modified>
+      <Modified>2020-10-04T18:25:56.226</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-09-08T20:36:05.922</Modified>
+      <Modified>2020-10-04T18:35:28.887</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Home.xbf">
+      <PackagePath>Home.xbf</PackagePath>
+      <Modified>2020-10-04T18:35:28.887</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Console.xbf">
+      <PackagePath>Console.xbf</PackagePath>
+      <Modified>2020-10-04T18:35:28.888</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-09-08T20:36:05.922</Modified>
+      <Modified>2020-10-04T18:35:28.889</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2019-12-06T23:33:46.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-09-08T20:36:06.850</Modified>
+      <Modified>2020-10-04T01:42:03.858</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\Desktop\Test\InventorySystem\bin\x64\Debug\Core\InventorySystem.exe">
+    <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\InventorySystem.exe">
       <PackagePath>InventorySystem.exe</PackagePath>
-      <Modified>2020-09-08T20:36:07.137</Modified>
+      <Modified>2020-10-04T18:35:29.778</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

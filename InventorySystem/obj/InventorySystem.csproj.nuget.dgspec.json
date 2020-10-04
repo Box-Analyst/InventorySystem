@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cyan\\OneDrive\\Desktop\\Test\\InventorySystem\\InventorySystem.csproj": {}
+    "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\InventorySystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cyan\\OneDrive\\Desktop\\Test\\InventorySystem\\InventorySystem.csproj": {
+    "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\InventorySystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cyan\\OneDrive\\Desktop\\Test\\InventorySystem\\InventorySystem.csproj",
+        "projectUniqueName": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\InventorySystem.csproj",
         "projectName": "InventorySystem",
-        "projectPath": "C:\\Users\\cyan\\OneDrive\\Desktop\\Test\\InventorySystem\\InventorySystem.csproj",
+        "projectPath": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\InventorySystem.csproj",
         "packagesPath": "C:\\Users\\cyan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cyan\\OneDrive\\Desktop\\Test\\InventorySystem\\obj\\",
+        "outputPath": "C:\\Users\\cyan\\OneDrive\\University\\Fall 2020\\Systems Analysis & Design II\\InventorySystem\\InventorySystem\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -39,13 +39,17 @@
       "frameworks": {
         "uap10.0.19041": {
           "dependencies": {
+            "FontAwesome.UWP": {
+              "target": "Package",
+              "version": "[4.7.0.9, )"
+            },
             "Microsoft.Data.SQLite": {
               "target": "Package",
               "version": "[1.1.0, )"
             },
             "Microsoft.NETCore.UniversalWindowsPlatform": {
               "target": "Package",
-              "version": "[5.2.2, )"
+              "version": "[5.2.4, )"
             }
           },
           "imports": [

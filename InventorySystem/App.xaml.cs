@@ -35,6 +35,36 @@ namespace InventorySystem
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
+            // Get system theme.
+            var DefaultTheme = new Windows.UI.ViewManagement.UISettings();
+            var uiTheme = DefaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
+            // Set app settings accordingly.
+            if (uiTheme == "#FF000000")
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["themeSetting"] = 1;
+            }
+            else if (uiTheme == "#FFFFFFFF")
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["themeSetting"] = 0;
+            }
+            else
+            {
+                throw new System.ArgumentException("Theme cannot be null.", "original");
+            }
+
+            // Get theme choice from LocalSettings.
+            object value = Windows.Storage.ApplicationData.Current.LocalSettings.Values["themeSetting"];
+
+            if (value != null)
+            {
+                // Apply theme choice.
+                App.Current.RequestedTheme = (ApplicationTheme)(int)value;
+            }
+            else
+            {
+                throw new System.ArgumentException("Theme cannot be null.", "original");
+            }
+
             SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite
             using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
             {
