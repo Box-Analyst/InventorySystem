@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Navigation;
 
 // Import Microsoft.Data.Sqlite namespaces
 using Microsoft.Data.Sqlite;
-using Microsoft.Data.Sqlite.Internal;
 
 namespace InventorySystem
 {
