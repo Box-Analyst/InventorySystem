@@ -15,6 +15,7 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.GridViewItem">
       <RootProperty Name="Width" />
+      <RootProperty Name="Background" />
       <RootProperty Name="Content" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Image">
@@ -53,8 +54,9 @@
     <RootType FullName="Windows.UI.Xaml.Data.Binding" />
     <RootType FullName="InventorySystem.Console" />
     <RootType FullName="Windows.UI.Xaml.Controls.NavigationView">
-      <RootProperty Name="Height" />
+      <RootProperty Name="PaneDisplayMode" />
       <RootProperty Name="MenuItems" />
+      <RootProperty Name="AutoSuggestBox" />
       <RootProperty Name="Content" />
       <RootEvent Name="ItemInvoked" />
       <RootEvent Name="Loaded" />
@@ -65,9 +67,6 @@
       <RootProperty Name="Icon" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.NavigationViewItemSeparator" />
-    <RootType FullName="Windows.UI.Xaml.Controls.NavigationViewItemHeader">
-      <RootProperty Name="Content" />
-    </RootType>
     <RootType FullName="FontAwesome.UWP.FontAwesome">
       <RootProperty Name="Icon" />
       <RootProperty Name="FontSize" />
@@ -76,6 +75,14 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.FontIcon">
       <RootProperty Name="Glyph" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.AutoSuggestBox">
+      <RootProperty Name="PlaceholderText" />
+      <RootProperty Name="QueryIcon" />
+      <RootProperty Name="Width" />
+      <RootEvent Name="TextChanged" />
+      <RootEvent Name="QuerySubmitted" />
+      <RootEvent Name="SuggestionChosen" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Frame">
       <RootProperty Name="Margin" />

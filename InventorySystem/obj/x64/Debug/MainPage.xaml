@@ -12,9 +12,9 @@
 
     <StackPanel Canvas.Left="0" Orientation="Vertical" Canvas.Top="0" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-        <NavigationView x:Name="NavView"
-                        ItemInvoked="NavView_ItemInvoked"
-                        Loaded="NavView_Loaded"
+        <NavigationView x:ConnectionId='2' x:Name="NavView"
+                                                         
+                                               
                         PaneDisplayMode="Top">
 
             <NavigationView.MenuItems>
@@ -34,13 +34,13 @@
             </NavigationView.MenuItems>
 
             <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox PlaceholderText="Search" QueryIcon="Find" Width="200"
-                TextChanged="AutoSuggestBox_TextChanged"
-                QuerySubmitted="AutoSuggestBox_QuerySubmitted"
-                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                <AutoSuggestBox x:ConnectionId='3' PlaceholderText="Search" QueryIcon="Find" Width="200"
+                                                        
+                                                              
+                                                                  />
             </NavigationView.AutoSuggestBox>
 
-            <Frame x:Name="ContentFrame" Margin="24">
+            <Frame x:ConnectionId='4' x:Name="ContentFrame" Margin="24">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition/>
@@ -53,3 +53,4 @@
     </StackPanel>
 
 </Page>
+

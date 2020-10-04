@@ -10,20 +10,35 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <GridView Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <GridViewItem Width="25">
-            <Image Source="/Assets/StoreLogo.png"></Image>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
         </GridViewItem>
-        <GridViewItem Width="25">
-            <Image Source="/Assets/StoreLogo.png"></Image>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
         </GridViewItem>
-        <GridViewItem Width="25">
-            <Image Source="/Assets/StoreLogo.png"></Image>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
         </GridViewItem>
-        <GridViewItem Width="25">
-            <Image Source="/Assets/StoreLogo.png"></Image>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
         </GridViewItem>
-        <GridViewItem Width="25">
-            <Image Source="/Assets/StoreLogo.png"></Image>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
+        </GridViewItem>
+        <GridViewItem Width="500" Background="Gray">
+            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
         </GridViewItem>
     </GridView>
 </Page>
