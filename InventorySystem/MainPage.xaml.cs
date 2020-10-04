@@ -13,10 +13,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// Import Microsoft.Data.Sqlite namespaces
-using Microsoft.Data.Sqlite;
-using Microsoft.Data.Sqlite.Internal; // Not technically necessary, only needed for SqliteEngine.UseWinSqlite3() call.
-
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace InventorySystem
@@ -29,10 +25,9 @@ namespace InventorySystem
         public MainPage()
         {
             this.InitializeComponent();
-
-            Output.ItemsSource = Grab_Entries();
         }
 
+        // NavView stuff
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
             // you can also add items in code behind
@@ -94,59 +89,7 @@ namespace InventorySystem
             }
         }
 
-        // Method to insert text into the SQLite database
-        private void Add_Text(object sender, RoutedEventArgs e)
-        {
-            using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
-            {
-                db.Open();
-                SqliteCommand insertCommand = new SqliteCommand();
-                insertCommand.Connection = db;
-
-                //Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
-                insertCommand.Parameters.AddWithValue("@Entry", Input_Box.Text);
-                try
-                {
-                    insertCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    //Handle error
-                    return;
-                }
-                db.Close();
-            }
-            Output.ItemsSource = Grab_Entries();
-        }
-
-        // Method to grab Text_Entry column from MyTable table in SQLite database
-        private List<String> Grab_Entries()
-        {
-            List<String> entries = new List<string>();
-            using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
-            {
-                db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT Text_Entry from MyTable", db);
-                SqliteDataReader query;
-                try
-                {
-                    query = selectCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    //Handle error
-                    return entries;
-                }
-                while (query.Read())
-                {
-                    entries.Add(query.GetString(0));
-                }
-                db.Close();
-            }
-            return entries;
-        }
-
+        // AutoSuggestBox
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             // Only get results when it was a user typing,
@@ -176,11 +119,6 @@ namespace InventorySystem
             {
                 // Use args.QueryText to determine what to do.
             }
-        }
-
-        private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

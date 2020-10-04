@@ -12,40 +12,9 @@
 
     <StackPanel Canvas.Left="0" Orientation="Vertical" Canvas.Top="0" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-        <NavigationView x:Name="nvSample" PaneDisplayMode="Top">
-            <NavigationView.MenuItems>
-                <NavigationViewItem  Icon="Accept" Content="Home" Tag="Home" />
-                <NavigationViewItem  Icon="Calculator" Content="Console" Tag="Console" />
-                <NavigationViewItem  Icon="Account" Content="Add" Tag="SamplePage4" />
-                <NavigationViewItem  Icon="AddFriend" Content="Alerts" Tag="SamplePage5" />
-            </NavigationView.MenuItems>
-            <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox PlaceholderText="Search" QueryIcon="Find" Width="200"
-                TextChanged="AutoSuggestBox_TextChanged"
-                QuerySubmitted="AutoSuggestBox_QuerySubmitted"
-                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
-            </NavigationView.AutoSuggestBox>
-            <NavigationView.Header>Test</NavigationView.Header>
-            <NavigationView.Content>
-
-                <StackPanel Canvas.Left="10" Canvas.Top="101">
-                    <TextBox x:Name="Input_Box"/>
-                    <Button Click="Add_Text" Content="Add" />
-                    <ListView x:Name="Output">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-
-            </NavigationView.Content>
-        </NavigationView>
-
         <NavigationView x:Name="NavView"
-    ItemInvoked="NavView_ItemInvoked"
-    Loaded="NavView_Loaded">
+                        ItemInvoked="NavView_ItemInvoked"
+                        Loaded="NavView_Loaded">
 
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Uid="HomeNavItem" Content="Home" Tag="home">
@@ -71,6 +40,7 @@
                     </TransitionCollection>
                 </Frame.ContentTransitions>
             </Frame>
+
         </NavigationView>
 
     </StackPanel>

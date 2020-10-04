@@ -10,7 +10,17 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <fa:FontAwesome Icon="Terminal" FontSize="90" Foreground="Black" HorizontalAlignment="Center" />
+        <StackPanel Canvas.Left="10" Canvas.Top="101">
+            <TextBox x:ConnectionId='2' x:Name="Input_Box"/>
+            <Button x:ConnectionId='3'                  Content="Add" />
+            <ListView x:ConnectionId='4' x:Name="Output">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>
 
