@@ -17,7 +17,6 @@ using Windows.UI.Xaml.Navigation;
 
 // Import Microsoft.Data.Sqlite namespaces
 using Microsoft.Data.Sqlite;
-using Microsoft.Data.Sqlite.Internal;
 
 namespace InventorySystem
 {
@@ -65,7 +64,7 @@ namespace InventorySystem
                 throw new System.ArgumentException("Theme cannot be null.", "original");
             }
 
-            SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite
+            //SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite
             using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
             {
                 db.Open(); //Open connection to database
