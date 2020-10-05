@@ -56,6 +56,11 @@ namespace InventorySystem
                 // Settings page
                 ContentFrame.Navigate(typeof(MainPage));
             }
+            else if ((string)args.InvokedItem == "add") // This does not work and I do not know why
+            {
+                // Add action
+                ContentFrame.Navigate(typeof(MainPage));
+            }
             else
             {
                 // find NavigationViewItem with Content that equals InvokedItem

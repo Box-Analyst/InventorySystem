@@ -37,6 +37,7 @@ namespace InventorySystem
             // Get system theme.
             var DefaultTheme = new Windows.UI.ViewManagement.UISettings();
             var uiTheme = DefaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
+
             // Set app settings accordingly.
             if (uiTheme == "#FF000000")
             {
@@ -45,10 +46,6 @@ namespace InventorySystem
             else if (uiTheme == "#FFFFFFFF")
             {
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values["themeSetting"] = 0;
-            }
-            else
-            {
-                throw new Exception("System returned unexpected value of " + uiTheme);
             }
 
             // Get theme choice from LocalSettings.
