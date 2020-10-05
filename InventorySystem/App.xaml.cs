@@ -48,7 +48,7 @@ namespace InventorySystem
             }
             else
             {
-                throw new System.ArgumentException("Theme cannot be null.", "original");
+                throw new Exception("System returned unexpected value of " + uiTheme);
             }
 
             // Get theme choice from LocalSettings.
@@ -61,7 +61,8 @@ namespace InventorySystem
             }
             else
             {
-                throw new System.ArgumentException("Theme cannot be null.", "original");
+                // Default to light theme if system fails to provide user prefs.
+                App.Current.RequestedTheme = ApplicationTheme.Light;
             }
 
             //SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite

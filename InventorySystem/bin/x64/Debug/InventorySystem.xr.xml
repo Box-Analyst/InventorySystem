@@ -9,10 +9,12 @@
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.GridView">
       <RootProperty Name="Background" />
+      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="Items" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.GridViewItem">
       <RootProperty Name="Width" />
+      <RootProperty Name="Margin" />
       <RootProperty Name="Background" />
       <RootProperty Name="Content" />
     </RootType>
@@ -72,6 +74,7 @@
     <RootType FullName="Windows.UI.Xaml.Controls.NavigationView">
       <RootProperty Name="MenuItems" />
       <RootProperty Name="AutoSuggestBox" />
+      <RootProperty Name="PaneFooter" />
       <RootProperty Name="Content" />
       <RootEvent Name="ItemInvoked" />
       <RootEvent Name="Loaded" />
@@ -95,6 +98,9 @@
       <RootEvent Name="TextChanged" />
       <RootEvent Name="QuerySubmitted" />
       <RootEvent Name="SuggestionChosen" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
+      <RootProperty Name="Width" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Frame">
       <RootProperty Name="Margin" />

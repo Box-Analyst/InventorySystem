@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-04T21:41:33.630</Modified>
+      <Modified>2020-10-05T17:29:12.443</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.exe">
       <PackagePath>entrypoint\InventorySystem.exe</PackagePath>
-      <Modified>2020-10-04T21:41:32.188</Modified>
+      <Modified>2020-10-05T17:29:11.581</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\.nuget\packages\fontawesome.uwp\4.7.0.9\lib\uap10.0\FontAwesome.UWP.dll">
       <PackagePath>FontAwesome.UWP.dll</PackagePath>
@@ -80,61 +80,61 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2020-10-04T20:40:13.471</Modified>
+      <Modified>2020-10-05T17:00:17.763</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2020-10-04T20:40:13.458</Modified>
+      <Modified>2020-10-05T17:00:17.748</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-04T20:40:13.459</Modified>
+      <Modified>2020-10-05T17:00:17.749</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-04T20:40:13.460</Modified>
+      <Modified>2020-10-05T17:00:17.750</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-04T20:40:13.460</Modified>
+      <Modified>2020-10-05T17:00:17.750</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-04T20:40:13.461</Modified>
+      <Modified>2020-10-05T17:00:17.751</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-04T20:40:13.462</Modified>
+      <Modified>2020-10-05T17:00:17.751</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-04T20:40:13.462</Modified>
+      <Modified>2020-10-05T17:00:17.752</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\InventorySystem.xr.xml">
       <PackagePath>InventorySystem.xr.xml</PackagePath>
-      <Modified>2020-10-04T21:41:31.890</Modified>
+      <Modified>2020-10-05T17:29:11.341</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-10-04T21:41:31.934</Modified>
+      <Modified>2020-10-05T17:29:11.362</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Home.xbf">
       <PackagePath>Home.xbf</PackagePath>
-      <Modified>2020-10-04T21:41:31.934</Modified>
+      <Modified>2020-10-05T17:29:11.362</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Console.xbf">
       <PackagePath>Console.xbf</PackagePath>
-      <Modified>2020-10-04T21:41:31.934</Modified>
+      <Modified>2020-10-05T17:29:11.363</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-10-04T21:41:31.935</Modified>
+      <Modified>2020-10-05T17:29:11.363</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -142,11 +142,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-10-04T20:44:44.095</Modified>
+      <Modified>2020-10-05T17:03:20.151</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\cyan\OneDrive\University\Fall 2020\Systems Analysis &amp; Design II\InventorySystem\InventorySystem\bin\x64\Debug\Core\InventorySystem.exe">
       <PackagePath>InventorySystem.exe</PackagePath>
-      <Modified>2020-10-04T21:41:33.618</Modified>
+      <Modified>2020-10-05T17:29:12.429</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

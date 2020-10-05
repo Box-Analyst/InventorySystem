@@ -41,7 +41,6 @@
                         <fa:FontAwesome Icon="Terminal" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="GamesNavItem" Icon="Video" Content="Games" Tag="games"/>
                 <NavigationViewItem x:Uid="MusicNavItem" Icon="Audio" Content="Music" Tag="music"/>
             </NavigationView.MenuItems>
 
@@ -51,6 +50,12 @@
                 QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                 SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
             </NavigationView.AutoSuggestBox>
+
+            <NavigationView.PaneFooter>
+                <Grid>
+                    <AppBarButton Width="44" Icon="Add"></AppBarButton>
+                </Grid>
+            </NavigationView.PaneFooter>
 
             <Frame x:Name="ContentFrame" Margin="24">
                 <Frame.ContentTransitions>

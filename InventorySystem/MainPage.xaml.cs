@@ -123,6 +123,7 @@ namespace InventorySystem
         }
 
         // Method to grab Text_Entry column from MyTable table in SQLite database
+        // and return values containing search
         private List<String> Grab_Entries(string search)
         {
             List<String> entries = new List<string>();
