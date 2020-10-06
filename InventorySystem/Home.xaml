@@ -5,36 +5,15 @@
     xmlns:local="using:InventorySystem"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="Page_Loaded"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <GridView Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+    <GridView Name="SampleList"
+              Background="{ThemeResource SystemControlAcrylicWindowBrush}"
               HorizontalAlignment="Center"
-              Grid.Row="0">
-        <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
-            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
-        </GridViewItem>
-        <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
-            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
-        </GridViewItem>
-        <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
-            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
-        </GridViewItem>
-        <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
-            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
-        </GridViewItem>
-        <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
-            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
-        </GridViewItem>
-        <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
-            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
-        </GridViewItem>
-        <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
-            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
-        </GridViewItem>
-        <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
-            <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
-        </GridViewItem>
+              Width="auto">
+        
     </GridView>
 
 </Page>
