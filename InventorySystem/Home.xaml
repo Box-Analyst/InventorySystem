@@ -12,8 +12,9 @@
     <GridView Name="SampleList"
               Background="{ThemeResource SystemControlAcrylicWindowBrush}"
               HorizontalAlignment="Center"
-              Width="auto">
-        
-    </GridView>
+              Width="auto"
+              Height="auto"
+              Padding="0"
+              Margin="0"/>
 
 </Page>

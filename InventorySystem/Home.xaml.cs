@@ -34,7 +34,6 @@ namespace InventorySystem
             for (int i = 0; i < 20; i++)
             {
                 var url = "ms-appx:///Assets/Wide310x150Logo.scale-200.png";
-                //var url = "C:/Users/cyan/OneDrive/Pictures/Annotation2.png";
                 Image img = new Image();
                 img.Source = new BitmapImage(new Uri(url));
 
