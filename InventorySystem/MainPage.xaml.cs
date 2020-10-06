@@ -56,11 +56,6 @@ namespace InventorySystem
                 // Settings page
                 ContentFrame.Navigate(typeof(MainPage));
             }
-            else if ((string)args.InvokedItem == "add") // This does not work and I do not know why
-            {
-                // Add action
-                ContentFrame.Navigate(typeof(MainPage));
-            }
             else
             {
                 // find NavigationViewItem with Content that equals InvokedItem
@@ -127,6 +122,33 @@ namespace InventorySystem
             }
         }
 
+        // SQL stuff starts here
+        // Method to insert text into the SQLite database
+        private void Add_Text(object sender, RoutedEventArgs e)
+        {
+            using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
+            {
+                db.Open();
+                SqliteCommand insertCommand = new SqliteCommand();
+                insertCommand.Connection = db;
+
+                //Use parameterized query to prevent SQL injection attacks
+                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
+                insertCommand.Parameters.AddWithValue("@Entry", sender);
+                try
+                {
+                    insertCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    //Handle error
+                    return;
+                }
+                db.Close();
+            }
+            ContentFrame.Navigate(ContentFrame.Content.GetType());
+        }
+
         // Method to grab Text_Entry column from MyTable table in SQLite database
         // and return values containing search
         private List<String> Grab_Entries(string search)
@@ -157,6 +179,35 @@ namespace InventorySystem
                 db.Close();
             }
             return entries;
+        }
+        // End AutoSuggestBox
+
+        // Add Sample button
+        async private void AppBarButton_Clicked(object sender, object e)
+        {
+            //throw new Exception("test");
+
+            TextBox input = new TextBox()
+            {
+                Height = (double)App.Current.Resources["TextControlThemeMinHeight"],
+                PlaceholderText = "Display Text"
+            };
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "Input Dialog",
+                MaxWidth = this.ActualWidth,
+                PrimaryButtonText = "OK",
+                SecondaryButtonText = "Cancel",
+                Content = input
+            };
+            ContentDialogResult result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                input = (TextBox)dialog.Content;
+                RoutedEventArgs teste = null;
+                await new Windows.UI.Popups.MessageDialog(input.Text).ShowAsync();
+                Add_Text(input.Text, teste);
+            }
         }
     }
 }

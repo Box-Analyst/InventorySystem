@@ -52,7 +52,7 @@
             </NavigationView.AutoSuggestBox>
 
             <NavigationView.PaneFooter>
-                <AppBarButton x:Uid="AddNavItem" Width="44" Icon="Add" Tag="add"></AppBarButton>
+                <AppBarButton x:Uid="AddNavItem" Click="AppBarButton_Clicked" Width="44" Icon="Add" Tag="add"></AppBarButton>
             </NavigationView.PaneFooter>
 
             <Frame x:Name="ContentFrame" Margin="24">
