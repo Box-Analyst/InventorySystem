@@ -7,10 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:fa="using:FontAwesome.UWP"
-    xmlns:muxc="using:Windows.UI.Xaml.Controls">
+    xmlns:muxc="using:Windows.UI.Xaml.Controls"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
+    <NavigationView x:Name="NavView"
+                        ItemInvoked="NavView_ItemInvoked"
+                        Loaded="NavView_Loaded">
 
-    <StackPanel Canvas.Left="0" Orientation="Vertical" Canvas.Top="0" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -24,47 +27,40 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups >
 
+        <NavigationView.MenuItems>
+            <NavigationViewItem x:Uid="HomeNavItem" Content="Home" Tag="home">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE10F;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItemSeparator/>
+            <NavigationViewItem x:Uid="AppsNavItem" Content="Console" Tag="apps">
+                <NavigationViewItem.Icon>
+                    <fa:FontAwesome Icon="Terminal" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Uid="MusicNavItem" Icon="Audio" Content="Music" Tag="music"/>
+        </NavigationView.MenuItems>
 
-        <NavigationView x:Name="NavView"
-                        ItemInvoked="NavView_ItemInvoked"
-                        Loaded="NavView_Loaded">
-
-            <NavigationView.MenuItems>
-                <NavigationViewItem x:Uid="HomeNavItem" Content="Home" Tag="home">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE10F;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItemSeparator/>
-                <NavigationViewItem x:Uid="AppsNavItem" Content="Console" Tag="apps">
-                    <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Terminal" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem x:Uid="MusicNavItem" Icon="Audio" Content="Music" Tag="music"/>
-            </NavigationView.MenuItems>
-
-            <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox PlaceholderText="Search" QueryIcon="Find" Width="200"
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox PlaceholderText="Search" QueryIcon="Find" Width="200"
                 TextChanged="AutoSuggestBox_TextChanged"
                 QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                 SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
-            </NavigationView.AutoSuggestBox>
+        </NavigationView.AutoSuggestBox>
 
-            <NavigationView.PaneFooter>
-                <AppBarButton x:Uid="AddNavItem" Click="AppBarButton_Clicked" Width="44" Icon="Add" Tag="add"></AppBarButton>
-            </NavigationView.PaneFooter>
+        <NavigationView.PaneFooter>
+            <AppBarButton x:Uid="AddNavItem" Click="AppBarButton_Clicked" Width="44" Icon="Add" Tag="add"></AppBarButton>
+        </NavigationView.PaneFooter>
 
-            <Frame x:Name="ContentFrame" Margin="24">
-                <Frame.ContentTransitions>
-                    <TransitionCollection>
-                        <NavigationThemeTransition/>
-                    </TransitionCollection>
-                </Frame.ContentTransitions>
-            </Frame>
+        <Frame x:Name="ContentFrame" Margin="24">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition/>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
 
-        </NavigationView>
-
-    </StackPanel>
+    </NavigationView>
 
 </Page>

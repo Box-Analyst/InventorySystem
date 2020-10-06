@@ -9,7 +9,8 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <GridView Background="{ThemeResource SystemControlAcrylicWindowBrush}"
-              HorizontalAlignment="Center">
+              HorizontalAlignment="Center"
+              Grid.Row="0">
         <GridViewItem Width="500" Margin="5,0,5,10" Background="Gray">
             <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
         </GridViewItem>
@@ -35,4 +36,5 @@
             <Image Source="/Assets/Wide310x150Logo.scale-200.png"></Image>
         </GridViewItem>
     </GridView>
+
 </Page>
