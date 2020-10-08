@@ -54,7 +54,7 @@ namespace InventorySystem
             if (args.IsSettingsInvoked)
             {
                 // Settings page
-                ContentFrame.Navigate(typeof(MainPage));
+                ContentFrame.Navigate(typeof(Settings));
             }
             else
             {
