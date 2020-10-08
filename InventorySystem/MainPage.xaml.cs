@@ -209,5 +209,10 @@ namespace InventorySystem
                 Add_Text(input.Text, teste);
             }
         }
+
+        private void NotifyBarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

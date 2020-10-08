@@ -18,10 +18,11 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{x:Bind NavView.CompactModeThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{x:Bind NavView.CompactModeThresholdWidth}"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="NavView.PaneDisplayMode" Value="Top" />
+                        <Setter Target="AppBarPanel.Orientation" Value="Horizontal"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -50,7 +51,10 @@
         </NavigationView.AutoSuggestBox>
 
         <NavigationView.PaneFooter>
-            <AppBarButton x:Uid="AddNavItem" Click="AppBarButton_Clicked" Width="44" Icon="Add" Tag="add"></AppBarButton>
+            <StackPanel Name="AppBarPanel" Orientation="Vertical">
+                <AppBarButton x:Uid="AddNavItem" Click="AppBarButton_Clicked" Width="44" Height="44" Icon="Add" Tag="add"></AppBarButton>
+                <AppBarButton x:Uid="NotifyIcon" Click="NotifyBarButton_Click" Width="44" Height="44" Icon="Flag" Tag="notif"></AppBarButton>
+            </StackPanel>
         </NavigationView.PaneFooter>
 
         <Frame x:Name="ContentFrame" Margin="24">
