@@ -34,6 +34,10 @@ namespace InventorySystem
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
+            // Temporaraly set user pref for testing
+            //Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = null;
+            //App.Current.RequestedTheme = ApplicationTheme.Light;
+
             // Get system theme.
             var DefaultTheme = new Windows.UI.ViewManagement.UISettings();
             var uiTheme = DefaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
@@ -41,25 +45,25 @@ namespace InventorySystem
             // Set app settings accordingly.
             if (uiTheme == "#FF000000")
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["themeSetting"] = 1;
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"] = 1;
             }
             else if (uiTheme == "#FFFFFFFF")
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["themeSetting"] = 0;
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"] = 0;
             }
 
-            // Get theme choice from LocalSettings.
-            object value = Windows.Storage.ApplicationData.Current.LocalSettings.Values["themeSetting"];
-
-            if (value != null)
+            // Check if user has set a theme pref in the app
+            object userThemeValue = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"];
+            if (userThemeValue != null)
             {
-                // Apply theme choice.
-                App.Current.RequestedTheme = (ApplicationTheme)(int)value;
+                // If so, apply theme choice.
+                App.Current.RequestedTheme = (ApplicationTheme)(int)userThemeValue;
             }
             else
             {
-                // Default to light theme if system fails to provide user prefs.
-                App.Current.RequestedTheme = ApplicationTheme.Light;
+                // Otherwise, use system theme.
+                object sysThemeValue = Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"];
+                App.Current.RequestedTheme = (ApplicationTheme)(int)sysThemeValue;
             }
 
             //SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite

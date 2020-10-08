@@ -1,21 +1,18 @@
 ﻿<Page
-    x:Class="InventorySystem.Home"
+    x:Class="InventorySystem.Settings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:InventorySystem"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Loaded="Page_Loaded"
-    SizeChanged="Page_SizeChanged"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <GridView Name="SampleList"
-              Background="{ThemeResource SystemControlAcrylicWindowBrush}"
-              HorizontalAlignment="Center"
-              Width="auto"
-              Height="auto"
-              Padding="0"
-              Margin="0"/>
-
+    <Grid>
+        <ComboBox x:Name="Theme_Picker" Header="Theme" SelectionChanged="Theme_Picker_SelectionChanged" DropDownClosed="Theme_Picker_DropDownClosed">
+            <x:String>System (default)</x:String>
+            <x:String>Light</x:String>
+            <x:String>Dark</x:String>
+        </ComboBox>
+    </Grid>
 </Page>

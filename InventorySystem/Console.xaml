@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid>
         <StackPanel Canvas.Left="10" Canvas.Top="101">
             <TextBox x:Name="Input_Box"/>
             <Button Click="Add_Text" Content="Add" />
