@@ -17,7 +17,6 @@ using Windows.UI.Xaml.Navigation;
 
 // Import Microsoft.Data.Sqlite namespaces
 using Microsoft.Data.Sqlite;
-using Microsoft.Data.Sqlite.Internal;
 
 namespace InventorySystem
 {
@@ -35,7 +34,39 @@ namespace InventorySystem
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite
+            // Temporaraly set user pref for testing
+            //Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = null;
+            //App.Current.RequestedTheme = ApplicationTheme.Light;
+
+            // Get system theme.
+            var DefaultTheme = new Windows.UI.ViewManagement.UISettings();
+            var uiTheme = DefaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
+
+            // Set app settings accordingly.
+            if (uiTheme == "#FF000000")
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"] = 1;
+            }
+            else if (uiTheme == "#FFFFFFFF")
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"] = 0;
+            }
+
+            // Check if user has set a theme pref in the app
+            object userThemeValue = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"];
+            if (userThemeValue != null)
+            {
+                // If so, apply theme choice.
+                App.Current.RequestedTheme = (ApplicationTheme)(int)userThemeValue;
+            }
+            else
+            {
+                // Otherwise, use system theme.
+                object sysThemeValue = Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"];
+                App.Current.RequestedTheme = (ApplicationTheme)(int)sysThemeValue;
+            }
+
+            //SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite
             using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
             {
                 db.Open(); //Open connection to database
