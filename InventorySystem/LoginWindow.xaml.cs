@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,11 +26,17 @@ namespace InventorySystem
         public LoginWindow()
         {
             this.InitializeComponent();
+            
         }
 
-        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        //Upon Clicking Login, user is sent to the Main Page of the Application.
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage), ID.Text);
+            this.Frame.Navigate(typeof(MainPage), employeeID.Text);
+        }
+        private void AddUserButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

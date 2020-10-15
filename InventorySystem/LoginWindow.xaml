@@ -6,16 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <Grid>
-        <TextBlock x:Name="pageTitle" Text="Login" />
-        <StackPanel>
-            <TextBlock HorizontalAlignment="Center" Text="Enter your Employee ID"/>
-            <TextBox HorizontalAlignment="Center" Width="200" Name="ID"/>
-            <HyperlinkButton Content="Login" 
-                     Click="HyperlinkButton_Click"
-                     HorizontalAlignment="Center"/>
+    <StackPanel>
+        <TextBlock Text="New Customer" Style="{StaticResource TitleTextBlockStyle}"/>
+        <TextBox x:Name="employeeID" Header="Employee ID" Margin="0,24,0,0" MaxLength="12" Width="400" HorizontalAlignment="Left" InputScope="Number"/>
+        <PasswordBox x:Name="password" Header="Password" Margin=" 0,24,0,0" MaxLength="20" Width="400" HorizontalAlignment="Left" InputScope="Password" />
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Login" Margin="0,24" Click="LoginButton_Click"/>
+            <Button Content="Add New User(s)" Margin="24" Click="AddUserButton_Click"/>
         </StackPanel>
-    </Grid>
+    </StackPanel>
+
 </Page>
