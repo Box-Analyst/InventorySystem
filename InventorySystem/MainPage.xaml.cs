@@ -12,6 +12,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Notifications;
+using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
+using Microsoft.QueryStringDotNET; // QueryString.NET
 
 // Import Microsoft.Data.Sqlite namespaces
 using Microsoft.Data.Sqlite;
@@ -183,9 +186,10 @@ namespace InventorySystem
         // End AutoSuggestBox
 
         // Add Sample button
+        // Might need to be its own page since ContentDialog can apparently only have one object
         async private void AppBarButton_Clicked(object sender, object e)
         {
-            //throw new Exception("test");
+            ContentFrame.Navigate(typeof(AddSample));
 
             TextBox input = new TextBox()
             {
@@ -210,9 +214,35 @@ namespace InventorySystem
             }
         }
 
+        // Notify icon click
         private void NotifyBarButton_Click(object sender, RoutedEventArgs e)
         {
+            var toastContent = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+            {
+                new AdaptiveText()
+                {
+                    Text = "Hello World"
+                },
+                new AdaptiveText()
+                {
+                    Text = "This is a simple toast message"
+                }
+            }
+                    }
+                }
+            };
 
+            // Create the toast notification
+            var toastNotif = new ToastNotification(toastContent.GetXml());
+
+            // And send the notification
+            ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
         }
     }
 }
