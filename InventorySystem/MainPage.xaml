@@ -11,8 +11,8 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <NavigationView x:Name="NavView"
-                        ItemInvoked="NavView_ItemInvoked"
-                        Loaded="NavView_Loaded">
+                      ItemInvoked="NavView_ItemInvoked"
+                      Loaded="NavView_Loaded">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -35,12 +35,10 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             <NavigationViewItemSeparator/>
-            <NavigationViewItem x:Uid="AppsNavItem" Content="Console" Tag="apps">
-                <NavigationViewItem.Icon>
-                    <fa:FontAwesome Icon="Terminal" />
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem x:Uid="MusicNavItem" Icon="Audio" Content="Music" Tag="music"/>
+            <NavigationViewItem x:Uid="AppsNavItem" Content="Alerts" Icon="Flag" Tag="apps" />
+            <NavigationViewItem x:Uid="MusicNavItem" Icon="List" Content="Samples" Tag="music" />
+            <NavigationViewItemSeparator/>
+            <NavigationViewItem x:Uid="AdminNavItem" Content="Admin" Icon="Admin" Tag="admin" />
         </NavigationView.MenuItems>
 
         <NavigationView.AutoSuggestBox>
@@ -53,7 +51,7 @@
         <NavigationView.PaneFooter>
             <StackPanel Name="AppBarPanel" Orientation="Vertical">
                 <AppBarButton x:Uid="AddNavItem" Click="AppBarButton_Clicked" Width="44" Height="44" Icon="Add" Tag="add"></AppBarButton>
-                <AppBarButton x:Uid="NotifyIcon" Click="NotifyBarButton_Click" Width="44" Height="44" Icon="Flag" Tag="notif"></AppBarButton>
+                <!--<AppBarButton x:Uid="NotifyIcon" Click="NotifyBarButton_Click" Width="44" Height="44" Icon="Flag" Tag="notif"></AppBarButton>-->
             </StackPanel>
         </NavigationView.PaneFooter>
 

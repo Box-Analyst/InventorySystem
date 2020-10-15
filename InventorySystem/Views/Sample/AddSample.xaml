@@ -6,9 +6,29 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <Grid>
+        <StackPanel Canvas.Left="10" Canvas.Top="101">
+            <TextBlock>LotNum</TextBlock>
+            <TextBox x:Name="LotNum_Box"/>
+            <Button Content="Add" />
+            <TextBlock Text="&#x0a;"/>
 
+            <TextBlock>NameandDosage</TextBlock>
+            <TextBox x:Name="NameandDosage_Box"/>
+            <Button Content="Add" />
+            <TextBlock Text="&#x0a;"/>
+
+            <TextBlock>Count</TextBlock>
+            <TextBox x:Name="Count_Box"/>
+            <Button Content="Add" />
+            <TextBlock Text="&#x0a;"/>
+
+            <TextBlock>ExpirationDate</TextBlock>
+            <TextBox x:Name="ExpirationDate_Box"/>
+            <Button Content="Add" />
+            <TextBlock Text="&#x0a;"/>
+        </StackPanel>
     </Grid>
 </Page>

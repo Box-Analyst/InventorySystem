@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Notifications;
 using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
 using Microsoft.QueryStringDotNET; // QueryString.NET
+using Windows.UI;
+using Windows.UI.WindowManagement;
+using Windows.UI.Xaml.Hosting;
 
 // Import Microsoft.Data.Sqlite namespaces
 using Microsoft.Data.Sqlite;
@@ -26,6 +29,14 @@ namespace InventorySystem
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        // Track open app windows in a Dictionary.
+        public static Dictionary<UIContext, AppWindow> AppWindows { get; set; }
+            = new Dictionary<UIContext, AppWindow>();
+
+        // Track the last opened dialog so you can close it if another dialog tries to open.
+        public static ContentDialog CurrentDialog { get; set; } = null;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -35,9 +46,9 @@ namespace InventorySystem
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
             // you can also add items in code behind
-            NavView.MenuItems.Add(new NavigationViewItemSeparator());
-            NavView.MenuItems.Add(new NavigationViewItem()
-            { Content = "My content", Icon = new SymbolIcon(Symbol.Folder), Tag = "content" });
+            //NavView.MenuItems.Add(new NavigationViewItemSeparator());
+            //NavView.MenuItems.Add(new NavigationViewItem()
+            //{ Content = "My content", Icon = new SymbolIcon(Symbol.Folder), Tag = "content" });
 
             // set the initial SelectedItem 
             foreach (NavigationViewItemBase item in NavView.MenuItems)
@@ -76,19 +87,19 @@ namespace InventorySystem
                     break;
 
                 case "apps":
-                    ContentFrame.Navigate(typeof(Console));
+                    ContentFrame.Navigate(typeof(Home));
                     break;
 
                 case "games":
-                    ContentFrame.Navigate(typeof(MainPage));
+                    ContentFrame.Navigate(typeof(Home));
                     break;
 
                 case "music":
-                    ContentFrame.Navigate(typeof(MainPage));
+                    ContentFrame.Navigate(typeof(Home));
                     break;
 
-                case "content":
-                    ContentFrame.Navigate(typeof(MainPage));
+                case "admin":
+                    ContentFrame.Navigate(typeof(Console));
                     break;
             }
         }
@@ -185,36 +196,44 @@ namespace InventorySystem
         }
         // End AutoSuggestBox
 
-        // Add Sample button
-        // Might need to be its own page since ContentDialog can apparently only have one object
-        async private void AppBarButton_Clicked(object sender, object e)
-        {
-            ContentFrame.Navigate(typeof(AddSample));
 
-            TextBox input = new TextBox()
+        // Add Sample button
+        private async void AppBarButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            // Create a new window.
+            AppWindow addSampleViewWindow = await AppWindow.TryCreateAsync();
+
+            // Create a Frame and navigate to the Page you want to show in the new window.
+            Frame appWindowContentFrame = new Frame();
+            appWindowContentFrame.Navigate(typeof(AddSample));
+
+            // Get a reference to the page instance and assign the
+            // newly created AppWindow to the MyAppWindow property.
+            AddSample page = (AddSample)appWindowContentFrame.Content;
+            page.MyAppWindow = addSampleViewWindow;
+
+            // Attach the XAML content to the window.
+            ElementCompositionPreview.SetAppWindowContent(addSampleViewWindow, appWindowContentFrame);
+
+            // Add the new page to the Dictionary using the UIContext as the Key.
+            AppWindows.Add(appWindowContentFrame.UIContext, addSampleViewWindow);
+            addSampleViewWindow.Title = "App Window " + AppWindows.Count.ToString();
+
+            // When the window is closed, be sure to release XAML resources
+            // and the reference to the window.
+            addSampleViewWindow.Closed += delegate
             {
-                Height = (double)App.Current.Resources["TextControlThemeMinHeight"],
-                PlaceholderText = "Display Text"
+                MainPage.AppWindows.Remove(appWindowContentFrame.UIContext);
+                appWindowContentFrame.Content = null;
+                addSampleViewWindow = null;
             };
-            ContentDialog dialog = new ContentDialog()
-            {
-                Title = "Input Dialog",
-                MaxWidth = this.ActualWidth,
-                PrimaryButtonText = "OK",
-                SecondaryButtonText = "Cancel",
-                Content = input
-            };
-            ContentDialogResult result = await dialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                input = (TextBox)dialog.Content;
-                RoutedEventArgs teste = null;
-                await new Windows.UI.Popups.MessageDialog(input.Text).ShowAsync();
-                Add_Text(input.Text, teste);
-            }
+
+            // Show the window.
+            await addSampleViewWindow.TryShowAsync();
         }
 
         // Notify icon click
+        // Unused code for now, need to move to wherever we're gonna handle notifications
         private void NotifyBarButton_Click(object sender, RoutedEventArgs e)
         {
             var toastContent = new ToastContent()
