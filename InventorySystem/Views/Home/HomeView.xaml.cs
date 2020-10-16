@@ -15,11 +15,11 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace InventorySystem
+namespace InventorySystem.Views.Home
 {
-    public sealed partial class Home : Page
+    public sealed partial class HomeView : Page
     {
-        public Home()
+        public HomeView()
         {
             this.InitializeComponent();
         }

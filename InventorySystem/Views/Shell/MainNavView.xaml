@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="InventorySystem.MainPage"
+    x:Class="InventorySystem.Views.Shell.MainNavView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:InventorySystem"
@@ -35,8 +35,8 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             <NavigationViewItemSeparator/>
-            <NavigationViewItem x:Uid="AppsNavItem" Content="Alerts" Icon="Flag" Tag="apps" />
-            <NavigationViewItem x:Uid="MusicNavItem" Icon="List" Content="Samples" Tag="music" />
+            <NavigationViewItem x:Uid="AlertsNavItem" Content="Alerts" Icon="Flag" Tag="alerts" />
+            <NavigationViewItem x:Uid="MusicNavItem" Icon="List" Content="Samples" Tag="samples" />
             <NavigationViewItemSeparator/>
             <NavigationViewItem x:Uid="AdminNavItem" Content="Admin" Icon="Admin" Tag="admin" />
         </NavigationView.MenuItems>
