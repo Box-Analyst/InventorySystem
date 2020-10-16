@@ -61,7 +61,7 @@ namespace InventorySystem.Views.Shell
                     break;
 
                 case "samples":
-                    ContentFrame.Navigate(typeof(Samples.Samples));
+                    ContentFrame.Navigate(typeof(Samples.SamplesView));
                     break;
 
                 case "admin":

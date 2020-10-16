@@ -97,8 +97,8 @@
     <Compile Include="Views\Notifications\NotifyView.xaml.cs">
       <DependentUpon>NotifyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Samples\Samples.xaml.cs">
-      <DependentUpon>Samples.xaml</DependentUpon>
+    <Compile Include="Views\Samples\SamplesView.xaml.cs">
+      <DependentUpon>SamplesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Samples\Components\AddSample.xaml.cs">
       <DependentUpon>AddSample.xaml</DependentUpon>
@@ -150,7 +150,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Samples\Samples.xaml">
+    <Page Include="Views\Samples\SamplesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

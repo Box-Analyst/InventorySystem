@@ -20,9 +20,9 @@ namespace InventorySystem.Views.Samples
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Samples : Page
+    public sealed partial class SamplesView : Page
     {
-        public Samples()
+        public SamplesView()
         {
             this.InitializeComponent();
         }
