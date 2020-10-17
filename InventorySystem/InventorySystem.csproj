@@ -103,6 +103,7 @@
     <Compile Include="Views\Samples\Components\AddSample.xaml.cs">
       <DependentUpon>AddSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\Components\Settings.cs" />
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
