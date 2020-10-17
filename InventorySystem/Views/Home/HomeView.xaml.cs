@@ -31,21 +31,15 @@ namespace InventorySystem.Views.Home
                 var url = "ms-appx:///Assets/Wide310x150Logo.scale-200.png";
                 Image img = new Image();
                 img.Source = new BitmapImage(new Uri(url));
-
                 Thickness margin = new Thickness(5, 0, 5, 10);
-
-                GridViewItem gvi = new GridViewItem
+                GridViewItem gvimg = new GridViewItem
                 {
-                    //MaxWidth = 500,
                     MaxWidth = (Frame.ActualWidth / 2) - 10,
                     Margin = margin,
                     Background = new SolidColorBrush(Windows.UI.Colors.Gray),
-                    //Content = "GridViewItem " + i
                     Content = img
                 };
-
-                //SampleList.Items.Add(img);
-                SampleList.Items.Add(gvi);
+                SampleList.Items.Add(gvimg);
             }
         }
 

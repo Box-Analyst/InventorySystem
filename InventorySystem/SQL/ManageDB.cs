@@ -59,7 +59,6 @@ namespace InventorySystem.SQL
         }
 
         // Method to insert text into the SQLite database
-        // TODO: have it handle object type passed to it for insertCommand.Parameters.AddWithValue
         public static void Add_Text(object sender, RoutedEventArgs e, string InputVal)
         {
             using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
