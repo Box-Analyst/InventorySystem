@@ -24,7 +24,24 @@ namespace InventorySystem.Views.Samples
             this.InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e) { }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Placeholder elements
+            for (int i = 0; i < 20; i++)
+            {
+                Thickness margin = new Thickness(5, 0, 5, 10);
+                Thickness padding = new Thickness(10);
+                GridViewItem gvimg = new GridViewItem
+                {
+                    MaxWidth = (Frame.ActualWidth / 2) - 12,
+                    Margin = margin,
+                    Padding = padding,
+                    Background = new SolidColorBrush(Windows.UI.Colors.Gray),
+                    Content = "SampleContent"
+                };
+                SampleList.Items.Add(gvimg);
+            }
+        }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e) { }
     }

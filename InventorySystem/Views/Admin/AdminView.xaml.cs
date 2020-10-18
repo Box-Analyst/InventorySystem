@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-// Import Microsoft.Data.Sqlite namespaces
-using Microsoft.Data.Sqlite;
 
 namespace InventorySystem.Views.Admin
 {
@@ -18,7 +13,7 @@ namespace InventorySystem.Views.Admin
 
         private void Add_Text(object sender, RoutedEventArgs e)
         {
-            SQL.ManageDB.Add_Text(sender, e, Input_Box.Text);
+            SQL.ManageDB.Add_Text(sender, e, InputBox.Text);
             Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
         }
     }

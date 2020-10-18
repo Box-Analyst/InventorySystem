@@ -4,7 +4,7 @@ using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
 
 namespace InventorySystem.Views.Notifications
 {
-    class Alerts
+    static class Alerts
     {
         // Main alert function, pass what type(s) of alerts/info is needed to here.
         public static void CreateNewAlert(object sender, RoutedEventArgs e) { }
@@ -34,10 +34,10 @@ namespace InventorySystem.Views.Notifications
             };
 
             // Create the toast notification
-            var toastNotif = new ToastNotification(toastContent.GetXml());
+            var toastNotify = new ToastNotification(toastContent.GetXml());
 
             // And send the notification
-            ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
+            ToastNotificationManager.CreateToastNotifier().Show(toastNotify);
         }
 
         // Create a new entry in the alert pane.

@@ -1,38 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace InventorySystem.Views.Settings.Components
 {
-    class Settings
+    static class Settings
     {
         // Method for modifying app settings
-        public static string ModifySetting(string SettingName, string SettingValue)
+        public static string ModifySetting(string settingName, string settingValue)
         {
-            Windows.Storage.ApplicationData.Current.LocalSettings.Values[SettingName] = SettingValue;
-            return (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[SettingName];
+            Windows.Storage.ApplicationData.Current.LocalSettings.Values[settingName] = settingValue;
+            return (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[settingName];
         }
 
         // Method for fetching app settings
-        public static object FetchSetting(object SettingName)
+        public static object FetchSetting(object settingName)
         {
-            if (SettingName == null)
+            if (settingName == null)
             {
                 return null;
             }
             else
             {
-                return (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[(string)SettingName];
+                return (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[(string)settingName];
             }
         }
 
         // Method for deleting app settings
-        public static void RemoveSetting(string SettingName)
+        public static void RemoveSetting(string settingName)
         {
-            Windows.Storage.ApplicationData.Current.LocalSettings.Values.Remove(SettingName);
+            Windows.Storage.ApplicationData.Current.LocalSettings.Values.Remove(settingName);
         }
     }
 }

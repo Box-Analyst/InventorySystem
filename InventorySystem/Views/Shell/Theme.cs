@@ -2,13 +2,13 @@
 
 namespace InventorySystem.Views.Shell
 {
-    class Theme
+    static class Theme
     {
         public static void InitializeTheme()
         {
             // Get system theme.
-            var DefaultTheme = new Windows.UI.ViewManagement.UISettings();
-            var uiTheme = DefaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
+            var defaultTheme = new Windows.UI.ViewManagement.UISettings();
+            var uiTheme = defaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
 
             // Set app settings accordingly.
             if (uiTheme == "#FF000000")
@@ -25,13 +25,13 @@ namespace InventorySystem.Views.Shell
             if (userThemeValue != null)
             {
                 // If so, apply theme choice.
-                App.Current.RequestedTheme = (ApplicationTheme)(int)userThemeValue;
+                Application.Current.RequestedTheme = (ApplicationTheme)(int)userThemeValue;
             }
             else
             {
                 // Otherwise, use system theme.
                 object sysThemeValue = Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"];
-                App.Current.RequestedTheme = (ApplicationTheme)(int)sysThemeValue;
+                Application.Current.RequestedTheme = (ApplicationTheme)(int)sysThemeValue;
             }
         }
     }

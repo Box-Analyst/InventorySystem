@@ -5,7 +5,7 @@ using Windows.UI.Xaml;
 
 namespace InventorySystem.SQL
 {
-    class ManageDB
+    static class ManageDB
     {
         // Method to initialize database
         public static void InitializeDB()
@@ -14,7 +14,7 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
             {
                 db.Open(); //Open connection to database
-                String tableCommand = "CREATE TABLE IF NOT EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY AUTOINCREMENT, Text_Entry NVARCHAR(2048) NULL)";
+                const string tableCommand = "CREATE TABLE IF NOT EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY AUTOINCREMENT, Text_Entry NVARCHAR(2048) NULL)";
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
                 try
                 {
@@ -28,9 +28,9 @@ namespace InventorySystem.SQL
         }
 
         // Method to grab entries from the SQLite database
-        public static List<String> Grab_Entries(string search)
+        public static List<string> Grab_Entries(string search)
         {
-            List<String> entries = new List<string>();
+            List<string> entries = new List<string>();
             using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
             {
                 db.Open();
@@ -59,17 +59,19 @@ namespace InventorySystem.SQL
         }
 
         // Method to insert text into the SQLite database
-        public static void Add_Text(object sender, RoutedEventArgs e, string InputVal)
+        public static void Add_Text(object sender, RoutedEventArgs e, string inputVal)
         {
             using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
             {
                 db.Open();
-                SqliteCommand insertCommand = new SqliteCommand();
-                insertCommand.Connection = db;
+                SqliteCommand insertCommand = new SqliteCommand
+                {
+                    Connection = db,
 
-                //Use parameterized query to prevent SQL injection attacks
-                insertCommand.CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);";
-                insertCommand.Parameters.AddWithValue("@Entry", InputVal);
+                    //Use parameterized query to prevent SQL injection attacks
+                    CommandText = "INSERT INTO MyTable VALUES (NULL, @Entry);"
+                };
+                insertCommand.Parameters.AddWithValue("@Entry", inputVal);
                 try
                 {
                     insertCommand.ExecuteReader();
@@ -86,7 +88,7 @@ namespace InventorySystem.SQL
         // Method to grab Text_Entry column from MyTable table in SQLite database
         public static List<String> Grab_Entries_col()
         {
-            List<String> entries = new List<string>();
+            List<string> entries = new List<string>();
             using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db"))
             {
                 db.Open();

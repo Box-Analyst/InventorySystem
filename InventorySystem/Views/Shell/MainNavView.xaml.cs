@@ -43,7 +43,7 @@ namespace InventorySystem.Views.Shell
             {
                 // find NavigationViewItem with Content that equals InvokedItem
                 var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem);
-                NavView_Navigate(item as NavigationViewItem);
+                NavView_Navigate(item);
             }
         }
 

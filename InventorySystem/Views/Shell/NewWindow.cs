@@ -7,16 +7,16 @@ using Windows.ApplicationModel.Core;
 
 namespace InventorySystem.Views.Shell
 {
-    class NewWindow
+    static class NewWindow
     {
-        async public static void CreateNewWindow(Type FrameView)
+        public static async void CreateNewWindow(Type frameView)
         {
             CoreApplicationView newView = CoreApplication.CreateNewView();
             int newViewId = 0;
             await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 Frame frame = new Frame();
-                frame.Navigate(FrameView, null);
+                frame.Navigate(frameView, null);
                 Window.Current.Content = frame;
                 Window.Current.Activate();
                 newViewId = ApplicationView.GetForCurrentView().Id;

@@ -1,21 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
-using Windows.UI.WindowManagement;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace InventorySystem.Views.Settings
 {
@@ -25,35 +11,39 @@ namespace InventorySystem.Views.Settings
         {
             this.InitializeComponent();
 
-            object Current_Theme = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"];
+            object currentTheme = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"];
 
-            if (Current_Theme == null)
+            switch (currentTheme)
             {
-                Theme_Picker.PlaceholderText = "System (default)";
-            }
-            else if ((int)Current_Theme == 0)
-            {
-                Theme_Picker.PlaceholderText = "Light";
-            }
-            else if ((int)Current_Theme == 1)
-            {
-                Theme_Picker.PlaceholderText = "Dark";
+                case null:
+                    ThemePicker.PlaceholderText = "System (default)";
+                    break;
+
+                case 0:
+                    ThemePicker.PlaceholderText = "Light";
+                    break;
+
+                case 1:
+                    ThemePicker.PlaceholderText = "Dark";
+                    break;
             }
         }
 
-        async private void Theme_Picker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void ThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Theme_Picker.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last() == "Light")
+            switch (ThemePicker.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 0;
-            }
-            else if (Theme_Picker.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last() == "Dark")
-            {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 1;
-            }
-            else
-            {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = null;
+                case "Light":
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 0;
+                    break;
+
+                case "Dark":
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 1;
+                    break;
+
+                default:
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = null;
+                    break;
             }
             AppRestartFailureReason result = await CoreApplication.RequestRestartAsync("test");
             //Frame rootFrame = Window.Current.Content as Frame;
@@ -61,7 +51,7 @@ namespace InventorySystem.Views.Settings
             //Frame.Navigate(typeof(Settings));
         }
 
-        private void Theme_Picker_DropDownClosed(object sender, object e)
+        private void ThemePicker_DropDownClosed(object sender, object e)
         {
 
         }

@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
 namespace InventorySystem.Views.Home
 {
@@ -26,15 +15,18 @@ namespace InventorySystem.Views.Home
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            // Placeholder elements
             for (int i = 0; i < 20; i++)
             {
                 var url = "ms-appx:///Assets/Wide310x150Logo.scale-200.png";
-                Image img = new Image();
-                img.Source = new BitmapImage(new Uri(url));
+                Image img = new Image
+                {
+                    Source = new BitmapImage(new Uri(url))
+                };
                 Thickness margin = new Thickness(5, 0, 5, 10);
                 GridViewItem gvimg = new GridViewItem
                 {
-                    MaxWidth = (Frame.ActualWidth / 2) - 10,
+                    MaxWidth = (Frame.ActualWidth / 2) - 12,
                     Margin = margin,
                     Background = new SolidColorBrush(Windows.UI.Colors.Gray),
                     Content = img
@@ -43,10 +35,6 @@ namespace InventorySystem.Views.Home
             }
         }
 
-        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            // Change GridViewItem's MaxWidth on window resize
-            //GridViewItem.Items.MaxWidth = (Frame.ActualWidth / 2) - 10;
-        }
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e) { }
     }
 }

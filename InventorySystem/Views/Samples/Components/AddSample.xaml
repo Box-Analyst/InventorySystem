@@ -2,7 +2,6 @@
     x:Class="InventorySystem.Views.Samples.Components.AddSample"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:InventorySystem"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -11,22 +10,22 @@
     <Grid>
         <StackPanel Canvas.Left="10" Canvas.Top="101">
             <TextBlock>LotNum</TextBlock>
-            <TextBox x:Name="LotNum_Box"/>
+            <TextBox x:Name="LotNumBox"/>
             <Button Content="Add" />
             <TextBlock Text="&#x0a;"/>
 
             <TextBlock>NameandDosage</TextBlock>
-            <TextBox x:Name="NameandDosage_Box"/>
+            <TextBox x:Name="NameAndDosageBox"/>
             <Button Content="Add" />
             <TextBlock Text="&#x0a;"/>
 
             <TextBlock>Count</TextBlock>
-            <TextBox x:Name="Count_Box"/>
+            <TextBox x:Name="CountBox"/>
             <Button Content="Add" />
             <TextBlock Text="&#x0a;"/>
 
             <TextBlock>ExpirationDate</TextBlock>
-            <TextBox x:Name="ExpirationDate_Box"/>
+            <TextBox x:Name="ExpirationDateBox"/>
             <Button Content="Add" />
             <TextBlock Text="&#x0a;"/>
         </StackPanel>
