@@ -1,22 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// Import Microsoft.Data.Sqlite namespaces
-using Microsoft.Data.Sqlite;
 
 namespace InventorySystem
 {
@@ -33,54 +20,8 @@ namespace InventorySystem
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-
-            // Temporaraly set user pref for testing
-            //Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = null;
-            //App.Current.RequestedTheme = ApplicationTheme.Light;
-
-            // Get system theme.
-            var DefaultTheme = new Windows.UI.ViewManagement.UISettings();
-            var uiTheme = DefaultTheme.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background).ToString();
-
-            // Set app settings accordingly.
-            if (uiTheme == "#FF000000")
-            {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"] = 1;
-            }
-            else if (uiTheme == "#FFFFFFFF")
-            {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"] = 0;
-            }
-
-            // Check if user has set a theme pref in the app
-            object userThemeValue = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"];
-            if (userThemeValue != null)
-            {
-                // If so, apply theme choice.
-                App.Current.RequestedTheme = (ApplicationTheme)(int)userThemeValue;
-            }
-            else
-            {
-                // Otherwise, use system theme.
-                object sysThemeValue = Windows.Storage.ApplicationData.Current.LocalSettings.Values["systemThemeSetting"];
-                App.Current.RequestedTheme = (ApplicationTheme)(int)sysThemeValue;
-            }
-
-            //SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite
-            using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
-            {
-                db.Open(); //Open connection to database
-                String tableCommand = "CREATE TABLE IF NOT EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY AUTOINCREMENT, Text_Entry NVARCHAR(2048) NULL)";
-                SqliteCommand createTable = new SqliteCommand(tableCommand, db);
-                try
-                {
-                    createTable.ExecuteReader(); //Execute command, throws SqliteException error if command doesn't execute properly
-                }
-                catch (SqliteException e)
-                {
-                    //Do nothing
-                }
-            }
+            Views.Shell.Theme.InitializeTheme();
+            SQL.ManageDB.InitializeDB();
         }
 
         /// <summary>
@@ -117,7 +58,7 @@ namespace InventorySystem
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(Views.Shell.MainNavView), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
