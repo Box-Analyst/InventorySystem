@@ -32,7 +32,7 @@ namespace InventorySystem
         //Upon Clicking Login, user is sent to the Main Page of the Application.
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage), employeeID.Text);
+            this.Frame.Navigate(typeof(Views.Home.HomeView), employeeID.Text);
         }
         private void AddUserButton_Click(object sender, RoutedEventArgs e)
         {

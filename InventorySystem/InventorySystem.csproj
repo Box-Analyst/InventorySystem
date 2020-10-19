@@ -96,8 +96,7 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
+
 
     <Compile Include="SQL\ManageDB.cs" />
     <Compile Include="Views\Notifications\Alerts.cs" />
@@ -160,7 +159,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings.xaml">
+
 
     <Page Include="Views\Notifications\NotifyView.xaml">
       <SubType>Designer</SubType>
