@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
+using System.Net.Security;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -27,12 +28,19 @@ namespace InventorySystem
         {
             this.InitializeComponent();
             
+            
         }
 
         //Upon Clicking Login, user is sent to the Main Page of the Application.
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Views.Home.HomeView), employeeID.Text);
+            string Employee = employeeID.Text;
+            string pword = password.Password;
+            //check user credentials against the db
+            // if (Authenticate())
+            //this.Frame.Navigate(typeof(Views.Home.HomeView), employeeID.Text);
+
+            this.Frame.Navigate(typeof(Views.Shell.MainNavView), Employee);
         }
         private void AddUserButton_Click(object sender, RoutedEventArgs e)
         {

@@ -11,10 +11,10 @@ namespace InventorySystem.SQL
         public static void InitializeDB()
         {
             //SqliteEngine.UseWinSqlite3(); //Configuring library to use SDK version of SQLite
-            using (SqliteConnection db = new SqliteConnection("Filename=sqliteSample.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
+            using (SqliteConnection db = new SqliteConnection("Filename=InventoryDB.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
             {
                 db.Open(); //Open connection to database
-                const string tableCommand = "CREATE TABLE IF NOT EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY AUTOINCREMENT, Text_Entry NVARCHAR(2048) NULL)";
+                const string tableCommand = "CREATE TABLE IF NOT EXISTS Login (EmployeeID INTEGER PRIMARY KEY, Password NVARCHAR(20) NOT NULL, isActive BOOLEAN NOT NULL)";
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
                 try
                 {

@@ -8,11 +8,11 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <StackPanel>
-        <TextBlock Text="New Customer" Style="{StaticResource TitleTextBlockStyle}"/>
-        <TextBox x:Name="employeeID" Header="Employee ID" Margin="0,24,0,0" MaxLength="12" Width="400" HorizontalAlignment="Left" InputScope="Number"/>
-        <PasswordBox x:Name="password" Header="Password" Margin=" 0,24,0,0" MaxLength="20" Width="400" HorizontalAlignment="Left" InputScope="Password" />
-        <StackPanel Orientation="Horizontal">
+    <StackPanel VerticalAlignment="Center">
+        <TextBlock Text="Login" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal"/>
+        <TextBox x:Name="employeeID" Header="Employee ID" Margin="0,24,0,0" MaxLength="12" Width="400" HorizontalAlignment="Center" InputScope="Number"/>
+        <PasswordBox x:Name="password" Header="Password" Margin=" 0,24,0,0" MaxLength="20" Width="400" HorizontalAlignment="Center" InputScope="Password" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Login" Margin="0,24" Click="LoginButton_Click"/>
             <Button Content="Add New User(s)" Margin="24" Click="AddUserButton_Click"/>
         </StackPanel>

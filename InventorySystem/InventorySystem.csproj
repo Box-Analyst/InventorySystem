@@ -92,17 +92,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-
-    <Compile Include="LoginWindow.xaml.cs">
+    <Compile Include="Views\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-
-
     <Compile Include="SQL\ManageDB.cs" />
     <Compile Include="Views\Notifications\Alerts.cs" />
     <Compile Include="Views\Notifications\NotifyView.xaml.cs">
       <DependentUpon>NotifyView.xaml</DependentUpon>
-
     </Compile>
     <Compile Include="Views\Samples\SamplesView.xaml.cs">
       <DependentUpon>SamplesView.xaml</DependentUpon>
@@ -154,13 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-
-    <Page Include="LoginWindow.xaml">
+    <Page Include="Views\Login\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
-
     <Page Include="Views\Notifications\NotifyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,7 +167,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\SettingsView.xaml">
-
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -59,9 +59,7 @@ namespace InventorySystem
                     // configuring the new page by passing required information as a navigation
                     // parameter
 
-                    //rootFrame.Navigate(typeof(LoginWindow), e.Arguments);
-
-                    rootFrame.Navigate(typeof(Views.Shell.MainNavView), e.Arguments);
+                    rootFrame.Navigate(typeof(LoginWindow), e.Arguments);
 
                 }
                 // Ensure the current window is active
