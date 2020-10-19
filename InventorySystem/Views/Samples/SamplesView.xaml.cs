@@ -39,7 +39,7 @@ namespace InventorySystem.Views.Samples
                     Background = new SolidColorBrush(Windows.UI.Colors.Gray),
                     Content = "SampleContent"
                 };
-                SampleList.Items.Add(gvimg);
+                SampleList.Items?.Add(gvimg);
             }
         }
 

@@ -31,7 +31,7 @@ namespace InventorySystem.Views.Settings
 
         private async void ThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (ThemePicker.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
+            switch (ThemePicker.SelectedItem?.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
             {
                 case "Light":
                     Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 0;

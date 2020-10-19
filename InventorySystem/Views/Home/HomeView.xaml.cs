@@ -31,7 +31,7 @@ namespace InventorySystem.Views.Home
                     Background = new SolidColorBrush(Windows.UI.Colors.Gray),
                     Content = img
                 };
-                SampleList.Items.Add(gvimg);
+                SampleList.Items?.Add(gvimg);
             }
         }
 
