@@ -15,44 +15,34 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace InventorySystem
+namespace InventorySystem.Views.Samples
 {
-    public sealed partial class Home : Page
+    public sealed partial class SamplesView : Page
     {
-        public Home()
+        public SamplesView()
         {
             this.InitializeComponent();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            // Placeholder elements
             for (int i = 0; i < 20; i++)
             {
-                var url = "ms-appx:///Assets/Wide310x150Logo.scale-200.png";
-                Image img = new Image();
-                img.Source = new BitmapImage(new Uri(url));
-
                 Thickness margin = new Thickness(5, 0, 5, 10);
-
-                GridViewItem gvi = new GridViewItem
+                Thickness padding = new Thickness(10);
+                GridViewItem gvimg = new GridViewItem
                 {
-                    //MaxWidth = 500,
-                    MaxWidth = (Frame.ActualWidth / 2) - 10,
+                    MaxWidth = (Frame.ActualWidth / 2) - 12,
                     Margin = margin,
+                    Padding = padding,
                     Background = new SolidColorBrush(Windows.UI.Colors.Gray),
-                    //Content = "GridViewItem " + i
-                    Content = img
+                    Content = "SampleContent"
                 };
-
-                //SampleList.Items.Add(img);
-                SampleList.Items.Add(gvi);
+                SampleList.Items?.Add(gvimg);
             }
         }
 
-        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            // Change GridViewItem's MaxWidth on window resize
-            //GridViewItem.Items.MaxWidth = (Frame.ActualWidth / 2) - 10;
-        }
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e) { }
     }
 }
