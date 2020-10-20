@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <GridView Name="SampleList"
+    <StackPanel Name="SampleList"
               Background="{ThemeResource SystemControlAcrylicWindowBrush}"
               HorizontalAlignment="Center"
               Width="auto"

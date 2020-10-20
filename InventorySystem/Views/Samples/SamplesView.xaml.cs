@@ -27,19 +27,20 @@ namespace InventorySystem.Views.Samples
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // Placeholder elements
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Thickness margin = new Thickness(5, 0, 5, 10);
                 Thickness padding = new Thickness(10);
                 GridViewItem gvimg = new GridViewItem
                 {
-                    MaxWidth = (Frame.ActualWidth / 2) - 12,
+                    //MaxWidth = (Frame.ActualWidth / 2) - 12,
+                    Width = Frame.ActualWidth - 12,
                     Margin = margin,
                     Padding = padding,
                     Background = new SolidColorBrush(Windows.UI.Colors.Gray),
                     Content = "SampleContent"
                 };
-                SampleList.Items?.Add(gvimg);
+                SampleList.Children?.Add(gvimg);
             }
         }
 

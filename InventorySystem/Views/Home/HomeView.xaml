@@ -9,12 +9,19 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <GridView Name="SampleList"
-              Background="{ThemeResource SystemControlAcrylicWindowBrush}"
-              HorizontalAlignment="Center"
-              Width="auto"
-              Height="auto"
-              Padding="0"
-              Margin="0"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Frame Name="NotifyFrame" Height="100" Grid.Row="0"></Frame>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                      VerticalScrollBarVisibility="Auto"
+                      Grid.Row="1">
+            <Frame Name="SamplesFrame"></Frame>
+        </ScrollViewer>
+    </Grid>
 
 </Page>
