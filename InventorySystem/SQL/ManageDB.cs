@@ -90,7 +90,7 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT LotNumber from Sample", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT LotNum from Sample", db);
                 SqliteDataReader query;
                 try
                 {
@@ -125,7 +125,7 @@ namespace InventorySystem.SQL
                     Connection = db,
 
                     //Use parameterized query to prevent SQL injection attacks
-                    CommandText = "UPDATE Sample SET Count = @Entry2 + Count WHERE LotNumber = @Entry1;"
+                    CommandText = "UPDATE Sample SET Count = @Entry2 + Count WHERE LotNum = @Entry1;"
                 };
                 insertCommand.Parameters.AddWithValue("@Entry1", LotNumber);
                 insertCommand.Parameters.AddWithValue("@Entry2", count);
