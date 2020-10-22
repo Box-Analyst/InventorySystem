@@ -48,7 +48,7 @@ namespace InventorySystem.SQL
                 while (query.Read())
                 {
                     var tmp = query.GetString(0);
-                    if (tmp.Contains(search))
+                    if (tmp.ToLower().Contains(search.ToLower()))
                     {
                         entries.Add(tmp);
                     }
