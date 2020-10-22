@@ -25,7 +25,7 @@ namespace InventorySystem.SQL
                 {
                     Console.WriteLine("Table error: " + e);
                 }
-                tableCommand = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate DATE NOT NULL, isExpired BOOLEAN NOT NULL)";
+                tableCommand = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
                 createTable = new SqliteCommand(tableCommand, db);
                 try
                 {
@@ -57,7 +57,7 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage from Sample", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage FROM Sample", db);
                 SqliteDataReader query;
                 try
                 {
@@ -90,7 +90,7 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT LotNum from Sample", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT LotNum FROM Sample", db);
                 SqliteDataReader query;
                 try
                 {
@@ -114,7 +114,7 @@ namespace InventorySystem.SQL
             }
                 return check;
         }
-        public static bool Update_Sample(object sender, RoutedEventArgs e, string LotNumber, string count)
+        public static bool Update_Sample(object sender, RoutedEventArgs e, string LotNumber, int count)
         {
             bool check = true;
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
@@ -142,7 +142,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
-        public static bool Add_Sample(object sender, RoutedEventArgs e, string LotNumber, string NameandDosage, string count, string expirationdate, string isExpired)
+        public static bool Add_Sample(object sender, RoutedEventArgs e, string LotNumber, string NameandDosage, int count, string expirationdate, bool isExpired)
         {
             bool check = true;
             if(Check_Sample(sender, e, LotNumber))
@@ -158,7 +158,7 @@ namespace InventorySystem.SQL
                     Connection = db,
 
                     //Use parameterized query to prevent SQL injection attacks
-                    CommandText = "INSERT INTO Sample VALUES (@Entry1, @Entry2, @Entry3, @Entry 4, @Entry5);"
+                    CommandText = "INSERT INTO Sample VALUES (@Entry1, @Entry2, @Entry3, @Entry4, @Entry5);"
                 };
                 insertCommand.Parameters.AddWithValue("@Entry1", LotNumber);
                 insertCommand.Parameters.AddWithValue("@Entry2", NameandDosage);

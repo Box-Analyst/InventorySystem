@@ -27,7 +27,7 @@ namespace InventorySystem.Views.Samples.Components
 
         private void Add_Sample(object sender, RoutedEventArgs e)
         {
-            if(SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, CountBox.Text, ExpirationDateBox.Text, "false"))
+            if(SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, false))
             {
                 Console.WriteLine("Success!");
             }
