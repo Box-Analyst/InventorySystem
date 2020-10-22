@@ -17,7 +17,7 @@
 
         <Frame Name="NotifyFrame" Height="100" Grid.Row="0"></Frame>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto"
                       Grid.Row="1">
             <Frame Name="SamplesFrame"></Frame>
