@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI;
-using Windows.UI.WindowManagement;
+//using Windows.UI.WindowManagement;
 using Windows.UI.Xaml.Hosting;
 
 namespace InventorySystem.Views.Samples.Components
