@@ -9,24 +9,22 @@
 
     <Grid>
         <StackPanel Canvas.Left="10" Canvas.Top="101">
-            <TextBlock>LotNum</TextBlock>
+            <TextBlock>Lot Number</TextBlock>
             <TextBox x:Name="LotNumBox"/>
-            <Button Content="Add" />
             <TextBlock Text="&#x0a;"/>
 
-            <TextBlock>NameandDosage</TextBlock>
+            <TextBlock>Name and Dosage</TextBlock>
             <TextBox x:Name="NameAndDosageBox"/>
-            <Button Content="Add" />
             <TextBlock Text="&#x0a;"/>
 
             <TextBlock>Count</TextBlock>
             <TextBox x:Name="CountBox"/>
-            <Button Content="Add" />
             <TextBlock Text="&#x0a;"/>
 
-            <TextBlock>ExpirationDate</TextBlock>
+            <TextBlock>Expiration Date</TextBlock>
             <TextBox x:Name="ExpirationDateBox"/>
-            <Button Content="Add" />
+            <Button Click ="Add_Sample"  Content="Add" />
+            <TextBlock Text="&#x0a;"/>
             <TextBlock Text="&#x0a;"/>
         </StackPanel>
     </Grid>

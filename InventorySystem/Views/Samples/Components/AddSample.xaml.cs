@@ -24,5 +24,14 @@ namespace InventorySystem.Views.Samples.Components
         {
             this.InitializeComponent();
         }
+
+        private void Add_Sample(object sender, RoutedEventArgs e)
+        {
+            if(SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, false))
+            {
+                Console.WriteLine("Success!");
+            }
+            //Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
+        }
     }
 }
