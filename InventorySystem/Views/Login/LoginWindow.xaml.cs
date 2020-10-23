@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventorySystem.Views.Login;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
@@ -27,24 +28,33 @@ namespace InventorySystem
         public LoginWindow()
         {
             this.InitializeComponent();
-            
-            
+
+
         }
 
         //Upon Clicking Login, user is sent to the Main Page of the Application.
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string Employee = employeeID.Text;
-            string pword = password.Password;
+            string hashedPW;
+            PasswordHash hash = new PasswordHash(password.Password);
+            hash.SetHash();
+            hashedPW = hash.GetHash();
+
+            if (SQL.ManageDB.CheckPassword(hashedPW, int.Parse(employeeID.Text)))
+            {
+                this.Frame.Navigate(typeof(Views.Shell.MainNavView));
+            }
             //check user credentials against the db
-            // if (Authenticate())
+            // if (Employee = Authenticate())
             //this.Frame.Navigate(typeof(Views.Home.HomeView), employeeID.Text);
 
-            this.Frame.Navigate(typeof(Views.Shell.MainNavView), Employee);
-        }
-        private void AddUserButton_Click(object sender, RoutedEventArgs e)
-        {
 
         }
+        private void AddNewUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Views.Login.Components.AddUsers));
+        }
+
+
     }
 }
