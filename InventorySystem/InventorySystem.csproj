@@ -113,9 +113,6 @@
     <Compile Include="Views\Samples\Components\AddSample.xaml.cs">
       <DependentUpon>AddSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Samples\SamplesView.xaml.cs">
-      <DependentUpon>SamplesView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Settings\Components\Settings.cs" />
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -169,6 +166,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Notifications\NotifyView.xaml">
+    </Page>
     <Page Include="Views\Samples\Components\DistributeSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,10 +176,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Samples\Components\AddSample.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Samples\SamplesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
