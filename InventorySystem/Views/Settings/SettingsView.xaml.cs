@@ -31,29 +31,65 @@ namespace InventorySystem.Views.Settings
 
         private async void ThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (ThemePicker.SelectedItem?.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
+            ContentDialog areYouSure = new ContentDialog
             {
-                case "Light":
-                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 0;
-                    break;
+                Title = "Are You Sure?",
+                Content = "The application will restart upon changing this setting. Select Yes to continue, Cancel to go back.",
+                PrimaryButtonText = "Yes",
+                CloseButtonText = "Cancel"
 
-                case "Dark":
-                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 1;
-                    break;
+            };
 
-                default:
-                    Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = null;
-                    break;
+            ContentDialogResult result = await areYouSure.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+
+                switch (ThemePicker.SelectedItem?.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
+                {
+                    case "Light":
+                        Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 0;
+                        break;
+
+                    case "Dark":
+                        Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 1;
+                        break;
+
+                    default:
+                        Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = null;
+                        break;
+                }
+                AppRestartFailureReason result2 = await CoreApplication.RequestRestartAsync("test");
             }
-            AppRestartFailureReason result = await CoreApplication.RequestRestartAsync("test");
-            //Frame rootFrame = Window.Current.Content as Frame;
-            //rootFrame.Navigate(typeof(MainPage));
-            //Frame.Navigate(typeof(Settings));
+            else {
+                this.Frame.Navigate(typeof(SettingsView));
+            }
+
+
         }
 
         private void ThemePicker_DropDownClosed(object sender, object e)
         {
 
+        }
+
+        private async void DisplayAreYouSure()
+        {
+            ContentDialog areYouSure = new ContentDialog
+            {
+                Title = "Are You Sure?",
+                Content = "The application will restart upon changing this setting. Select Yes to continue, Cancel to go back.",
+                PrimaryButtonText = "Yes",
+                CloseButtonText = "Cancel"
+
+            };
+
+            ContentDialogResult result = await areYouSure.ShowAsync();
+
+            if(result == ContentDialogResult.Primary)
+            {
+
+            }
         }
     }
 }

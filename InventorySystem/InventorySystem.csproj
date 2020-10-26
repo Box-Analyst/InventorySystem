@@ -11,7 +11,7 @@
     <AssemblyName>InventorySystem</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -92,16 +92,29 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Login\Components\AddUsers.xaml.cs">
+      <DependentUpon>AddUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SQL\ManageDB.cs" />
+    <Compile Include="Views\Login\PasswordHash.cs" />
     <Compile Include="Views\Notifications\Alerts.cs" />
     <Compile Include="Views\Notifications\NotifyView.xaml.cs">
       <DependentUpon>NotifyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Samples\Components\DistributeSample.xaml.cs">
+      <DependentUpon>DistributeSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Samples\SamplesView.xaml.cs">
       <DependentUpon>SamplesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Samples\Components\AddSample.xaml.cs">
       <DependentUpon>AddSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Samples\SamplesView.xaml.cs">
+      <DependentUpon>SamplesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\Components\Settings.cs" />
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
@@ -147,7 +160,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\Login\Components\AddUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Notifications\NotifyView.xaml">
+    <Page Include="Views\Samples\Components\DistributeSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Samples\Components\AddSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Samples\SamplesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,7 +215,7 @@
       <Version>4.7.0.9</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Data.SQLite">
-      <Version>3.1.9</Version>
+      <Version>3.1.8</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
@@ -208,6 +234,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

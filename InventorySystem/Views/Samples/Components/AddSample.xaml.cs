@@ -52,5 +52,6 @@ namespace InventorySystem.Views.Samples.Components
 
             ContentDialogResult result = await addExpirationDateError.ShowAsync();
         }
+
     }
 }

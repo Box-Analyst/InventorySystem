@@ -4,6 +4,11 @@ using System.Configuration;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using System.IO;
+using Windows.Storage;
+using System.Runtime.InteropServices;
+using Windows.UI.WindowManagement;
 
 namespace InventorySystem.SQL
 {
@@ -19,6 +24,7 @@ namespace InventorySystem.SQL
                 
                 const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR (6) NOT NULL, IsActive BOOLEAN NOT NULL)";
                 SqliteCommand createTable = new SqliteCommand(tableCommand1, db);
+
                 try
                 {
                     createTable.ExecuteReader(); //Execute command, throws SqliteException error if command doesn't execute properly
@@ -53,13 +59,15 @@ namespace InventorySystem.SQL
 
 
         // Method to grab entries from the SQLite database
-        public static List<string> Grab_Entries(string search)
+        public static List<string> Grab_Entries(string table, string column, object search)
         {
             List<string> entries = new List<string>();
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage FROM Sample", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT @Column FROM @Table", db);
+                selectCommand.Parameters.AddWithValue("@Table", table);
+                selectCommand.Parameters.AddWithValue("@Column", column);
                 SqliteDataReader query;
                 try
                 {
@@ -67,16 +75,21 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Console.WriteLine("Error: " + error);
                     db.Close();
                     return entries;
                 }
                 while (query.Read())
                 {
-                    var tmp = query.GetString(0);
-                    if (tmp.Contains(search))
+                    // if search is specified, only return values containing that query
+                    // otherwise return entire column
+                    if (search != null && query.GetString(0).ToLower().Contains(search.ToString().ToLower()))
                     {
-                        entries.Add(tmp);
+                        entries.Add(query.GetString(0));
+                    }
+                    else
+                    {
+                        entries.Add(query.GetString(0));
                     }
                 }
                 db.Close();
@@ -114,7 +127,7 @@ namespace InventorySystem.SQL
                 }
                 db.Close();
             }
-                return check;
+            return check;
         }
         public static bool Update_Sample(object sender, RoutedEventArgs e, string LotNumber, int count)
         {
@@ -147,7 +160,7 @@ namespace InventorySystem.SQL
         public static bool Add_Sample(object sender, RoutedEventArgs e, string LotNumber, string NameandDosage, int count, string expirationdate, bool isExpired)
         {
             bool check = true;
-            if(Check_Sample(sender, e, LotNumber))
+            if (Check_Sample(sender, e, LotNumber))
             {
                 Update_Sample(sender, e, LotNumber, count);
                 return true;
@@ -223,7 +236,7 @@ namespace InventorySystem.SQL
 
         // Method to insert new Employees into the Employee table
 
-        public static bool Add_Employee(object sender, RoutedEventArgs e, string empID, string pin, string isActive)
+        public static bool Add_Employee(object sender, RoutedEventArgs e, int empID, string pin, string isActive)
         {
             bool check = true;
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
@@ -315,32 +328,55 @@ namespace InventorySystem.SQL
             }
         }
 
-        // Method to grab Text_Entry column from MyTable table in SQLite database
-        public static List<String> Grab_Entries_col()
+        // Method to import/export database
+        public static void ExportDB(string sourceFile, string destinationFile, string mode)
         {
-            List<string> entries = new List<string>();
+            string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
+            //var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            string activeDB = LocalState + @"\SamplesDB.db";
+            string bakDB = activeDB + DateTime.Now.Ticks + ".bak";
+            if (mode == "import")
+            {
+                System.IO.File.Copy(activeDB, bakDB, true);
+                System.IO.File.Copy(sourceFile, activeDB, true);
+            }
+            else if (mode == "export")
+            {
+                System.IO.File.Copy(sourceFile, destinationFile, true);
+            }
+        }
+
+        public static bool CheckEmployee(int employeeID)
+        {
+            bool check;
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage from Sample", db);
-                SqliteDataReader query;
-                try
-                {
-                    query = selectCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    Console.WriteLine("Error: " + error);
-                    db.Close();
-                    return entries;
-                }
-                while (query.Read())
-                {
-                    entries.Add(query.GetString(0));
-                }
+                SqliteCommand selectCommand = new SqliteCommand("SELECT * from Login WHERE Emp_id = @empID", db);
+                selectCommand.Parameters.AddWithValue("@empID", employeeID);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                check = query.HasRows;
                 db.Close();
             }
-            return entries;
+            return check;
+        }
+
+        public static bool CheckPassword(string password, int employeeID)
+        {
+            bool check;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("Select Pin from Login Where Emp_id = @empID and Pin = @password", db);
+                selectCommand.Parameters.AddWithValue("@empID", employeeID);
+                selectCommand.Parameters.AddWithValue("@password", password);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                check = query.HasRows;
+                db.Close();
+            }
+            return check;
+
         }
     }
 }

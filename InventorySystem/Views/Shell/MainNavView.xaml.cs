@@ -79,7 +79,7 @@ namespace InventorySystem.Views.Shell
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 //Set the ItemsSource to be your filtered dataset
-                sender.ItemsSource = SQL.ManageDB.Grab_Entries(sender.Text);
+                sender.ItemsSource = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", sender.Text);
             }
         }
 
