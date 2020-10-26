@@ -294,7 +294,7 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("Select Pin from Login WHERE Emp_id = @empID AND Pin = @password", db);
+                SqliteCommand selectCommand = new SqliteCommand("Select Pin from Login Where Emp_id = @empID and Pin = @password", db);
                 selectCommand.Parameters.AddWithValue("@empID", employeeID);
                 selectCommand.Parameters.AddWithValue("@password", password);
                 SqliteDataReader query = selectCommand.ExecuteReader();

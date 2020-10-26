@@ -10,12 +10,13 @@ namespace InventorySystem.Views.Login
     class PasswordHash
     {
         private string hash;
-        public PasswordHash(string password)
+        public PasswordHash()
+        {
+            hash = "";
+        }
+        private string CreateHash(string password)
         {
             hash = password;
-        }
-        private string CreateHash()
-        {
             using (SHA256 sha256 = SHA256.Create())
             {
                 // ComputeHash - returns byte array  
@@ -31,9 +32,9 @@ namespace InventorySystem.Views.Login
             }
         }
 
-        public void SetHash()
+        public void SetHash(string password)
         {
-            hash = CreateHash();
+            hash = CreateHash(password);
         }
         public string GetHash()
         {
