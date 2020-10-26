@@ -30,6 +30,14 @@ namespace InventorySystem.Views.Samples.Components
             if (SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, false))
             {
                 Console.WriteLine("Success!");
+
+                // Replace with navigate to sample view for new sample?
+                // or show a success message and close on user acknoledgement
+                Window.Current.Close();
+            }
+            else
+            {
+                // show an error
             }
             //Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
         }

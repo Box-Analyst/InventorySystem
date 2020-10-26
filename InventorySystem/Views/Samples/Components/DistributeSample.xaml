@@ -9,6 +9,24 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <StackPanel Canvas.Left="10" Canvas.Top="101">
+            <TextBlock>Lot Number</TextBlock>
+            <TextBox x:Name="LotNumBox"/>
+            <TextBlock Text="&#x0a;"/>
 
+            <TextBlock>Name and Dosage</TextBlock>
+            <TextBox x:Name="NameAndDosageBox"/>
+            <TextBlock Text="&#x0a;"/>
+
+            <TextBlock>Count</TextBlock>
+            <TextBox x:Name="CountBox"/>
+            <TextBlock Text="&#x0a;"/>
+
+            <TextBlock>Expiration Date</TextBlock>
+            <TextBox x:Name="ExpirationDateBox"/>
+            <Button Click ="Add_Sample"  Content="Add" />
+            <TextBlock Text="&#x0a;"/>
+            <TextBlock Text="&#x0a;"/>
+        </StackPanel>
     </Grid>
 </Page>
