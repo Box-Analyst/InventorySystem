@@ -34,7 +34,7 @@ namespace InventorySystem.Views.Login.Components
 
         public void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
-            PasswordHash hash = new PasswordHash();
+            PasswordHash hash = new PasswordHash(password.Password);
             string hashedPW;
             //If checkEmployee is false (user doesn't exist), create user account
             if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
@@ -42,7 +42,7 @@ namespace InventorySystem.Views.Login.Components
                 //If checkPassword is true (password and retyped password matches), continue with account creation)
                 if (password.Password == passwordRetype.Password)
                 {
-                    hash.SetHash(password.Password);
+                    hash.SetHash();
                     hashedPW = hash.GetHash();
                     SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), hashedPW, "True");
                     this.Frame.Navigate(typeof(LoginWindow));

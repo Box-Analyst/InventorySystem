@@ -36,8 +36,8 @@ namespace InventorySystem
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string hashedPW;
-            PasswordHash hash = new PasswordHash();
-            hash.SetHash(password.Password);
+            PasswordHash hash = new PasswordHash(password.Password);
+            hash.SetHash();
             hashedPW = hash.GetHash();
 
             if (SQL.ManageDB.CheckPassword(hashedPW, int.Parse(employeeID.Text)))
