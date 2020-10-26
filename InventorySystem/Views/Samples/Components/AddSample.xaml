@@ -9,7 +9,6 @@
 
     <Grid>
         <StackPanel Canvas.Left="10" Canvas.Top="101">
-
             <TextBlock>Lot Number</TextBlock>
             <TextBox x:Name="LotNumBox"/>
             <TextBlock Text="&#x0a;"/>
