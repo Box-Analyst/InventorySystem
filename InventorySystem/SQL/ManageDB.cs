@@ -21,7 +21,7 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
             {
                 db.Open(); //Open connection to database
-                
+
                 const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR (6) NOT NULL, IsActive BOOLEAN NOT NULL)";
                 SqliteCommand createTable = new SqliteCommand(tableCommand1, db);
 
@@ -299,8 +299,8 @@ namespace InventorySystem.SQL
             }
             return check;
         }
-        
-        
+
+
         // Method to insert text into the SQLite database
         public static void Add_Text(object sender, RoutedEventArgs e, string inputVal)
         {
@@ -331,11 +331,12 @@ namespace InventorySystem.SQL
         // Method to import/export database
         public static void ExportDB(string sourceFile, string destinationFile, string mode)
         {
-            string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
-            //var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder;
+            //string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
+            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 
             string activeDB = LocalState + @"\SamplesDB.db";
-            string bakDB = activeDB + DateTime.Now.Ticks + ".bak";
+            //string bakDB = activeDB + DateTime.Now.Ticks + ".bak";
+            string bakDB = activeDB + ".bak";
             if (mode == "import")
             {
                 System.IO.File.Copy(activeDB, bakDB, true);
