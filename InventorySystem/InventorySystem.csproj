@@ -11,7 +11,7 @@
     <AssemblyName>InventorySystem</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -97,6 +97,9 @@
     <Compile Include="Views\Notifications\NotifyView.xaml.cs">
       <DependentUpon>NotifyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Samples\Components\DistributeSample.xaml.cs">
+      <DependentUpon>DistributeSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Samples\SamplesView.xaml.cs">
       <DependentUpon>SamplesView.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Views\Notifications\NotifyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Samples\Components\DistributeSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
