@@ -331,12 +331,10 @@ namespace InventorySystem.SQL
         // Method to import/export database
         public static void ExportDB(string sourceFile, string destinationFile, string mode)
         {
-            //string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
             var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 
             string activeDB = LocalState + @"\SamplesDB.db";
-            //string bakDB = activeDB + DateTime.Now.Ticks + ".bak";
-            string bakDB = activeDB + ".bak";
+            string bakDB = LocalState + @"\SamplesDB." + DateTime.Now.Ticks + ".bak";
             if (mode == "import")
             {
                 System.IO.File.Copy(activeDB, bakDB, true);
