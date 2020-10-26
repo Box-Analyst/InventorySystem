@@ -22,6 +22,8 @@ namespace InventorySystem
             this.Suspending += OnSuspending;
             Views.Shell.Theme.InitializeTheme();
             SQL.ManageDB.InitializeDB();
+            Views.Notifications.Alerts.InitializeAlerts();
+            //SQL.ManageDB.ExportDB(@"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState\SamplesDB.db", @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState\test.db", "export");
         }
 
         /// <summary>

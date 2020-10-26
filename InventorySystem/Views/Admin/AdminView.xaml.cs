@@ -8,13 +8,13 @@ namespace InventorySystem.Views.Admin
         public AdminView()
         {
             this.InitializeComponent();
-            Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
+            Output.ItemsSource = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", null);
         }
 
         private void Add_Text(object sender, RoutedEventArgs e)
         {
             SQL.ManageDB.Add_Text(sender, e, InputBox.Text);
-            Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
+            Output.ItemsSource = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", null);
         }
     }
 }

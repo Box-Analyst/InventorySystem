@@ -6,6 +6,12 @@ namespace InventorySystem.Views.Notifications
 {
     static class Alerts
     {
+        // Method to initialize alerts on startup
+        public static void InitializeAlerts()
+        {
+            //
+        }
+
         // Main alert function, pass what type(s) of alerts/info is needed to here.
         public static void CreateNewAlert(object sender, RoutedEventArgs e) { }
 

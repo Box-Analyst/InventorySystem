@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System.IO;
+using Windows.Storage;
+using System.Runtime.InteropServices;
+using Windows.UI.WindowManagement;
 
 namespace InventorySystem.SQL
 {
@@ -52,13 +56,15 @@ namespace InventorySystem.SQL
 
 
         // Method to grab entries from the SQLite database
-        public static List<string> Grab_Entries(string search)
+        public static List<string> Grab_Entries(string table, string column, object search)
         {
             List<string> entries = new List<string>();
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage FROM Sample", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT @Column FROM @Table", db);
+                selectCommand.Parameters.AddWithValue("@Table", table);
+                selectCommand.Parameters.AddWithValue("@Column", column);
                 SqliteDataReader query;
                 try
                 {
@@ -66,16 +72,21 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Console.WriteLine("Error: " + error);
                     db.Close();
                     return entries;
                 }
                 while (query.Read())
                 {
-                    var tmp = query.GetString(0);
-                    if (tmp.Contains(search))
+                    // if search is specified, only return values containing that query
+                    // otherwise return entire column
+                    if (search != null && query.GetString(0).ToLower().Contains(search.ToString().ToLower()))
                     {
-                        entries.Add(tmp);
+                        entries.Add(query.GetString(0));
+                    }
+                    else
+                    {
+                        entries.Add(query.GetString(0));
                     }
                 }
                 db.Close();
@@ -245,32 +256,23 @@ namespace InventorySystem.SQL
             }
         }
 
-        // Method to grab Text_Entry column from MyTable table in SQLite database
-        public static List<String> Grab_Entries_col()
+        // Method to import/export database
+        public static void ExportDB(string sourceFile, string destinationFile, string mode)
         {
-            List<string> entries = new List<string>();
-            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
+            //var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            string activeDB = LocalState + @"\SamplesDB.db";
+            string bakDB = activeDB + DateTime.Now.Ticks + ".bak";
+            if (mode == "import")
             {
-                db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage from Sample", db);
-                SqliteDataReader query;
-                try
-                {
-                    query = selectCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    Console.WriteLine("Error: " + error);
-                    db.Close();
-                    return entries;
-                }
-                while (query.Read())
-                {
-                    entries.Add(query.GetString(0));
-                }
-                db.Close();
+                System.IO.File.Copy(activeDB, bakDB, true);
+                System.IO.File.Copy(sourceFile, activeDB, true);
             }
-            return entries;
+            else if (mode == "export")
+            {
+                System.IO.File.Copy(sourceFile, destinationFile, true);
+            }
         }
 
         public static bool CheckEmployee(int employeeID)

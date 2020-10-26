@@ -12,15 +12,17 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI;
-using Windows.UI.WindowManagement;
-using Windows.UI.Xaml.Hosting;
+
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace InventorySystem.Views.Samples.Components
 {
-    public sealed partial class AddSample : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class DistributeSample : Page
     {
-        public AddSample()
+        public DistributeSample()
         {
             this.InitializeComponent();
         }
@@ -30,17 +32,8 @@ namespace InventorySystem.Views.Samples.Components
             if (SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, false))
             {
                 Console.WriteLine("Success!");
-
-                // Replace with navigate to sample view for new sample?
-                // or show a success message and close on user acknoledgement
-                Window.Current.Close();
-            }
-            else
-            {
-                // show an error
             }
             //Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
         }
-
     }
 }

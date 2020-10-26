@@ -7,7 +7,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <Grid>
-
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <TextBlock>NotifyView</TextBlock>
     </Grid>
 </Page>
