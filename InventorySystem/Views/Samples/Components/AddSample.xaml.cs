@@ -27,11 +27,30 @@ namespace InventorySystem.Views.Samples.Components
 
         private void Add_Sample(object sender, RoutedEventArgs e)
         {
-            if(SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, false))
+            bool isExpired = false;
+            if (SQL.ManageDB.Check_ExpirationDate_RegEx(ExpirationDateBox.Text))
             {
-                Console.WriteLine("Success!");
+                if(SQL.ManageDB.Check_IsExpired(ExpirationDateBox.Text))
+                {
+                    isExpired = true;
+                }
+                SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, isExpired);
+            } else
+            {
+                DisplayExpirationDateError();
             }
-            //Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
+        }
+
+        private async void DisplayExpirationDateError()
+        {
+            ContentDialog addExpirationDateError = new ContentDialog
+            {
+                Title = "Invalid Expiration Date Input",
+                Content = "Expiration Date formatted Incorrectly. \nFormatting should be MM/DD/YYYY",
+                CloseButtonText = "Ok"
+            };
+
+            ContentDialogResult result = await addExpirationDateError.ShowAsync();
         }
     }
 }
