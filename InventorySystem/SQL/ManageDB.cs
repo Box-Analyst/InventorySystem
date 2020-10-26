@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using System.IO;
 using Windows.Storage;
 using System.Runtime.InteropServices;
@@ -19,7 +20,7 @@ namespace InventorySystem.SQL
             {
                 db.Open(); //Open connection to database
 
-                string tableCommand = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR (6) NOT NULL, IsActive BOOLEAN NOT NULL)";
+                string tableCommand = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR(64) NOT NULL, IsActive BOOLEAN NOT NULL)";
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
                 try
                 {
@@ -191,7 +192,7 @@ namespace InventorySystem.SQL
         }
         // Method to insert new Employees into the Employee table
 
-        public static bool Add_Employee(object sender, RoutedEventArgs e, string empID, string pin, string isActive)
+        public static bool Add_Employee(object sender, RoutedEventArgs e, int empID, string pin, string isActive)
         {
             bool check = true;
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
@@ -222,7 +223,7 @@ namespace InventorySystem.SQL
         }
         // Method to insert log line into Log table
 
-        public static bool Add_Log(object sender, RoutedEventArgs e, string empID, string LotNumber, string patientID, string RepID, string LogType)
+        public static bool Add_Log(object sender, RoutedEventArgs e, int empID, string LotNumber, string patientID, string RepID, string LogType)
         {
             bool check = true;
 
@@ -272,6 +273,38 @@ namespace InventorySystem.SQL
             {
                 System.IO.File.Copy(sourceFile, destinationFile, true);
             }
+        }
+
+        public static bool CheckEmployee(int employeeID)
+        {
+            bool check;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT * from Login WHERE Emp_id = @empID", db);
+                selectCommand.Parameters.AddWithValue("@empID", employeeID);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                check = query.HasRows;
+                db.Close();
+            }
+            return check;
+        }
+
+        public static bool CheckPassword(string password, int employeeID)
+        {
+            bool check;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("Select Pin from Login Where Emp_id = @empID and Pin = @password", db);
+                selectCommand.Parameters.AddWithValue("@empID", employeeID);
+                selectCommand.Parameters.AddWithValue("@password", password);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                check = query.HasRows;
+                db.Close();
+            }
+            return check;
+
         }
     }
 }

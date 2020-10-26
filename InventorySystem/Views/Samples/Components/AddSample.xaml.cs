@@ -41,5 +41,6 @@ namespace InventorySystem.Views.Samples.Components
             }
             //Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
         }
+
     }
 }
