@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
+using System.Configuration;
+using System.Globalization;
 using Windows.UI.Xaml.Controls;
 using System.IO;
 using Windows.Storage;
@@ -20,8 +22,8 @@ namespace InventorySystem.SQL
             {
                 db.Open(); //Open connection to database
 
-                string tableCommand = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR(64) NOT NULL, IsActive BOOLEAN NOT NULL)";
-                SqliteCommand createTable = new SqliteCommand(tableCommand, db);
+                const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR(64) NOT NULL, IsActive BOOLEAN NOT NULL)";
+                SqliteCommand createTable = new SqliteCommand(tableCommand1, db);
                 try
                 {
                     createTable.ExecuteReader(); //Execute command, throws SqliteException error if command doesn't execute properly
@@ -30,8 +32,8 @@ namespace InventorySystem.SQL
                 {
                     Console.WriteLine("Table error: " + e);
                 }
-                tableCommand = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
-                createTable = new SqliteCommand(tableCommand, db);
+                const string tableCommand2 = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
+                createTable = new SqliteCommand(tableCommand2, db);
                 try
                 {
                     createTable.ExecuteReader(); //Execute command, throws SqliteException error if command doesn't execute properly
@@ -40,8 +42,8 @@ namespace InventorySystem.SQL
                 {
                     Console.WriteLine("Table error: " + e);
                 }
-                tableCommand = "CREATE TABLE IF NOT EXISTS Log (LogEntryId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Emp_id INTEGER CONSTRAINT Emp_idConstraint REFERENCES Login (Emp_id) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, LotNum VARCHAR REFERENCES Sample (LotNum) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, WhenModifed DATETIME NOT NULL, Patient_id VARCHAR (12), Rep_id VARCHAR (12), LogType CHAR (1) NOT NULL)";
-                createTable = new SqliteCommand(tableCommand, db);
+                const string tableCommand3 = "CREATE TABLE IF NOT EXISTS Log (LogEntryId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Emp_id INTEGER CONSTRAINT Emp_idConstraint REFERENCES Login (Emp_id) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, LotNum VARCHAR REFERENCES Sample (LotNum) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, WhenModifed DATETIME NOT NULL, Patient_id VARCHAR (12), Rep_id VARCHAR (12), LogType CHAR (1) NOT NULL)";
+                createTable = new SqliteCommand(tableCommand3, db);
                 try
                 {
                     createTable.ExecuteReader(); //Execute command, throws SqliteException error if command doesn't execute properly
@@ -190,6 +192,46 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
+        public static bool Check_ExpirationDate_RegEx(string expirationdate)
+        {
+            bool check = false;
+            string regexString =
+            @"^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Console.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(expirationdate.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(expirationdate);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Console.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_IsExpired(string expirationdate)
+        {
+            bool check = false;
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
+            if (localDate >= expirationDate)
+            {
+                check = true;
+            }
+            return check;
+        }
         // Method to insert new Employees into the Employee table
 
         public static bool Add_Employee(object sender, RoutedEventArgs e, int empID, string pin, string isActive)
@@ -221,12 +263,40 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
+
         // Method to insert log line into Log table
 
-        public static bool Add_Log(object sender, RoutedEventArgs e, int empID, string LotNumber, string patientID, string RepID, string LogType)
+        public static bool Add_Log(object sender, RoutedEventArgs e, string empID, string LotNumber, string whenModified, string patientID, string RepID, string LogType)
         {
             bool check = true;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand insertCommand = new SqliteCommand
+                {
+                    Connection = db,
 
+                    //Use parameterized query to prevent SQL injection attacks
+                    CommandText = "INSERT INTO Log VALUES (NULL, @Entry1, @Entry2, @Entry3, @Entry4, @Entry5, @Entry6);"
+                };
+                insertCommand.Parameters.AddWithValue("@Entry1", empID);
+                insertCommand.Parameters.AddWithValue("@Entry2", LotNumber);
+                insertCommand.Parameters.AddWithValue("@Entry3", whenModified);
+                insertCommand.Parameters.AddWithValue("@Entry4", patientID);
+                insertCommand.Parameters.AddWithValue("@Entry5", RepID);
+                insertCommand.Parameters.AddWithValue("@Entry6", LogType);
+                try
+                {
+                    insertCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Console.WriteLine(error);
+                    check = false;
+                }
+                db.Close();
+            }
             return check;
         }
         // Method to insert text into the SQLite database
@@ -259,8 +329,8 @@ namespace InventorySystem.SQL
         // Method to import/export database
         public static void ExportDB(string sourceFile, string destinationFile, string mode)
         {
-            string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
-            //var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder;
+            //string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
+            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder;
 
             string activeDB = LocalState + @"\SamplesDB.db";
             string bakDB = activeDB + DateTime.Now.Ticks + ".bak";

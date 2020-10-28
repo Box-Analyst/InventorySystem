@@ -72,24 +72,5 @@ namespace InventorySystem.Views.Settings
         {
 
         }
-
-        private async void DisplayAreYouSure()
-        {
-            ContentDialog areYouSure = new ContentDialog
-            {
-                Title = "Are You Sure?",
-                Content = "The application will restart upon changing this setting. Select Yes to continue, Cancel to go back.",
-                PrimaryButtonText = "Yes",
-                CloseButtonText = "Cancel"
-
-            };
-
-            ContentDialogResult result = await areYouSure.ShowAsync();
-
-            if(result == ContentDialogResult.Primary)
-            {
-
-            }
-        }
     }
 }
