@@ -1,14 +1,23 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace InventorySystem.Views.Shell
 {
     public sealed partial class MainNavView : Page
     {
+        private string empID;
         public MainNavView()
         {
             this.InitializeComponent();
+        }
+
+        //When MainNavView is navigated to, empID is passed to this function and stored in private class variable empID
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            empID = e.Parameter.ToString();
         }
 
         // NavView stuff
@@ -29,7 +38,7 @@ namespace InventorySystem.Views.Shell
                 }
             }
             // Load Home on app start
-            ContentFrame.Navigate(typeof(Home.HomeView));
+            ContentFrame.Navigate(typeof(Home.HomeView), GetEmpID());
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -37,7 +46,7 @@ namespace InventorySystem.Views.Shell
             if (args.IsSettingsInvoked)
             {
                 // Settings page
-                ContentFrame.Navigate(typeof(Settings.SettingsView));
+                ContentFrame.Navigate(typeof(Settings.SettingsView), GetEmpID());
             }
             else
             {
@@ -50,22 +59,23 @@ namespace InventorySystem.Views.Shell
         // Navbar items
         private void NavView_Navigate(NavigationViewItem item)
         {
+            //Each case will pass the employeeID to the page to be navigated to for logging purposes
             switch (item.Tag)
             {
                 case "home":
-                    ContentFrame.Navigate(typeof(Home.HomeView));
+                    ContentFrame.Navigate(typeof(Home.HomeView), GetEmpID());
                     break;
 
                 case "alerts":
-                    ContentFrame.Navigate(typeof(Notifications.NotifyView));
+                    ContentFrame.Navigate(typeof(Notifications.NotifyView), GetEmpID());
                     break;
 
                 case "samples":
-                    ContentFrame.Navigate(typeof(Samples.SamplesView));
+                    ContentFrame.Navigate(typeof(Samples.SamplesView), GetEmpID());
                     break;
 
                 case "admin":
-                    ContentFrame.Navigate(typeof(Admin.AdminView));
+                    ContentFrame.Navigate(typeof(Admin.AdminView), GetEmpID());
                     break;
             }
         }
@@ -106,6 +116,11 @@ namespace InventorySystem.Views.Shell
         private void AppBarButton_Clicked(object sender, RoutedEventArgs e)
         {
             NewWindow.CreateNewWindow(typeof(Samples.Components.AddSample));
+        }
+
+        public string GetEmpID()
+        {
+            return empID;
         }
     }
 }

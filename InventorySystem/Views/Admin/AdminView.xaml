@@ -9,6 +9,10 @@
 
     <Grid>
         <StackPanel Canvas.Left="10" Canvas.Top="101">
+            <TextBlock>Manage Samples</TextBlock>
+            <TextBlock>Manage Database</TextBlock>
+            <Button Click="Import_Database" Content="Import Database" />
+            <Button Click="Export_Database" Content="Export Database" />
             <TextBox x:Name="InputBox"/>
             <Button Click="Add_Text" Content="Add" />
             <ListView x:Name="Output">
