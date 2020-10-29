@@ -292,10 +292,17 @@ namespace InventorySystem.SQL
 
         // Method to check if a sample is about to expire
 
-        public static bool Check_ExpiresSoon()
+        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
         {
             bool check = false;
-
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
+            expirationDate.AddDays(noticeTime);
+            if (localDate >= expirationDate)
+            {
+                check = true;
+            }
             return check;
         }
 
