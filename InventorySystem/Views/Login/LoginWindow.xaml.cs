@@ -29,29 +29,64 @@ namespace InventorySystem
         {
             this.InitializeComponent();
 
-
         }
 
         //Upon Clicking Login, user is sent to the Main Page of the Application.
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string hashedPW;
             PasswordHash hash = new PasswordHash(password.Password);
             hash.SetHash();
             hashedPW = hash.GetHash();
 
-            if (SQL.ManageDB.CheckPassword(hashedPW, int.Parse(employeeID.Text)))
+            try
             {
-                this.Frame.Navigate(typeof(Views.Shell.MainNavView));
+                int empID = int.Parse(employeeID.Text);
+                if (SQL.ManageDB.CheckPassword(hashedPW, empID))
+                {
+                    this.Frame.Navigate(typeof(Views.Shell.MainNavView), empID);
+                }
+                else
+                {
+                    Clear();
+                    ContentDialog invalidLogin = new ContentDialog
+                    {
+                        Title = "Invalid Employee ID/Password",
+                        Content = "The Employee ID/Password entered is incorrect. \nPlease try again. \n\n(Hint: Check CAPS/NUM LOCK)",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await invalidLogin.ShowAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex != null)
+                {
+                    Clear();
+                    ContentDialog invalidInput = new ContentDialog
+                    {
+                        Title = "Invalid Input",
+                        Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await invalidInput.ShowAsync();
+                }
+                else { };
             }
 
 
         }
-        private void AddNewUserButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(Views.Login.Components.AddUsers));
-        }
 
+        //Clears the Employee ID and Password fields
+        public void Clear()
+        {
+            employeeID.Text = "";
+            password.Password = "";
+        }
+       // private void AddNewUserButton_Click(object sender, RoutedEventArgs e)
+       // {
+       //     this.Frame.Navigate(typeof(Views.Login.Components.AddUsers));
+       // }
 
     }
 }

@@ -4,11 +4,14 @@ using System.Configuration;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
+using System.Configuration;
+using System.Globalization;
 using Windows.UI.Xaml.Controls;
 using System.IO;
 using Windows.Storage;
 using System.Runtime.InteropServices;
 using Windows.UI.WindowManagement;
+using System.Diagnostics;
 
 namespace InventorySystem.SQL
 {
@@ -21,10 +24,9 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
             {
                 db.Open(); //Open connection to database
-                
-                const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR (6) NOT NULL, IsActive BOOLEAN NOT NULL)";
-                SqliteCommand createTable = new SqliteCommand(tableCommand1, db);
 
+                const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR(64) NOT NULL, IsActive BOOLEAN NOT NULL)";
+                SqliteCommand createTable = new SqliteCommand(tableCommand1, db);
                 try
                 {
                     createTable.ExecuteReader(); //Execute command, throws SqliteException error if command doesn't execute properly
@@ -337,6 +339,8 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
+
         // Method to insert log line into Log table
         // This method should be used cautiously!
         public static bool Add_Log(object sender, RoutedEventArgs e, string empID, string LotNumber, string whenModified, string patientID, string RepID, string LogType)
@@ -371,8 +375,8 @@ namespace InventorySystem.SQL
             }
             return check;
         }
-        
-        
+
+
         // Method to insert text into the SQLite database
         public static void Add_Text(object sender, RoutedEventArgs e, string inputVal)
         {
@@ -403,11 +407,10 @@ namespace InventorySystem.SQL
         // Method to import/export database
         public static void ExportDB(string sourceFile, string destinationFile, string mode)
         {
-            string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
-            //var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 
             string activeDB = LocalState + @"\SamplesDB.db";
-            string bakDB = activeDB + DateTime.Now.Ticks + ".bak";
+            string bakDB = LocalState + @"\SamplesDB." + DateTime.Now.Ticks + ".bak";
             if (mode == "import")
             {
                 System.IO.File.Copy(activeDB, bakDB, true);
@@ -415,7 +418,7 @@ namespace InventorySystem.SQL
             }
             else if (mode == "export")
             {
-                System.IO.File.Copy(sourceFile, destinationFile, true);
+                System.IO.File.Copy(activeDB, destinationFile, true);
             }
         }
 

@@ -22,11 +22,15 @@ namespace InventorySystem.Views.Samples.Components
     /// </summary>
     public sealed partial class DistributeSample : Page
     {
+        private string empID;
         public DistributeSample()
         {
             this.InitializeComponent();
         }
-
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            empID = e.Parameter.ToString();
+        }
         private void Add_Sample(object sender, RoutedEventArgs e)
         {
             if (SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, false))
@@ -34,6 +38,11 @@ namespace InventorySystem.Views.Samples.Components
                 Console.WriteLine("Success!");
             }
             //Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
+        }
+
+        public string GetEmpID()
+        {
+            return empID;
         }
     }
 }
