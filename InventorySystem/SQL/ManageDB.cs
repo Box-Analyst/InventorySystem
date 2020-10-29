@@ -198,7 +198,7 @@ namespace InventorySystem.SQL
         {
             bool check = false;
             string regexString =
-            @"^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$";
+            @"^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/](19|20)\d\d$";
             RegexStringValidator myRegexValidator =
              new RegexStringValidator(regexString);
 
@@ -231,6 +231,71 @@ namespace InventorySystem.SQL
             {
                 check = true;
             }
+            return check;
+        }
+        // Method to update isExpired
+
+        public static void Update_IsExpired()
+        {
+            List<string> entries = new List<string>();
+            List<string> entryLotNumbers = new List<string>();
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT ExpirationDate, LotNum FROM Sample WHERE isExpired = 0", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Console.WriteLine("Exception:" + error);
+                    db.Close();
+                    return;
+                }
+                while (query.Read())
+                {
+                    var tmp = query.GetString(0);
+                    entries.Add(tmp);
+                    var tmp1 = query.GetString(1);
+                    entryLotNumbers.Add(tmp1);
+                }
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (Check_IsExpired(entries[i]))
+                    {
+                        SqliteCommand insertCommand = new SqliteCommand
+                        {
+                            Connection = db,
+
+                            //Use parameterized query to prevent SQL injection attacks
+                            CommandText = "UPDATE Sample SET isExpired = @Entry2 WHERE LotNum = @Entry1;"
+                        };
+                        insertCommand.Parameters.AddWithValue("@Entry1", entryLotNumbers[i]);
+                        insertCommand.Parameters.AddWithValue("@Entry2", false);
+                        try
+                        {
+                            insertCommand.ExecuteReader();
+                        }
+                        catch (SqliteException error)
+                        {
+                            Console.WriteLine(error);
+                            db.Close();
+                            return;
+                        }
+                    }
+                }
+                db.Close();
+            }
+        }
+
+        // Method to check if a sample is about to expire
+
+        public static bool Check_ExpiresSoon()
+        {
+            bool check = false;
+
             return check;
         }
 
