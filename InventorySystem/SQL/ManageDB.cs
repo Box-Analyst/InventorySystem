@@ -9,6 +9,7 @@ using System.IO;
 using Windows.Storage;
 using System.Runtime.InteropServices;
 using Windows.UI.WindowManagement;
+using System.Diagnostics;
 
 namespace InventorySystem.SQL
 {
@@ -342,7 +343,7 @@ namespace InventorySystem.SQL
             }
             else if (mode == "export")
             {
-                System.IO.File.Copy(sourceFile, destinationFile, true);
+                System.IO.File.Copy(activeDB, destinationFile, true);
             }
         }
 
