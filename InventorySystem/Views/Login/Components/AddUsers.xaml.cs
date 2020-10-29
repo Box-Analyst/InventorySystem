@@ -65,6 +65,10 @@ namespace InventorySystem.Views.Login.Components
             }
 
         }
+        public void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SettingsView), GetEmpID());
+        }
 
         private async void DisplayAddUserPasswordError()
         {
