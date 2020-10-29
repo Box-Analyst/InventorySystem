@@ -37,16 +37,16 @@ namespace InventorySystem
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string hashedPW;
-            int empID = int.Parse(employeeID.Text);
             PasswordHash hash = new PasswordHash(password.Password);
             hash.SetHash();
             hashedPW = hash.GetHash();
 
             try
             {
+                int empID = int.Parse(employeeID.Text);
                 if (SQL.ManageDB.CheckPassword(hashedPW, empID))
                 {
-                    this.Frame.Navigate(typeof(Views.Shell.MainNavView), employeeID.Text);
+                    this.Frame.Navigate(typeof(Views.Shell.MainNavView), empID);
                 }
                 else
                 {
