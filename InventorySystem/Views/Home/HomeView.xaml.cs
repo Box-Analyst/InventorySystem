@@ -19,7 +19,7 @@ namespace InventorySystem.Views.Home
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            NotifyFrame.Navigate(typeof(NotifyView));
+            NotifyFrame.Navigate(typeof(Components.NotifyPane));
             SamplesFrame.Navigate(typeof(SamplesView));
         }
 
