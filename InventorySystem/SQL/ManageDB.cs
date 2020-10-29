@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 using System.IO;
 using Windows.Storage;
 using System.Runtime.InteropServices;
-using Windows.UI.WindowManagement;
+//using Windows.UI.WindowManagement;
 using System.Diagnostics;
 
 namespace InventorySystem.SQL
