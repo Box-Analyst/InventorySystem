@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Security;
@@ -16,6 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace InventorySystem
@@ -29,29 +31,64 @@ namespace InventorySystem
         {
             this.InitializeComponent();
 
-
         }
 
         //Upon Clicking Login, user is sent to the Main Page of the Application.
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string hashedPW;
+            int empID = int.Parse(employeeID.Text);
             PasswordHash hash = new PasswordHash(password.Password);
             hash.SetHash();
             hashedPW = hash.GetHash();
 
-            if (SQL.ManageDB.CheckPassword(hashedPW, int.Parse(employeeID.Text)))
+            try
             {
-                this.Frame.Navigate(typeof(Views.Shell.MainNavView));
+                if (SQL.ManageDB.CheckPassword(hashedPW, empID))
+                {
+                    this.Frame.Navigate(typeof(Views.Shell.MainNavView), employeeID.Text);
+                }
+                else
+                {
+                    Clear();
+                    ContentDialog invalidLogin = new ContentDialog
+                    {
+                        Title = "Invalid Employee ID/Password",
+                        Content = "The Employee ID/Password entered is incorrect. \nPlease try again. \n\n(Hint: Check CAPS/NUM LOCK)",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await invalidLogin.ShowAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex != null)
+                {
+                    Clear();
+                    ContentDialog invalidInput = new ContentDialog
+                    {
+                        Title = "Invalid Input",
+                        Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await invalidInput.ShowAsync();
+                }
+                else { };
             }
 
 
         }
-        private void AddNewUserButton_Click(object sender, RoutedEventArgs e)
+    
+        //Clears the Employee ID and Password fields
+        public void Clear()
         {
-            this.Frame.Navigate(typeof(Views.Login.Components.AddUsers));
+            employeeID.Text = "";
+            password.Password = "";
         }
-
+       // private void AddNewUserButton_Click(object sender, RoutedEventArgs e)
+       // {
+       //     this.Frame.Navigate(typeof(Views.Login.Components.AddUsers));
+       // }
 
     }
 }

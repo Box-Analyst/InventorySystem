@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventorySystem.Views.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,12 +27,15 @@ namespace InventorySystem.Views.Login.Components
     /// </summary>
     public sealed partial class AddUsers : Page
     {
-
+        private string empID;
         public AddUsers()
         {
             this.InitializeComponent();
         }
-
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            empID = e.Parameter.ToString();
+        }
         public void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
@@ -45,7 +49,7 @@ namespace InventorySystem.Views.Login.Components
                     hash.SetHash();
                     hashedPW = hash.GetHash();
                     SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), hashedPW, "True");
-                    this.Frame.Navigate(typeof(LoginWindow));
+                    this.Frame.Navigate(typeof(SettingsView), GetEmpID());
                 }
                 else
                 {
@@ -84,6 +88,11 @@ namespace InventorySystem.Views.Login.Components
             };
 
             ContentDialogResult result = await addUserError.ShowAsync();
+        }
+
+        public string GetEmpID()
+        {
+            return empID;
         }
 
     }

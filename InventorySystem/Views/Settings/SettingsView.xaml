@@ -8,10 +8,14 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <Grid>
-        <ComboBox x:Name="ThemePicker" Header="Theme" SelectionChanged="ThemePicker_SelectionChanged" DropDownClosed="ThemePicker_DropDownClosed">
-            <x:String>System (default)</x:String>
-            <x:String>Light</x:String>
-            <x:String>Dark</x:String>
-        </ComboBox>
+        <StackPanel>
+            <ComboBox x:Name="ThemePicker" Header="Theme" SelectionChanged="ThemePicker_SelectionChanged" DropDownClosed="ThemePicker_DropDownClosed">
+                <x:String>System (default)</x:String>
+                <x:String>Light</x:String>
+                <x:String>Dark</x:String>
+            </ComboBox>
+            <TextBlock Text ="Add an Employee account (Admin)" Margin="0,24,0,4" FontSize="14"  />
+            <Button Content="Add Employee(s)" Click="AddNewUserButton_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

@@ -19,10 +19,15 @@ namespace InventorySystem.Views.Samples
 {
     public sealed partial class SamplesView : Page
     {
+        private string empID;
         public SamplesView()
         {
             this.InitializeComponent();
         }
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+       // {
+        //    empID = e.Parameter.ToString();
+        //}
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -32,6 +37,11 @@ namespace InventorySystem.Views.Samples
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
 
+        }
+
+        public string GetEmpID()
+        {
+            return empID;
         }
     }
 }

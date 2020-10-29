@@ -20,10 +20,15 @@ namespace InventorySystem.Views.Samples.Components
 {
     public sealed partial class AddSample : Page
     {
+        private string empID;
         public AddSample()
         {
             this.InitializeComponent();
         }
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    empID = e.Parameter.ToString();
+        //}
 
         private void Add_Sample(object sender, RoutedEventArgs e)
         {
@@ -40,6 +45,11 @@ namespace InventorySystem.Views.Samples.Components
                 // show an error
             }
             //Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
+        }
+
+        public string GetEmpID()
+        {
+            return empID;
         }
 
     }
