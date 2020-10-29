@@ -14,7 +14,7 @@
         <PasswordBox x:Name="password" Header="Password" Margin=" 0,24,0,0" MaxLength="20" Width="400" HorizontalAlignment="Center" InputScope="Password" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Login" Margin="0,24" Click="LoginButton_Click"/>
-            <!-- <Button Content="Add New User(s)" Margin="24" Click="AddNewUserButton_Click"/> -->
+            <Button Content="Add New User(s)" Margin="24" Click="AddNewUserButton_Click"/>
         </StackPanel>
     </StackPanel>
 

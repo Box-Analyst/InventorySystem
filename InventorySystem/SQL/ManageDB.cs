@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
 using System.Configuration;
@@ -9,6 +11,7 @@ using System.IO;
 using Windows.Storage;
 using System.Runtime.InteropServices;
 using Windows.UI.WindowManagement;
+using System.Diagnostics;
 
 namespace InventorySystem.SQL
 {
@@ -266,7 +269,7 @@ namespace InventorySystem.SQL
 
 
         // Method to insert log line into Log table
-
+        // This method should be used cautiously!
         public static bool Add_Log(object sender, RoutedEventArgs e, string empID, string LotNumber, string whenModified, string patientID, string RepID, string LogType)
         {
             bool check = true;
@@ -299,6 +302,8 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
+
         // Method to insert text into the SQLite database
         public static void Add_Text(object sender, RoutedEventArgs e, string inputVal)
         {
@@ -329,11 +334,10 @@ namespace InventorySystem.SQL
         // Method to import/export database
         public static void ExportDB(string sourceFile, string destinationFile, string mode)
         {
-            //string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
-            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 
             string activeDB = LocalState + @"\SamplesDB.db";
-            string bakDB = activeDB + DateTime.Now.Ticks + ".bak";
+            string bakDB = LocalState + @"\SamplesDB." + DateTime.Now.Ticks + ".bak";
             if (mode == "import")
             {
                 System.IO.File.Copy(activeDB, bakDB, true);
@@ -341,7 +345,7 @@ namespace InventorySystem.SQL
             }
             else if (mode == "export")
             {
-                System.IO.File.Copy(sourceFile, destinationFile, true);
+                System.IO.File.Copy(activeDB, destinationFile, true);
             }
         }
 

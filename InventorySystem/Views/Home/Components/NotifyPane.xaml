@@ -5,10 +5,11 @@
     xmlns:local="using:InventorySystem.Views.Home.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="using:FontAwesome.UWP"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <fa:FontAwesome Icon="ExclamationTriangle" FontSize="40" Margin="16 0 0 0" HorizontalAlignment="Left" />
     </Grid>
 </Page>

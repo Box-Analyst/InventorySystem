@@ -1,4 +1,4 @@
-﻿using InventorySystem.Views.Settings;
+﻿﻿using InventorySystem.Views.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
