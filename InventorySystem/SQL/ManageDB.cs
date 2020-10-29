@@ -4,14 +4,13 @@ using System.Configuration;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
-using System.Configuration;
-using System.Globalization;
 using Windows.UI.Xaml.Controls;
 using System.IO;
 using Windows.Storage;
 using System.Runtime.InteropServices;
 using Windows.UI.WindowManagement;
 using System.Diagnostics;
+using InventorySystem.Views.Login;
 
 namespace InventorySystem.SQL
 {
@@ -35,6 +34,7 @@ namespace InventorySystem.SQL
                 {
                     Console.WriteLine("Table error: " + e);
                 }
+                AddAdminAccount();
                 const string tableCommand2 = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
                 createTable = new SqliteCommand(tableCommand2, db);
                 try
@@ -59,6 +59,53 @@ namespace InventorySystem.SQL
             }
         }
 
+        private static void AddAdminAccount()
+        {
+            int empID = 1;
+            string hashedPW;
+            PasswordHash hash = new PasswordHash("password");
+            hash.SetHash();
+            hashedPW = hash.GetHash();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("Select * from Login", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine("Error: " + error);
+                    db.Close();
+                    return;
+                }
+                if (query.HasRows == false)
+                {
+                    SqliteCommand insertCommand = new SqliteCommand
+                    {
+                        Connection = db,
+
+                        //Use parameterized query to prevent SQL injection attacks
+                        CommandText = "Insert into Login Values(@employeeID, @pw, @isActive)"
+                    };
+                    insertCommand.Parameters.AddWithValue("@employeeID", empID);
+                    insertCommand.Parameters.AddWithValue("@pw", hashedPW);
+                    insertCommand.Parameters.AddWithValue("@isActive", true);
+                    try
+                    {
+                        insertCommand.ExecuteReader();
+                    }
+                    catch (SqliteException error)
+                    {
+                        Debug.WriteLine("Exception: " + error);
+                    }
+                }
+                db.Close();
+            }
+        }
 
         // Method to grab entries from the SQLite database
         public static List<string> Grab_Entries(string table, string column, object search)
@@ -192,6 +239,75 @@ namespace InventorySystem.SQL
                     check = false;
                 }
                 db.Close();
+            }
+            return check;
+        }
+
+        public static void Update_IsExpired()
+        {
+            List<string> entries = new List<string>();
+            List<string> entryLotNumbers = new List<string>();
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT ExpirationDate, LotNum FROM Sample WHERE isExpired = 0", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Console.WriteLine("Exception:" + error);
+                    db.Close();
+                    return;
+                }
+                while (query.Read())
+                {
+                    var tmp = query.GetString(0);
+                    entries.Add(tmp);
+                    var tmp1 = query.GetString(1);
+                    entryLotNumbers.Add(tmp1);
+                }
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (Check_IsExpired(entries[i]))
+                    {
+                        SqliteCommand insertCommand = new SqliteCommand
+                        {
+                            Connection = db,
+
+                            //Use parameterized query to prevent SQL injection attacks
+                            CommandText = "UPDATE Sample SET isExpired = @Entry2 WHERE LotNum = @Entry1;"
+                        };
+                        insertCommand.Parameters.AddWithValue("@Entry1", entryLotNumbers[i]);
+                        insertCommand.Parameters.AddWithValue("@Entry2", false);
+                        try
+                        {
+                            insertCommand.ExecuteReader();
+                        }
+                        catch (SqliteException error)
+                        {
+                            Console.WriteLine(error);
+                            db.Close();
+                            return;
+                        }
+                    }
+                }
+                db.Close();
+            }
+        }
+
+        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
+        {
+            bool check = false;
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
+            expirationDate.AddDays(noticeTime);
+            if (localDate >= expirationDate)
+            {
+                check = true;
             }
             return check;
         }

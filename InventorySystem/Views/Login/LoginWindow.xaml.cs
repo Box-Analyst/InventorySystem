@@ -83,10 +83,7 @@ namespace InventorySystem
             employeeID.Text = "";
             password.Password = "";
         }
-       // private void AddNewUserButton_Click(object sender, RoutedEventArgs e)
-       // {
-       //     this.Frame.Navigate(typeof(Views.Login.Components.AddUsers));
-       // }
+
 
     }
 }

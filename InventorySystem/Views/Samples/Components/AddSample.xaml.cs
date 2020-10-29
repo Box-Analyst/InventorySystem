@@ -20,7 +20,7 @@ namespace InventorySystem.Views.Samples.Components
 {
     public sealed partial class AddSample : Page
     {
-        private string empID;
+        //private string empID;
         public AddSample()
         {
             this.InitializeComponent();
@@ -46,10 +46,10 @@ namespace InventorySystem.Views.Samples.Components
             }
         }
 
-        public string GetEmpID()
-        {
-            return empID;
-        }
+        //public string GetEmpID()
+        //{
+        //    return empID;
+        //}
 
         private async void DisplayExpirationDateError()
         {
