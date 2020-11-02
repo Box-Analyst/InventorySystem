@@ -43,16 +43,19 @@ namespace InventorySystem.Views.Shell
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            if (args.IsSettingsInvoked)
+            if (args.InvokedItem != null)
             {
-                // Settings page
-                ContentFrame.Navigate(typeof(Settings.SettingsView), GetEmpID());
-            }
-            else
-            {
-                // find NavigationViewItem with Content that equals InvokedItem
-                var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem);
-                NavView_Navigate(item);
+                if (args.IsSettingsInvoked)
+                {
+                    // Settings page
+                    ContentFrame.Navigate(typeof(Settings.SettingsView), GetEmpID());
+                }
+                else
+                {
+                    // find NavigationViewItem with Content that equals InvokedItem
+                    var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem);
+                    NavView_Navigate(item);
+                }
             }
         }
 
@@ -72,10 +75,6 @@ namespace InventorySystem.Views.Shell
 
                 case "samples":
                     ContentFrame.Navigate(typeof(Samples.SamplesView), GetEmpID());
-                    break;
-
-                case "admin":
-                    ContentFrame.Navigate(typeof(Admin.AdminView), GetEmpID());
                     break;
             }
         }
@@ -115,7 +114,7 @@ namespace InventorySystem.Views.Shell
         // Add Sample button
         private void AppBarButton_Clicked(object sender, RoutedEventArgs e)
         {
-            NewWindow.CreateNewWindow(typeof(Samples.Components.AddSample));
+            ContentFrame.Navigate(typeof(Samples.Components.AddSample));
         }
 
         public string GetEmpID()

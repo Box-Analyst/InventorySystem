@@ -12,6 +12,7 @@ using Windows.Storage;
 using System.Runtime.InteropServices;
 using Windows.UI.WindowManagement;
 using System.Diagnostics;
+using InventorySystem.Views.Login;
 
 namespace InventorySystem.SQL
 {
@@ -35,6 +36,7 @@ namespace InventorySystem.SQL
                 {
                     Console.WriteLine("Table error: " + e);
                 }
+                AddAdminAccount();
                 const string tableCommand2 = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
                 createTable = new SqliteCommand(tableCommand2, db);
                 try
@@ -54,6 +56,39 @@ namespace InventorySystem.SQL
                 catch (SqliteException e)
                 {
                     Console.WriteLine("Table error: " + e);
+                }
+                db.Close();
+            }
+        }
+
+        private static void AddAdminAccount()
+        {
+            int empID = 1;
+            string hashedPW;
+            PasswordHash hash = new PasswordHash("password");
+            hash.SetHash();
+            hashedPW = hash.GetHash();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand insertCommand = new SqliteCommand
+                {
+                    Connection = db,
+
+                    //Use parameterized query to prevent SQL injection attacks
+                    CommandText = "Insert into Login Values(@employeeID,@pw,@isActive)"
+                };
+                insertCommand.Parameters.AddWithValue("@employeeID", empID);
+                insertCommand.Parameters.AddWithValue("@pw", hashedPW);
+                insertCommand.Parameters.AddWithValue("@isActive", true);
+                try
+                {
+                    insertCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine("Exception: " + error);
                 }
                 db.Close();
             }
@@ -401,24 +436,6 @@ namespace InventorySystem.SQL
                     return;
                 }
                 db.Close();
-            }
-        }
-
-        // Method to import/export database
-        public static void ExportDB(string sourceFile, string destinationFile, string mode)
-        {
-            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-
-            string activeDB = LocalState + @"\SamplesDB.db";
-            string bakDB = LocalState + @"\SamplesDB." + DateTime.Now.Ticks + ".bak";
-            if (mode == "import")
-            {
-                System.IO.File.Copy(activeDB, bakDB, true);
-                System.IO.File.Copy(sourceFile, activeDB, true);
-            }
-            else if (mode == "export")
-            {
-                System.IO.File.Copy(activeDB, destinationFile, true);
             }
         }
 

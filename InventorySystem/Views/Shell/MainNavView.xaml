@@ -34,8 +34,6 @@
             <NavigationViewItemSeparator/>
             <NavigationViewItem x:Uid="AlertsNavItem" Content="Alerts" Icon="Flag" Tag="alerts" />
             <NavigationViewItem x:Uid="MusicNavItem" Icon="List" Content="Samples" Tag="samples" />
-            <NavigationViewItemSeparator/>
-            <NavigationViewItem x:Uid="AdminNavItem" Content="Admin" Icon="Admin" Tag="admin" />
         </NavigationView.MenuItems>
 
         <NavigationView.AutoSuggestBox>
