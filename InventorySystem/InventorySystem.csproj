@@ -19,8 +19,6 @@
     <PackageCertificateKeyFile>
     </PackageCertificateKeyFile>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
-    <PackageCertificateThumbprint>
-    </PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -124,9 +122,6 @@
     <Compile Include="Views\Home\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\AdminView.xaml.cs">
-      <DependentUpon>AdminView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shell\MainNavView.xaml.cs">
       <DependentUpon>MainNavView.xaml</DependentUpon>
     </Compile>
@@ -188,10 +183,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Home\HomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\AdminView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

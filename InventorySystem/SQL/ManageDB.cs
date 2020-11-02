@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using Windows.UI.WindowManagement;
 using InventorySystem.Views.Login;
 using System.Diagnostics;
+using InventorySystem.Views.Login;
 
 namespace InventorySystem.SQL
 {
@@ -35,9 +36,7 @@ namespace InventorySystem.SQL
                 {
                     Debug.WriteLine("Table error: " + e);
                 }
-                db.Close();
                 AddAdminAccount();
-                db.Open();
                 const string tableCommand2 = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
                 createTable = new SqliteCommand(tableCommand2, db);
                 try
@@ -559,24 +558,6 @@ namespace InventorySystem.SQL
                     return;
                 }
                 db.Close();
-            }
-        }
-
-        // Method to import/export database
-        public static void ExportDB(string sourceFile, string destinationFile, string mode)
-        {
-            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-
-            string activeDB = LocalState + @"\SamplesDB.db";
-            string bakDB = LocalState + @"\SamplesDB." + DateTime.Now.Ticks + ".bak";
-            if (mode == "import")
-            {
-                System.IO.File.Copy(activeDB, bakDB, true);
-                System.IO.File.Copy(sourceFile, activeDB, true);
-            }
-            else if (mode == "export")
-            {
-                System.IO.File.Copy(activeDB, destinationFile, true);
             }
         }
 
