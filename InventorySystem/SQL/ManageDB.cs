@@ -33,7 +33,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException e)
                 {
-                    Console.WriteLine("Table error: " + e);
+                    Debug.WriteLine("Table error: " + e);
                 }
                 db.Close();
                 AddAdminAccount();
@@ -46,7 +46,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException e)
                 {
-                    Console.WriteLine("Table error: " + e);
+                    Debug.WriteLine("Table error: " + e);
                 }
                 const string tableCommand3 = "CREATE TABLE IF NOT EXISTS Log (LogEntryId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Emp_id INTEGER CONSTRAINT Emp_idConstraint REFERENCES Login (Emp_id) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, LotNum VARCHAR REFERENCES Sample (LotNum) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, WhenModifed DATETIME NOT NULL, Patient_id VARCHAR (12), Rep_id VARCHAR (12), LogType CHAR (1) NOT NULL)";
                 createTable = new SqliteCommand(tableCommand3, db);
@@ -56,7 +56,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException e)
                 {
-                    Console.WriteLine("Table error: " + e);
+                    Debug.WriteLine("Table error: " + e);
                 }
                 db.Close();
             }
@@ -129,7 +129,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Error: " + error);
+                    Debug.WriteLine("Error: " + error);
                     db.Close();
                     return entries;
                 }
@@ -167,7 +167,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Exception:" + error);
+                    Debug.WriteLine("Exception:" + error);
                     db.Close();
                     return false;
                 }
@@ -204,7 +204,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Debug.WriteLine(error);
                     check = false;
                 }
                 db.Close();
@@ -240,7 +240,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Exception: " + error);
+                    Debug.WriteLine("Exception: " + error);
                     check = false;
                 }
                 db.Close();
@@ -257,7 +257,7 @@ namespace InventorySystem.SQL
              new RegexStringValidator(regexString);
 
             // Determine if the object to validate can be validated.
-            Console.WriteLine("CanValidate: {0}",
+            Debug.WriteLine("CanValidate: {0}",
               myRegexValidator.CanValidate(expirationdate.GetType()));
 
             try
@@ -269,7 +269,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Console.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
                 check = false;
             }
             return check;
@@ -284,7 +284,7 @@ namespace InventorySystem.SQL
              new RegexStringValidator(regexString);
 
             // Determine if the object to validate can be validated.
-            Console.WriteLine("CanValidate: {0}",
+            Debug.WriteLine("CanValidate: {0}",
               myRegexValidator.CanValidate(lotNum.GetType()));
 
             try
@@ -296,7 +296,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Console.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
                 check = false;
             }
             return check;
@@ -311,7 +311,7 @@ namespace InventorySystem.SQL
              new RegexStringValidator(regexString);
 
             // Determine if the object to validate can be validated.
-            Console.WriteLine("CanValidate: {0}",
+            Debug.WriteLine("CanValidate: {0}",
               myRegexValidator.CanValidate(nameAndDosage.GetType()));
 
             try
@@ -323,7 +323,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Console.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
                 check = false;
             }
             return check;
@@ -338,7 +338,7 @@ namespace InventorySystem.SQL
              new RegexStringValidator(regexString);
 
             // Determine if the object to validate can be validated.
-            Console.WriteLine("CanValidate: {0}",
+            Debug.WriteLine("CanValidate: {0}",
               myRegexValidator.CanValidate(count.GetType()));
 
             try
@@ -350,7 +350,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Console.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
                 check = false;
             }
             return check;
@@ -365,7 +365,7 @@ namespace InventorySystem.SQL
              new RegexStringValidator(regexString);
 
             // Determine if the object to validate can be validated.
-            Console.WriteLine("CanValidate: {0}",
+            Debug.WriteLine("CanValidate: {0}",
               myRegexValidator.CanValidate(repID.GetType()));
 
             try
@@ -377,7 +377,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Console.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
                 check = false;
             }
             return check;
@@ -412,7 +412,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Exception:" + error);
+                    Debug.WriteLine("Exception:" + error);
                     db.Close();
                     return;
                 }
@@ -442,7 +442,7 @@ namespace InventorySystem.SQL
                         }
                         catch (SqliteException error)
                         {
-                            Console.WriteLine(error);
+                            Debug.WriteLine(error);
                             db.Close();
                             return;
                         }
@@ -492,7 +492,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Debug.WriteLine(error);
                     check = false;
                 }
                 db.Close();
@@ -526,7 +526,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Debug.WriteLine(error);
                     check = false;
                 }
                 db.Close();
@@ -555,7 +555,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Debug.WriteLine(error);
                     return;
                 }
                 db.Close();
