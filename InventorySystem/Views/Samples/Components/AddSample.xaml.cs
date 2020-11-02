@@ -63,32 +63,32 @@ namespace InventorySystem.Views.Samples.Components
                                         Clear();
                                     } else
                                     {
-                                        DisplayRepIDError();
+                                        DisplayError("Invalid Representative ID Input", "Representative ID is formatted Incorrectly or empty. \nFormatting should be alphanumeric, or numbers and letters only!");
                                     }
                                 }
                                 else
                                 {
-                                    DisplayModeError();
+                                    DisplayError("No Mode Selected", "Please Select a Mode and try again!");
                                 }
                             }
                         }
                         else
                         {
-                            DisplayExpirationDateError();
+                            DisplayError("Invalid Expiration Date Input", "Expiration Date formatted Incorrectly or empty. \nFormatting should be MM/DD/YYYY");
                         }
                     }
                     else
                     {
-                        DisplayCountError();
+                        DisplayError("Invalid Count Input", "Count is formatted Incorrectly or empty. \nOnly insert integers!");
                     }
                 }
                 else
                 {
-                    DisplayNameAndDosageError();
+                    DisplayError("Invalid Name and Dosage Input", "Name and Dosage formatted Incorrectly or empty. \nMake sure you have a dosage!");
                 }
             } else
             {
-                DisplayLotNumberError();
+                DisplayError("Invalid Lot Number Input", "Lot Number formatted Incorrectly or empty. \nFormatting should be alphanumeric or numbers and letters only");
             }
         }
 
@@ -97,77 +97,18 @@ namespace InventorySystem.Views.Samples.Components
             return empID;
         }
 
-        private async void DisplayExpirationDateError()
+        private async void DisplayError(string title, string content)
         {
-            ContentDialog addExpirationDateError = new ContentDialog
+            ContentDialog addError = new ContentDialog
             {
-                Title = "Invalid Expiration Date Input",
-                Content = "Expiration Date formatted Incorrectly or empty. \nFormatting should be MM/DD/YYYY",
+                Title = title,
+                Content = content,
                 CloseButtonText = "Ok"
             };
 
-            ContentDialogResult result = await addExpirationDateError.ShowAsync();
+            ContentDialogResult result = await addError.ShowAsync();
         }
 
-        private async void DisplayLotNumberError()
-        {
-            ContentDialog addLotNumberError = new ContentDialog
-            {
-                Title = "Invalid Lot Number Input",
-                Content = "Lot Number formatted Incorrectly or empty. \nFormatting should be alphanumeric or numbers and letters only",
-                CloseButtonText = "Ok"
-            };
-
-            ContentDialogResult result = await addLotNumberError.ShowAsync();
-        }
-
-        private async void DisplayNameAndDosageError()
-        {
-            ContentDialog addNameAndDosageError = new ContentDialog
-            {
-                Title = "Invalid Name and Dosage Input",
-                Content = "Name and Dosage formatted Incorrectly or empty. \nMake sure you have a dosage!",
-                CloseButtonText = "Ok"
-            };
-
-            ContentDialogResult result = await addNameAndDosageError.ShowAsync();
-        }
-
-        private async void DisplayCountError()
-        {
-            ContentDialog addCountError = new ContentDialog
-            {
-                Title = "Invalid Count Input",
-                Content = "Count is formatted Incorrectly or empty. \nOnly insert integers!",
-                CloseButtonText = "Ok"
-            };
-
-            ContentDialogResult result = await addCountError.ShowAsync();
-        }
-
-        private async void DisplayModeError()
-        {
-            ContentDialog addModeError = new ContentDialog
-            {
-                Title = "No Mode Selected!",
-                Content = "Please Select a Mode and try again!",
-                CloseButtonText = "Ok"
-            };
-
-            ContentDialogResult result = await addModeError.ShowAsync();
-        }
-
-        private async void DisplayRepIDError()
-        {
-            ContentDialog addRepIDError = new ContentDialog
-            {
-                Title = "Invalid Representative ID Input",
-                Content = "Representative ID is formatted Incorrectly or empty. \nFormatting should be alphanumeric, or numbers and letters only!",
-                CloseButtonText = "Ok"
-            };
-
-            ContentDialogResult result = await addRepIDError.ShowAsync();
-        }
         private void HandleCheck(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
