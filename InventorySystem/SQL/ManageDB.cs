@@ -4,13 +4,12 @@ using System.Configuration;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
-using System.Configuration;
-using System.Globalization;
 using Windows.UI.Xaml.Controls;
 using System.IO;
 using Windows.Storage;
 using System.Runtime.InteropServices;
 using Windows.UI.WindowManagement;
+using InventorySystem.Views.Login;
 using System.Diagnostics;
 using InventorySystem.Views.Login;
 
@@ -26,15 +25,16 @@ namespace InventorySystem.SQL
             {
                 db.Open(); //Open connection to database
 
-                const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR(64) NOT NULL, IsActive BOOLEAN NOT NULL)";
+                const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR (6) NOT NULL, IsActive BOOLEAN NOT NULL)";
                 SqliteCommand createTable = new SqliteCommand(tableCommand1, db);
+
                 try
                 {
                     createTable.ExecuteReader(); //Execute command, throws SqliteException error if command doesn't execute properly
                 }
                 catch (SqliteException e)
                 {
-                    Console.WriteLine("Table error: " + e);
+                    Debug.WriteLine("Table error: " + e);
                 }
                 AddAdminAccount();
                 const string tableCommand2 = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
@@ -45,7 +45,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException e)
                 {
-                    Console.WriteLine("Table error: " + e);
+                    Debug.WriteLine("Table error: " + e);
                 }
                 const string tableCommand3 = "CREATE TABLE IF NOT EXISTS Log (LogEntryId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Emp_id INTEGER CONSTRAINT Emp_idConstraint REFERENCES Login (Emp_id) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, LotNum VARCHAR REFERENCES Sample (LotNum) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, WhenModifed DATETIME NOT NULL, Patient_id VARCHAR (12), Rep_id VARCHAR (12), LogType CHAR (1) NOT NULL)";
                 createTable = new SqliteCommand(tableCommand3, db);
@@ -55,7 +55,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException e)
                 {
-                    Console.WriteLine("Table error: " + e);
+                    Debug.WriteLine("Table error: " + e);
                 }
                 db.Close();
             }
@@ -72,29 +72,45 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand insertCommand = new SqliteCommand
-                {
-                    Connection = db,
-
-                    //Use parameterized query to prevent SQL injection attacks
-                    CommandText = "Insert into Login Values(@employeeID,@pw,@isActive)"
-                };
-                insertCommand.Parameters.AddWithValue("@employeeID", empID);
-                insertCommand.Parameters.AddWithValue("@pw", hashedPW);
-                insertCommand.Parameters.AddWithValue("@isActive", true);
+                SqliteCommand selectCommand = new SqliteCommand("Select * from Login", db);
+                SqliteDataReader query;
                 try
                 {
-                    insertCommand.ExecuteReader();
+                    query = selectCommand.ExecuteReader();
                 }
                 catch (SqliteException error)
                 {
-                    Debug.WriteLine("Exception: " + error);
+                    Debug.WriteLine("Error: " + error);
+                    db.Close();
+                    return;
+                }
+                if (!query.HasRows)
+                {
+                    SqliteCommand insertCommand = new SqliteCommand
+                    {
+                        Connection = db,
+
+                        //Use parameterized query to prevent SQL injection attacks
+                        CommandText = "Insert into Login Values(@employeeID, @pw, @isActive)"
+                    };
+                    insertCommand.Parameters.AddWithValue("@employeeID", empID);
+                    insertCommand.Parameters.AddWithValue("@pw", hashedPW);
+                    insertCommand.Parameters.AddWithValue("@isActive", true);
+                    try
+                    {
+                        insertCommand.ExecuteReader();
+                    }
+                    catch (SqliteException error)
+                    {
+                        Debug.WriteLine("Exception: " + error);
+                    }
+                } else
+                {
+                    Debug.WriteLine("Else: " + query.Read());
                 }
                 db.Close();
             }
         }
-
-
         // Method to grab entries from the SQLite database
         public static List<string> Grab_Entries(string table, string column, object search)
         {
@@ -112,7 +128,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Error: " + error);
+                    Debug.WriteLine("Error: " + error);
                     db.Close();
                     return entries;
                 }
@@ -150,7 +166,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Exception:" + error);
+                    Debug.WriteLine("Exception:" + error);
                     db.Close();
                     return false;
                 }
@@ -187,7 +203,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Debug.WriteLine(error);
                     check = false;
                 }
                 db.Close();
@@ -223,7 +239,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Exception: " + error);
+                    Debug.WriteLine("Exception: " + error);
                     check = false;
                 }
                 db.Close();
@@ -235,12 +251,12 @@ namespace InventorySystem.SQL
         {
             bool check = false;
             string regexString =
-            @"^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/](19|20)\d\d$";
+            @"^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/](19|20|21)\d\d$";
             RegexStringValidator myRegexValidator =
              new RegexStringValidator(regexString);
 
             // Determine if the object to validate can be validated.
-            Console.WriteLine("CanValidate: {0}",
+            Debug.WriteLine("CanValidate: {0}",
               myRegexValidator.CanValidate(expirationdate.GetType()));
 
             try
@@ -252,7 +268,115 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Console.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_LotNumber_RegEx(string lotNum)
+        {
+            bool check = false;
+            string regexString =
+            @"^[a-zA-Z0-9]+$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Debug.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(lotNum.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(lotNum);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_NameAndDosage_RegEx(string nameAndDosage)
+        {
+            bool check = false;
+            string regexString =
+            @"^[a-zA-Z]+ [0-9]+[a-zA-Z]+$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Debug.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(nameAndDosage.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(nameAndDosage);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_Count_RegEx(string count)
+        {
+            bool check = false;
+            string regexString =
+            @"^[0-9]+$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Debug.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(count.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(count);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_RepID_RegEx(string repID)
+        {
+            bool check = false;
+            string regexString =
+            @"^[a-zA-Z0-9]+$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Debug.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(repID.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(repID);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Debug.WriteLine("Error: {0}", error.Message.ToString());
                 check = false;
             }
             return check;
@@ -287,7 +411,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Exception:" + error);
+                    Debug.WriteLine("Exception:" + error);
                     db.Close();
                     return;
                 }
@@ -317,7 +441,7 @@ namespace InventorySystem.SQL
                         }
                         catch (SqliteException error)
                         {
-                            Console.WriteLine(error);
+                            Debug.WriteLine(error);
                             db.Close();
                             return;
                         }
@@ -367,15 +491,13 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Debug.WriteLine(error);
                     check = false;
                 }
                 db.Close();
             }
             return check;
         }
-
-
         // Method to insert log line into Log table
         // This method should be used cautiously!
         public static bool Add_Log(object sender, RoutedEventArgs e, string empID, string LotNumber, string whenModified, string patientID, string RepID, string LogType)
@@ -403,7 +525,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Debug.WriteLine(error);
                     check = false;
                 }
                 db.Close();
@@ -432,7 +554,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine(error);
+                    Debug.WriteLine(error);
                     return;
                 }
                 db.Close();

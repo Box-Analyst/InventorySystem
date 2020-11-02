@@ -28,7 +28,7 @@ namespace InventorySystem.Views.Shell
             //NavView.MenuItems.Add(new NavigationViewItem()
             //{ Content = "My content", Icon = new SymbolIcon(Symbol.Folder), Tag = "content" });
 
-            // set the initial SelectedItem 
+            // set the initial SelectedItem
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {
                 if (item is NavigationViewItem && item.Tag.ToString() == "home")
@@ -114,7 +114,7 @@ namespace InventorySystem.Views.Shell
         // Add Sample button
         private void AppBarButton_Clicked(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Navigate(typeof(Samples.Components.AddSample));
+            ContentFrame.Navigate(typeof(Samples.Components.AddSample), GetEmpID());
         }
 
         public string GetEmpID()
