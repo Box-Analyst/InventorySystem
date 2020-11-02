@@ -115,7 +115,7 @@ namespace InventorySystem.Views.Shell
         // Add Sample button
         private void AppBarButton_Clicked(object sender, RoutedEventArgs e)
         {
-            NewWindow.CreateNewWindow(typeof(Samples.Components.AddSample));
+            ContentFrame.Navigate(typeof(Samples.Components.AddSample), GetEmpID());
         }
 
         public string GetEmpID()

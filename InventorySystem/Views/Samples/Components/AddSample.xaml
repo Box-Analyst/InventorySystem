@@ -24,9 +24,22 @@
 
             <TextBlock>Expiration Date</TextBlock>
             <TextBox x:Name="ExpirationDateBox"/>
-            
+            <TextBlock Text="&#x0a;"/>
+
+            <TextBlock x:Name ="RepIDTitle" Visibility="Collapsed">Representative ID</TextBlock>
+            <TextBox x:Name="RepID" Visibility ="Collapsed"/>
+            <TextBlock x:Name ="RepIDWhiteSpace" Text="&#x0a;" Visibility="Collapsed"/>
+
+            <TextBlock> Mode</TextBlock>
+            <RadioButton x:Name="ManualButton" Margin="5" Checked="HandleCheck"
+            GroupName="First Group" Content="Manual Add" />
+            <RadioButton x:Name="ReceiveButton" Margin="5" Checked="HandleCheck"
+            GroupName="First Group" Content="Receive Sample" />
+            <TextBlock Text="&#x0a;"/>
+
             <Button Click ="Add_Sample"  Content="Add" />
             <TextBlock Text="&#x0a;"/>
+            <TextBlock x:Name="OutputSuccess"></TextBlock>
 
         </StackPanel>
     </Grid>

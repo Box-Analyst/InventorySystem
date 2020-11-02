@@ -9,6 +9,8 @@ using System.IO;
 using Windows.Storage;
 using System.Runtime.InteropServices;
 using Windows.UI.WindowManagement;
+using InventorySystem.Views.Login;
+using System.Diagnostics;
 
 namespace InventorySystem.SQL
 {
@@ -33,6 +35,9 @@ namespace InventorySystem.SQL
                 {
                     Console.WriteLine("Table error: " + e);
                 }
+                db.Close();
+                AddAdminAccount();
+                db.Open();
                 const string tableCommand2 = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
                 createTable = new SqliteCommand(tableCommand2, db);
                 try
@@ -57,7 +62,56 @@ namespace InventorySystem.SQL
             }
         }
 
+        private static void AddAdminAccount()
+        {
+            int empID = 1;
+            string hashedPW;
+            PasswordHash hash = new PasswordHash("password");
+            hash.SetHash();
+            hashedPW = hash.GetHash();
 
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("Select * from Login", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine("Error: " + error);
+                    db.Close();
+                    return;
+                }
+                if (!query.HasRows)
+                {
+                    SqliteCommand insertCommand = new SqliteCommand
+                    {
+                        Connection = db,
+
+                        //Use parameterized query to prevent SQL injection attacks
+                        CommandText = "Insert into Login Values(@employeeID, @pw, @isActive)"
+                    };
+                    insertCommand.Parameters.AddWithValue("@employeeID", empID);
+                    insertCommand.Parameters.AddWithValue("@pw", hashedPW);
+                    insertCommand.Parameters.AddWithValue("@isActive", true);
+                    try
+                    {
+                        insertCommand.ExecuteReader();
+                    }
+                    catch (SqliteException error)
+                    {
+                        Debug.WriteLine("Exception: " + error);
+                    }
+                } else
+                {
+                    Debug.WriteLine("Else: " + query.Read());
+                }
+                db.Close();
+            }
+        }
         // Method to grab entries from the SQLite database
         public static List<string> Grab_Entries(string table, string column, object search)
         {
@@ -198,7 +252,7 @@ namespace InventorySystem.SQL
         {
             bool check = false;
             string regexString =
-            @"^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/](19|20)\d\d$";
+            @"^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/](19|20|21)\d\d$";
             RegexStringValidator myRegexValidator =
              new RegexStringValidator(regexString);
 
@@ -210,6 +264,114 @@ namespace InventorySystem.SQL
             {
                 // Attempt validation.
                 myRegexValidator.Validate(expirationdate);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Console.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_LotNumber_RegEx(string lotNum)
+        {
+            bool check = false;
+            string regexString =
+            @"^[a-zA-Z0-9]+$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Console.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(lotNum.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(lotNum);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Console.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_NameAndDosage_RegEx(string nameAndDosage)
+        {
+            bool check = false;
+            string regexString =
+            @"^[a-zA-Z]+ [0-9]+[a-zA-Z]+$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Console.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(nameAndDosage.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(nameAndDosage);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Console.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_Count_RegEx(string count)
+        {
+            bool check = false;
+            string regexString =
+            @"^[0-9]+$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Console.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(count.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(count);
+                check = true;
+            }
+            catch (ArgumentException error)
+            {
+                // Validation failed.
+                Console.WriteLine("Error: {0}", error.Message.ToString());
+                check = false;
+            }
+            return check;
+        }
+
+        public static bool Check_RepID_RegEx(string repID)
+        {
+            bool check = false;
+            string regexString =
+            @"^[a-zA-Z0-9]+$";
+            RegexStringValidator myRegexValidator =
+             new RegexStringValidator(regexString);
+
+            // Determine if the object to validate can be validated.
+            Console.WriteLine("CanValidate: {0}",
+              myRegexValidator.CanValidate(repID.GetType()));
+
+            try
+            {
+                // Attempt validation.
+                myRegexValidator.Validate(repID);
                 check = true;
             }
             catch (ArgumentException error)
@@ -403,11 +565,10 @@ namespace InventorySystem.SQL
         // Method to import/export database
         public static void ExportDB(string sourceFile, string destinationFile, string mode)
         {
-            string LocalState = @"C:\Users\cyan\AppData\Local\Packages\704c98f6-3551-4a96-b6f6-f78cdab03ea8_q1j7n9hdrajb0\LocalState";
-            //var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 
             string activeDB = LocalState + @"\SamplesDB.db";
-            string bakDB = activeDB + DateTime.Now.Ticks + ".bak";
+            string bakDB = LocalState + @"\SamplesDB." + DateTime.Now.Ticks + ".bak";
             if (mode == "import")
             {
                 System.IO.File.Copy(activeDB, bakDB, true);
@@ -415,7 +576,7 @@ namespace InventorySystem.SQL
             }
             else if (mode == "export")
             {
-                System.IO.File.Copy(sourceFile, destinationFile, true);
+                System.IO.File.Copy(activeDB, destinationFile, true);
             }
         }
 
