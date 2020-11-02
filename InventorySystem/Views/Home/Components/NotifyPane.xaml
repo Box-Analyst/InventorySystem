@@ -11,5 +11,6 @@
 
     <Grid>
         <fa:FontAwesome Icon="ExclamationTriangle" FontSize="40" Margin="16 0 0 0" HorizontalAlignment="Left" />
+        <TextBlock x:Name="expiryAlert" Margin="0,24,0,4" Visibility="Collapsed"></TextBlock>
     </Grid>
 </Page>

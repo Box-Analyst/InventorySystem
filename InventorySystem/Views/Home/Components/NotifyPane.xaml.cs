@@ -25,6 +25,27 @@ namespace InventorySystem.Views.Home.Components
         public NotifyPane()
         {
             this.InitializeComponent();
+            notifyText();
+        }
+
+        private void expiryList()
+        {
+            //
+        }
+
+        private void expireSoonList()
+        {
+            //for (int i = 0; i < entries.Count; i++)
+            //{
+            //    if (SQL.ManageDB.Check_IsExpired(entries[i]))
+            //    {
+            //    }
+            //}
+        }
+
+        private void notifyText()
+        {
+            expiryAlert.Text = "Placeholder.";
         }
     }
 }
