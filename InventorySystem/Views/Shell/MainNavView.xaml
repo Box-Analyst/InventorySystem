@@ -9,7 +9,9 @@
 
     <NavigationView x:Name="NavView"
                       ItemInvoked="NavView_ItemInvoked"
-                      Loaded="NavView_Loaded">
+                      Loaded="NavView_Loaded"
+                      IsBackEnabled="False"
+                      IsBackButtonVisible="Collapsed">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -46,6 +48,11 @@
         <NavigationView.PaneFooter>
             <StackPanel Name="AppBarPanel" Orientation="Vertical">
                 <AppBarButton x:Uid="AddNavItem" Click="AppBarButton_Clicked" Width="44" Height="44" Icon="Add" Tag="add"></AppBarButton>
+                <AppBarButton x:Uid="UserProfileItem" Click="SignOutButton_Clicked" Width="44" Height="44" Tag="user">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF3B1;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
                 <!--<AppBarButton x:Uid="NotifyIcon" Click="NotifyBarButton_Click" Width="44" Height="44" Icon="Flag" Tag="notif"></AppBarButton>-->
             </StackPanel>
         </NavigationView.PaneFooter>

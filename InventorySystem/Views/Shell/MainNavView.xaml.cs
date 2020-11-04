@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -120,6 +121,24 @@ namespace InventorySystem.Views.Shell
         public string GetEmpID()
         {
             return empID;
+        }
+
+        private async void SignOutButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            ContentDialog areYouSure = new ContentDialog
+            {
+                Title = "Sign Out?",
+                Content = "This will sign you out of the app and return to the login screen.",
+                PrimaryButtonText = "Cancel",
+                CloseButtonText = "Yes"
+
+            };
+
+            ContentDialogResult result = await areYouSure.ShowAsync();
+            if (result != ContentDialogResult.Primary)
+            {
+                Frame.Navigate(typeof(LoginWindow));
+            }
         }
     }
 }

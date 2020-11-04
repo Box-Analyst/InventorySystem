@@ -61,7 +61,8 @@ namespace InventorySystem.Views.Samples.Components
                                         SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(), "NULL", RepID.Text, LogMode);
                                         OutputSuccess.Text = "Successfully recieved " + CountBox.Text + " units of " + LotNumBox.Text + " from " + RepID.Text;
                                         Clear();
-                                    } else
+                                    }
+                                    else
                                     {
                                         DisplayError("Invalid Representative ID Input", "Representative ID is formatted Incorrectly or empty. \nFormatting should be alphanumeric, or numbers and letters only!");
                                     }
@@ -86,7 +87,8 @@ namespace InventorySystem.Views.Samples.Components
                 {
                     DisplayError("Invalid Name and Dosage Input", "Name and Dosage formatted Incorrectly or empty. \nMake sure you have a dosage!");
                 }
-            } else
+            }
+            else
             {
                 DisplayError("Invalid Lot Number Input", "Lot Number formatted Incorrectly or empty. \nFormatting should be alphanumeric or numbers and letters only");
             }
@@ -112,13 +114,14 @@ namespace InventorySystem.Views.Samples.Components
         private void HandleCheck(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
-            if(rb.Name == "ManualButton")
+            if (rb.Name == "ManualButton")
             {
                 LogMode = "ADD";
                 RepIDTitle.Visibility = Visibility.Collapsed;
                 RepID.Visibility = Visibility.Collapsed;
                 RepIDWhiteSpace.Visibility = Visibility.Collapsed;
-            } else if(rb.Name == "ReceiveButton")
+            }
+            else if (rb.Name == "ReceiveButton")
             {
                 LogMode = "RECEIVE";
                 RepIDTitle.Visibility = Visibility.Visible;
