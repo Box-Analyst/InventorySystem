@@ -1,8 +1,10 @@
-﻿using System;
+﻿using InventorySystem.Views.Samples.Components;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace InventorySystem.Views.Shell
@@ -111,10 +113,10 @@ namespace InventorySystem.Views.Shell
         }
         // End AutoSuggestBox
 
-
         // Add Sample button
-        private void AppBarButton_Clicked(object sender, RoutedEventArgs e)
+        private void AppBarButton_Clicked(object sender, TappedRoutedEventArgs e)
         {
+            NavView.SelectedItem = null;
             ContentFrame.Navigate(typeof(Samples.Components.AddSample), GetEmpID());
         }
 
@@ -123,7 +125,7 @@ namespace InventorySystem.Views.Shell
             return empID;
         }
 
-        private async void SignOutButton_Clicked(object sender, RoutedEventArgs e)
+        private async void SignOutButton_Clicked(object sender, TappedRoutedEventArgs e)
         {
             ContentDialog areYouSure = new ContentDialog
             {
@@ -137,6 +139,7 @@ namespace InventorySystem.Views.Shell
             ContentDialogResult result = await areYouSure.ShowAsync();
             if (result != ContentDialogResult.Primary)
             {
+                NavView.SelectedItem = null;
                 Frame.Navigate(typeof(LoginWindow));
             }
         }
