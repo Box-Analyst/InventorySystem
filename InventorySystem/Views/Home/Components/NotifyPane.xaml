@@ -9,8 +9,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <fa:FontAwesome Icon="ExclamationTriangle" FontSize="40" Margin="16 0 0 0" HorizontalAlignment="Left" />
-        <TextBlock x:Name="expiryAlert" Margin="0,24,0,4" Visibility="Collapsed"></TextBlock>
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <fa:FontAwesome Icon="ExclamationTriangle" FontSize="40" Margin="16 0 0 0" HorizontalAlignment="Left" />
+            <TextBlock x:Name="expiredAlert" Margin="0,24,0,4"></TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <fa:FontAwesome Icon="ExclamationTriangle" FontSize="40" Margin="16 0 0 0" HorizontalAlignment="Left" />
+            <TextBlock x:Name="expireSoonAlert" Margin="0,24,0,4"></TextBlock>
+        </StackPanel>
+    </StackPanel>
 </Page>

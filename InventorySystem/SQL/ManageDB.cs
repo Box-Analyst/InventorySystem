@@ -104,7 +104,8 @@ namespace InventorySystem.SQL
                     {
                         Debug.WriteLine("Exception: " + error);
                     }
-                } else
+                }
+                else
                 {
                     Debug.WriteLine("Else: " + query.Read());
                 }
