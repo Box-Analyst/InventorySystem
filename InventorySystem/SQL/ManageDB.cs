@@ -114,9 +114,11 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT @Column FROM @Table", db);
-                selectCommand.Parameters.AddWithValue("@Table", table);
-                selectCommand.Parameters.AddWithValue("@Column", column);
+                SqliteCommand selectCommand = new SqliteCommand
+                {
+                    Connection = db,
+                    CommandText = "SELECT " + column + " FROM " + table
+                };
                 SqliteDataReader query;
                 try
                 {
@@ -124,7 +126,7 @@ namespace InventorySystem.SQL
                 }
                 catch (SqliteException error)
                 {
-                    Console.WriteLine("Error: " + error);
+                    Debug.WriteLine("Error: " + error);
                     db.Close();
                     return entries;
                 }
@@ -495,6 +497,23 @@ namespace InventorySystem.SQL
             }
             return check;
 
+        }
+        public static int NumberOfRows()
+        {
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("Select COUNT(*) from Sample", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                int numRows = 0;
+                if (query.Read())
+                {
+                    numRows = int.Parse($"{query[0]}");
+                    return numRows;
+                }
+                db.Close();
+                return numRows;
+            }
         }
     }
 }
