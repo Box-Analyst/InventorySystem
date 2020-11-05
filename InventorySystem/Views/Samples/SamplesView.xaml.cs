@@ -1,25 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.VoiceCommands;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.WindowManagement;
-using System.Security.Cryptography;
-using Windows.UI.Core;
-using System.Windows;
 
 namespace InventorySystem.Views.Samples
 {
@@ -33,7 +15,7 @@ namespace InventorySystem.Views.Samples
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter.ToString();
+            empID = e.Parameter?.ToString();
             ConstructSamplesList();
         }
 
@@ -44,12 +26,12 @@ namespace InventorySystem.Views.Samples
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if((Math.Abs(e.NewSize.Width-e.PreviousSize.Width))>0)
+            if ((Math.Abs(e.NewSize.Width - e.PreviousSize.Width)) > 0)
             {
                 UpdateSamplesList();
             }
 
-            
+
         }
 
         private void ConstructSamplesList()
@@ -110,7 +92,7 @@ namespace InventorySystem.Views.Samples
                     count++;
 
                 }
-            }      
+            }
         }
 
         //Not working/saving for later ---DONT MERGE---
@@ -142,8 +124,8 @@ namespace InventorySystem.Views.Samples
         }*/
 
         //Working, but slow/memory heavy
-       //Updates the Sample list by calling ClearContent, and rebuilding the grid's rows using preexisting columns
-       private void UpdateSamplesList()
+        //Updates the Sample list by calling ClearContent, and rebuilding the grid's rows using preexisting columns
+        private void UpdateSamplesList()
         {
             ClearContent();
             var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
@@ -190,18 +172,18 @@ namespace InventorySystem.Views.Samples
             }
 
         }
-        
+
         //Deletes the Grid's rows and content within, leaving the columns for use in rebuilding the list
         private void ClearContent()
         {
-                foreach (RowDefinition row in sampleListGrid.RowDefinitions)
+            foreach (RowDefinition row in sampleListGrid.RowDefinitions)
+            {
+                foreach (UIElement control in sampleListGrid.Children)
                 {
-                    foreach (UIElement control in sampleListGrid.Children)
-                    {
-                        sampleListGrid.Children.Remove(control);
-                    }
-                    sampleListGrid.RowDefinitions.Remove(row);
+                    sampleListGrid.Children.Remove(control);
                 }
+                sampleListGrid.RowDefinitions.Remove(row);
+            }
 
         }
 

@@ -4,10 +4,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-using System.Diagnostics;
 using System.Collections.Generic;
-using Windows.ApplicationModel.Background;
-using System.IO;
 
 namespace InventorySystem.Views.Settings
 {
@@ -39,7 +36,7 @@ namespace InventorySystem.Views.Settings
         //When Settings is navigated to, empID is passed to this function and stored in private class variable empID
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter.ToString();
+            empID = e.Parameter?.ToString();
         }
 
         private async void ThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -96,7 +93,7 @@ namespace InventorySystem.Views.Settings
                     Content = "You must be signed in to the Admin account to add users.",
                     CloseButtonText = "Ok"
                 };
-                ContentDialogResult result = await noPrivilege.ShowAsync();
+                await noPrivilege.ShowAsync();
             }
         }
 
@@ -134,8 +131,10 @@ namespace InventorySystem.Views.Settings
                 var activeDBBak = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
                 var bufferDBBak = await Windows.Storage.FileIO.ReadBufferAsync(activeDBBak);
 
-                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-                savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder;
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker
+                {
+                    SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder
+                };
                 // Dropdown of file types the user can save the file as
                 savePicker.FileTypeChoices.Add("Backup File", new List<string>() { ".bak" });
                 // Default file name if the user does not type one in or select a file to replace
@@ -164,13 +163,15 @@ namespace InventorySystem.Views.Settings
                             Content = "Backup to " + fileBak.Path + " was successful.\nSelect the file you would like to import on the following screen.",
                             CloseButtonText = "Ok"
                         };
-                        ContentDialogResult result = await importAlert.ShowAsync();
+                        await importAlert.ShowAsync();
 
                         var activeDB = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
 
-                        var picker = new Windows.Storage.Pickers.FileOpenPicker();
-                        picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.List;
-                        picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder;
+                        var picker = new Windows.Storage.Pickers.FileOpenPicker
+                        {
+                            ViewMode = Windows.Storage.Pickers.PickerViewMode.List,
+                            SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder
+                        };
                         picker.FileTypeFilter.Add(".db");
 
                         Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
@@ -217,7 +218,7 @@ namespace InventorySystem.Views.Settings
                     Content = "You must be signed in to the Admin account to manage the database.",
                     CloseButtonText = "Ok"
                 };
-                ContentDialogResult result = await noPrivilege.ShowAsync();
+                await noPrivilege.ShowAsync();
             }
         }
 
@@ -228,8 +229,10 @@ namespace InventorySystem.Views.Settings
                 var activeDB = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
                 var buffer = await Windows.Storage.FileIO.ReadBufferAsync(activeDB);
 
-                var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-                savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder;
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker
+                {
+                    SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder
+                };
                 // Dropdown of file types the user can save the file as
                 savePicker.FileTypeChoices.Add("SQLite Database", new List<string>() { ".db" });
                 // Default file name if the user does not type one in or select a file to replace
@@ -273,7 +276,7 @@ namespace InventorySystem.Views.Settings
                     Content = "You must be signed in to the Admin account to manage the database.",
                     CloseButtonText = "Ok"
                 };
-                ContentDialogResult result = await noPrivilege.ShowAsync();
+                await noPrivilege.ShowAsync();
             }
         }
     }

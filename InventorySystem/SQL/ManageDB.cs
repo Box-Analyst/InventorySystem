@@ -4,14 +4,8 @@ using System.Configuration;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using System.IO;
-using Windows.Storage;
-using System.Runtime.InteropServices;
-using Windows.UI.WindowManagement;
 using InventorySystem.Views.Login;
 using System.Diagnostics;
-using InventorySystem.Views.Login;
 
 namespace InventorySystem.SQL
 {
