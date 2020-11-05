@@ -40,7 +40,7 @@ namespace InventorySystem.Views.Shell
                 }
             }
             // Load Home on app start
-            ContentFrame.Navigate(typeof(Home.HomeView), GetEmpID());
+            ContentFrame.Navigate(typeof(Home.HomeView), empID);
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -57,15 +57,15 @@ namespace InventorySystem.Views.Shell
             switch (item.Tag)
             {
                 case "home":
-                    ContentFrame.Navigate(typeof(Home.HomeView), GetEmpID());
+                    ContentFrame.Navigate(typeof(Home.HomeView), empID);
                     break;
 
                 case "alerts":
-                    ContentFrame.Navigate(typeof(Notifications.NotifyView), GetEmpID());
+                    ContentFrame.Navigate(typeof(Notifications.NotifyView), empID);
                     break;
 
                 case "samples":
-                    ContentFrame.Navigate(typeof(Samples.SamplesView), GetEmpID());
+                    ContentFrame.Navigate(typeof(Samples.SamplesView), empID);
                     break;
             }
         }
@@ -79,7 +79,7 @@ namespace InventorySystem.Views.Shell
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 //Set the ItemsSource to be your filtered dataset
-                sender.ItemsSource = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", sender.Text);
+                sender.ItemsSource = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", sender.Text);
             }
         }
 
@@ -105,12 +105,7 @@ namespace InventorySystem.Views.Shell
         private void AppBarButton_Clicked(object sender, TappedRoutedEventArgs e)
         {
             NavView.SelectedItem = null;
-            ContentFrame.Navigate(typeof(Samples.Components.AddSample), GetEmpID());
-        }
-
-        public string GetEmpID()
-        {
-            return empID;
+            ContentFrame.Navigate(typeof(Samples.Components.AddSample), empID);
         }
 
         private async void SignOutButton_Clicked(object sender, TappedRoutedEventArgs e)
