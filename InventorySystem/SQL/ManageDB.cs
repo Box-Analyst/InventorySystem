@@ -377,7 +377,7 @@ namespace InventorySystem.SQL
             return check;
         }
 
-        // Method to update isExpired	
+        // Method to update isExpired
         public static void Update_IsExpired()
         {
             List<string> entries = new List<string>();
@@ -411,7 +411,7 @@ namespace InventorySystem.SQL
                     {
                         Connection = db,
 
-                        //Use parameterized query to prevent SQL injection attacks	
+                        //Use parameterized query to prevent SQL injection attacks
                         CommandText = "UPDATE Sample SET isExpired = @Entry2 WHERE LotNum = @Entry1;"
                     };
                     insertCommand.Parameters.AddWithValue("@Entry1", entryLotNumbers[i]);

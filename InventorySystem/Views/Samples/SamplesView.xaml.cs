@@ -22,15 +22,14 @@ namespace InventorySystem.Views.Samples
         {
             this.InitializeComponent();
             SizeChanged += new SizeChangedEventHandler(Page_SizeChanged);
-
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             empID = e.Parameter?.ToString();
             passedVars.Clear();
             passedVars.Add(empID);
             ConstructSamplesList();
-
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -44,8 +43,6 @@ namespace InventorySystem.Views.Samples
             {
                 UpdateSamplesList();
             }
-
-
         }
 
         private void ConstructSamplesList()
@@ -135,7 +132,6 @@ namespace InventorySystem.Views.Samples
                     sampleListGrid.Children.Add(recButton);
                     sampleListGrid.Children.Add(distButton);
                     count++;
-
                 }
             }
         }
