@@ -12,6 +12,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
                       Grid.Row="1" HorizontalContentAlignment="Stretch">
+            
             <Grid Name ="sampleListGrid" VerticalAlignment="Top">
                   </Grid>
         </ScrollViewer>

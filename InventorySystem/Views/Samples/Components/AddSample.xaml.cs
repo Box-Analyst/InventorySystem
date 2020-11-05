@@ -101,11 +101,6 @@ namespace InventorySystem.Views.Samples.Components
             }
         }
 
-        //public string GetEmpID()
-        //{
-        //    return empID;
-        //}
-
         private async void DisplayError(string title, string content)
         {
             ContentDialog addError = new ContentDialog

@@ -9,6 +9,8 @@ using Windows.UI.Core;
 using System.Windows;
 using System.Text.RegularExpressions;
 using InventorySystem.Views.Shell;
+using Windows.UI.Xaml.Documents;
+using Windows.UI.Text;
 
 namespace InventorySystem.Views.Samples
 {
@@ -26,7 +28,7 @@ namespace InventorySystem.Views.Samples
         {
             empID = e.Parameter?.ToString();
             passedVars.Clear();
-            passedVars.Add(GetEmpID());
+            passedVars.Add(empID);
             ConstructSamplesList();
 
         }
@@ -48,21 +50,46 @@ namespace InventorySystem.Views.Samples
 
         private void ConstructSamplesList()
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
             int numRows = SQL.ManageDB.NumberOfRows();
-            int count = 0;
+            int count = 1;
             if (numRows != 0)
             {
                 ColumnDefinition sampleCol = new ColumnDefinition();
                 ColumnDefinition recCol = new ColumnDefinition();
                 ColumnDefinition distCol = new ColumnDefinition();
-                sampleCol.Width = new GridLength(7, GridUnitType.Star);
-                recCol.Width = new GridLength(1.5, GridUnitType.Star);
-                distCol.Width = new GridLength(1.5, GridUnitType.Star);
+                sampleCol.Width = new GridLength(8.8, GridUnitType.Star);
+                recCol.Width = new GridLength(0.6, GridUnitType.Star);
+                distCol.Width = new GridLength(0.6, GridUnitType.Star);
                 sampleListGrid.ColumnDefinitions.Add(sampleCol);
                 sampleListGrid.ColumnDefinitions.Add(recCol);
                 sampleListGrid.ColumnDefinitions.Add(distCol);
 
+                RowDefinition headerRow = new RowDefinition();
+                sampleListGrid.RowDefinitions.Add(headerRow);
+
+                TextBlock header = new TextBlock();
+                header.Text = "Sample Lot Numbers";
+                Grid.SetRow(header, 0);
+                Grid.SetColumn(header, 0);
+
+                TextBlock recHeader = new TextBlock();
+                recHeader.Text = "Receive";
+                recHeader.TextAlignment = TextAlignment.Center;
+                header.Margin = new Thickness(0, 0, 0, 4);
+                Grid.SetRow(recHeader, 0);
+                Grid.SetColumn(recHeader, 1);
+
+                TextBlock distHeader = new TextBlock();
+                distHeader.Text = "Distribute";
+                distHeader.TextAlignment = TextAlignment.Center;
+                distHeader.Margin = new Thickness(0, 0, 0, 4);
+                Grid.SetRow(distHeader, 0);
+                Grid.SetColumn(distHeader, 2);
+
+                sampleListGrid.Children.Add(header);
+                sampleListGrid.Children.Add(recHeader);
+                sampleListGrid.Children.Add(distHeader);
 
                 foreach (string sample in samples)
                 {
@@ -77,7 +104,7 @@ namespace InventorySystem.Views.Samples
                         Content = sample,
                         HorizontalContentAlignment = HorizontalAlignment.Left,
                         Margin = new Thickness(0, 0, 2, 2),
-                        Width = .7 * GetWidth()
+                        Width = .88 * GetWidth()
                     };
                     Grid.SetRow(sampleButton, count);
                     Grid.SetColumn(sampleButton, 0);
@@ -86,8 +113,8 @@ namespace InventorySystem.Views.Samples
                     Button recButton = new Button
                     {
                         Name = "recButton" + count,
-                        Content = "Receive",
-                        Width = .15 * GetWidth(),
+                        Content = "+",
+                        Width = .06 * GetWidth(),
                         Margin = new Thickness(0, 0, 2, 2)
                     };
                     Grid.SetRow(recButton, count);
@@ -97,8 +124,8 @@ namespace InventorySystem.Views.Samples
                     Button distButton = new Button
                     {
                         Name = "distButton" + count,
-                        Content = "Distribute",
-                        Width = .15 * GetWidth(),
+                        Content = "–",
+                        Width = .06 * GetWidth(),
                         Margin = new Thickness(0, 0, 0, 2)
                     };
                     Grid.SetRow(distButton, count);
@@ -147,8 +174,38 @@ namespace InventorySystem.Views.Samples
         private void UpdateSamplesList()
         {
             ClearContent();
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
-            int count = 0;
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
+            int count = 1;
+
+            RowDefinition headerRow = new RowDefinition();
+            sampleListGrid.RowDefinitions.Add(headerRow);
+            headerRow.Height = GridLength.Auto;
+
+            TextBlock header = new TextBlock();
+            header.Text = "Sample Lot Numbers";
+            header.Margin = new Thickness(0, 0, 0, 4);
+            Grid.SetRow(header, 0);
+            Grid.SetColumn(header, 0);
+
+            TextBlock recHeader = new TextBlock();
+            recHeader.Text = "Receive";
+            recHeader.TextAlignment = TextAlignment.Center;
+            recHeader.Margin = new Thickness(0, 0, 0, 4);
+            Grid.SetRow(recHeader, 0);
+            Grid.SetColumn(recHeader, 1);
+
+            TextBlock distHeader = new TextBlock();
+            distHeader.Text = "Distribute";
+            distHeader.TextAlignment = TextAlignment.Center;
+            distHeader.Margin = new Thickness(0, 0, 0, 4);
+            Grid.SetRow(distHeader, 0);
+            Grid.SetColumn(distHeader, 2);
+
+            sampleListGrid.Children.Add(header);
+            sampleListGrid.Children.Add(recHeader);
+            sampleListGrid.Children.Add(distHeader);
+
+
             foreach (string sample in samples)
             {
                 RowDefinition sampleRow = new RowDefinition();
@@ -161,7 +218,7 @@ namespace InventorySystem.Views.Samples
                     Content = sample,
                     HorizontalContentAlignment = HorizontalAlignment.Left,
                     Margin = new Thickness(0, 0, 2, 2),
-                    Width = .7 * GetWidth()
+                    Width = .88 * GetWidth()
                 };
                 Grid.SetRow(sampleButton, count);
                 Grid.SetColumn(sampleButton, 0);
@@ -170,8 +227,8 @@ namespace InventorySystem.Views.Samples
                 Button recButton = new Button
                 {
                     Name = "recButton" + count,
-                    Content = "Receive",
-                    Width = .15 * GetWidth(),
+                    Content = "+",
+                    Width = .06 * GetWidth(),
                     Margin = new Thickness(0, 0, 2, 2)
                 };
                 Grid.SetRow(recButton, count);
@@ -181,8 +238,8 @@ namespace InventorySystem.Views.Samples
                 Button distButton = new Button
                 {
                     Name = "distButton" + count,
-                    Content = "Distribute",
-                    Width = .15 * GetWidth(),
+                    Content = "–",
+                    Width = .06 * GetWidth(),
                     Margin = new Thickness(0, 0, 0, 2)
                 };
                 Grid.SetRow(distButton, count);
@@ -203,7 +260,7 @@ namespace InventorySystem.Views.Samples
         //Will navigate to a sample information page and pass all relevant data via passedVars
         private void SampleButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SamplesView), GetEmpID());
+            Frame.Navigate(typeof(SamplesView), empID);
         }
 
         //Onclick event that occurs if the Receive button is clicked
@@ -211,11 +268,11 @@ namespace InventorySystem.Views.Samples
         //which sample's button was pressed.
         private void RecButton_Click(object sender, RoutedEventArgs e)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
-            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "LotNum", null);
+            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", null);
             //Grabs the button's name property and extracts the integer (based on count)
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
-            int count = int.Parse(resultString);
+            int count = int.Parse(resultString)-1;
             currentSample = samples[count];
             passedVars.Add(samples[count]);
             passedVars.Add(names_dose[count]);
@@ -228,10 +285,10 @@ namespace InventorySystem.Views.Samples
         //which sample's button was pressed.
         private void DistButton_Click(object sender, RoutedEventArgs e)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
-            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "LotNum", null);
+            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", null);
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
-            int count = int.Parse(resultString);
+            int count = int.Parse(resultString)-1;
             currentSample = samples[count];
             passedVars.Add(currentSample);
             passedVars.Add(names_dose[count]);
@@ -256,10 +313,6 @@ namespace InventorySystem.Views.Samples
         public double GetWidth()
         {
             return ((Frame)Window.Current.Content).ActualWidth;
-        }
-        public string GetEmpID()
-        {
-            return empID;
         }
     }
 }

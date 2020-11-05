@@ -35,7 +35,7 @@ namespace InventorySystem.Views.Login.Components
                     hash.SetHash();
                     var hashedPW = hash.GetHash();
                     SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), hashedPW, "True");
-                    this.Frame.Navigate(typeof(SettingsView), GetEmpID());
+                    this.Frame.Navigate(typeof(SettingsView), empID);
                 }
                 else
                 {
@@ -53,7 +53,7 @@ namespace InventorySystem.Views.Login.Components
         }
         public void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(SettingsView), GetEmpID());
+            this.Frame.Navigate(typeof(SettingsView), empID);
         }
 
         private async void DisplayAddUserPasswordError()
@@ -79,11 +79,5 @@ namespace InventorySystem.Views.Login.Components
 
             ContentDialogResult result = await addUserError.ShowAsync();
         }
-
-        public string GetEmpID()
-        {
-            return empID;
-        }
-
     }
 }

@@ -71,7 +71,7 @@ namespace InventorySystem.Views.Settings
                 }
                 AppRestartFailureReason result2 = await CoreApplication.RequestRestartAsync("test");
             }
-            else { this.Frame.Navigate(typeof(SettingsView), GetEmpID()); }
+            else { this.Frame.Navigate(typeof(SettingsView), empID); }
         }
 
         private void ThemePicker_DropDownClosed(object sender, object e)
@@ -83,7 +83,7 @@ namespace InventorySystem.Views.Settings
         {
             if (IsAdmin() == true)
             {
-                this.Frame.Navigate(typeof(Login.Components.AddUsers), GetEmpID());
+                this.Frame.Navigate(typeof(Login.Components.AddUsers), empID);
             }
             else
             {
@@ -102,11 +102,6 @@ namespace InventorySystem.Views.Settings
         {
             bool isAdmin = empID == "1";
             return isAdmin;
-        }
-
-        public string GetEmpID()
-        {
-            return empID;
         }
 
         private async void ImportButton_Click(object sender, RoutedEventArgs e)

@@ -103,7 +103,7 @@ namespace InventorySystem.SQL
         }
 
         // Method to grab entries from the SQLite database
-        public static List<string> Grab_Entries(string table, string column, object search)
+        public static List<string> Grab_Entries(string table, string returnColumn, string comparisonColumn, object search)
         {
             List<string> entries = new List<string>();
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
@@ -112,7 +112,7 @@ namespace InventorySystem.SQL
                 SqliteCommand selectCommand = new SqliteCommand
                 {
                     Connection = db,
-                    CommandText = "SELECT " + column + " FROM " + table
+                    CommandText = "SELECT " + returnColumn + ", " + comparisonColumn + " FROM " + table
                 };
                 SqliteDataReader query;
                 try
@@ -129,11 +129,11 @@ namespace InventorySystem.SQL
                 {
                     // if search is specified, only return values containing that query
                     // otherwise return entire column
-                    if (search != null && query.GetString(0).ToLower().Contains(search.ToString().ToLower()))
+                    if (search != null && query.GetString(1).ToLower().Contains(search.ToString().ToLower()))
                     {
                         entries.Add(query.GetString(0));
                     }
-                    else
+                    else if (search == null)
                     {
                         entries.Add(query.GetString(0));
                     }
