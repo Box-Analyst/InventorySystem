@@ -415,7 +415,7 @@ namespace InventorySystem.SQL
                         CommandText = "UPDATE Sample SET isExpired = @Entry2 WHERE LotNum = @Entry1;"
                     };
                     insertCommand.Parameters.AddWithValue("@Entry1", entryLotNumbers[i]);
-                    insertCommand.Parameters.AddWithValue("@Entry2", false);
+                    insertCommand.Parameters.AddWithValue("@Entry2", true);
                     try
                     {
                         insertCommand.ExecuteReader();
