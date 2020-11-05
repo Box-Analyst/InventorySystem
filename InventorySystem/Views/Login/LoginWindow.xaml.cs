@@ -45,6 +45,7 @@ namespace InventorySystem
                 int empID = int.Parse(employeeID.Text);
                 if (SQL.ManageDB.CheckPassword(hashedPW, empID))
                 {
+                    SQL.ManageDB.Update_IsExpired();
                     this.Frame.Navigate(typeof(Views.Shell.MainNavView), empID);
                 }
                 else
