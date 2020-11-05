@@ -93,7 +93,6 @@ namespace InventorySystem.Views.Samples
 
                 foreach (string sample in samples)
                 {
-                    currentSample = sample;
                     RowDefinition sampleRow = new RowDefinition();
                     sampleListGrid.RowDefinitions.Add(sampleRow);
                     sampleRow.Height = GridLength.Auto;
@@ -141,35 +140,6 @@ namespace InventorySystem.Views.Samples
             }
         }
 
-        //Not working/saving for later ---DONT MERGE---
-        /*private void UpdateSamplesList()
-        {
-            foreach (var button in from RowDefinition row in sampleListGrid.RowDefinitions
-                                   from UIElement button in sampleListGrid.Children
-                                   select button)
-            {
-                Debug.WriteLine(button.ToString());
-                switch (Content)
-                {
-                    case "Receive":
-                        Button rbtn = (Button)button;
-                        rbtn.Width = .15 * ((Frame)Window.Current.Content).ActualWidth;
-                        rbtn.Content = "Receive";
-                        break;
-                    case "Distribute":
-                        Button dbtn = (Button)button;
-                        dbtn.Width = .15 * ((Frame)Window.Current.Content).ActualWidth;
-                        dbtn.Content = "Distribute";
-                        break;
-                    default:
-                        Button btn = (Button)button;
-                        btn.Width = .7 * ((Frame)Window.Current.Content).ActualWidth;
-                        break;
-                }
-            }
-        }*/
-
-        //Working, but slow/memory heavy
         //Updates the Sample list by calling ClearContent, and rebuilding the grid's rows using preexisting columns
         private void UpdateSamplesList()
         {
@@ -268,8 +238,8 @@ namespace InventorySystem.Views.Samples
         //which sample's button was pressed.
         private void RecButton_Click(object sender, RoutedEventArgs e)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "LotNum", null);
-            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
+            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "isExpired", 0);
             //Grabs the button's name property and extracts the integer (based on count)
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
             int count = int.Parse(resultString)-1;
@@ -285,8 +255,8 @@ namespace InventorySystem.Views.Samples
         //which sample's button was pressed.
         private void DistButton_Click(object sender, RoutedEventArgs e)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "LotNum", null);
-            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
+            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "isExpired", 0);
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
             int count = int.Parse(resultString)-1;
             currentSample = samples[count];
