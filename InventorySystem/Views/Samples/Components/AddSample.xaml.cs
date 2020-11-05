@@ -16,10 +16,12 @@ namespace InventorySystem.Views.Samples.Components
     {
         private string empID, LogMode;
         private List<string> passedVars = new List<string>();
+
         public AddSample()
         {
             this.InitializeComponent();
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             passedVars.Clear();
@@ -53,7 +55,7 @@ namespace InventorySystem.Views.Samples.Components
                             {
                                 isExpired = true;
                             }
-                            if (SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, isExpired))
+                            if (SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, int.Parse(CountBox.Text), ExpirationDateBox.Text, isExpired))
                             {
                                 if (LogMode == "ADD")
                                 {
@@ -136,6 +138,7 @@ namespace InventorySystem.Views.Samples.Components
                 RepIDWhiteSpace.Visibility = Visibility.Visible;
             }
         }
+
         public void Clear()
         {
             LotNumBox.Text = "";

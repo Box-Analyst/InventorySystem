@@ -45,20 +45,9 @@ namespace InventorySystem.Views.Shell
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            if (args.InvokedItem != null)
-            {
-                if (args.IsSettingsInvoked)
-                {
-                    // Settings page
-                    ContentFrame.Navigate(typeof(Settings.SettingsView), GetEmpID());
-                }
-                else
-                {
-                    // find NavigationViewItem with Content that equals InvokedItem
-                    var item = sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem);
-                    NavView_Navigate(item);
-                }
-            }
+            if (args.InvokedItem == null) NavView.SelectedItem = null;
+            else if (args.IsSettingsInvoked) ContentFrame.Navigate(typeof(Settings.SettingsView), GetEmpID());
+            else NavView_Navigate(sender.MenuItems.OfType<NavigationViewItem>().First(x => (string)x.Content == (string)args.InvokedItem));
         }
 
         // Navbar items

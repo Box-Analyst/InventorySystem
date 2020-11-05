@@ -11,11 +11,17 @@
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
             <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
-            <TextBlock x:Name="ExpiredAlert" Margin="0,24,0,4"></TextBlock>
+            <TextBlock x:Name="ExpireSoonAlert" Margin="0,24,0,4"></TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
-            <TextBlock x:Name="ExpireSoonAlert" Margin="0,24,0,4"></TextBlock>
+            <TextBlock x:Name="ExpiredAlert" Margin="0,24,0,4"></TextBlock>
         </StackPanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      Grid.Row="1" HorizontalContentAlignment="Stretch">
+            <Grid Name ="expiryListGrid" VerticalAlignment="Top">
+            </Grid>
+        </ScrollViewer>
     </StackPanel>
 </Page>

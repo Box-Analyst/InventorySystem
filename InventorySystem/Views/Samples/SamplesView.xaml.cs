@@ -20,15 +20,14 @@ namespace InventorySystem.Views.Samples
         {
             this.InitializeComponent();
             SizeChanged += new SizeChangedEventHandler(Page_SizeChanged);
-
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             empID = e.Parameter?.ToString();
             passedVars.Clear();
             passedVars.Add(GetEmpID());
             ConstructSamplesList();
-
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -42,8 +41,6 @@ namespace InventorySystem.Views.Samples
             {
                 UpdateSamplesList();
             }
-
-
         }
 
         private void ConstructSamplesList()
@@ -62,7 +59,6 @@ namespace InventorySystem.Views.Samples
                 sampleListGrid.ColumnDefinitions.Add(sampleCol);
                 sampleListGrid.ColumnDefinitions.Add(recCol);
                 sampleListGrid.ColumnDefinitions.Add(distCol);
-
 
                 foreach (string sample in samples)
                 {
@@ -109,7 +105,6 @@ namespace InventorySystem.Views.Samples
                     sampleListGrid.Children.Add(recButton);
                     sampleListGrid.Children.Add(distButton);
                     count++;
-
                 }
             }
         }
