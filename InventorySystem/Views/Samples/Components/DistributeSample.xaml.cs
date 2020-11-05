@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -22,9 +23,9 @@ namespace InventorySystem.Views.Samples.Components
         {
             passedVars.Clear();
             passedVars = e.Parameter as List<string>;
-            empID = passedVars[0];
-            LotNumBox.Text = passedVars[1];
-            NameAndDosageBox.Text = passedVars[2];
+            empID = passedVars?[0];
+            LotNumBox.Text = passedVars?[1] ?? string.Empty;
+            NameAndDosageBox.Text = passedVars?[2] ?? string.Empty;
         }
         private void Add_Sample(object sender, RoutedEventArgs e)
         {

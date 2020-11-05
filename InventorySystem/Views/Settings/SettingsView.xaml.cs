@@ -100,12 +100,7 @@ namespace InventorySystem.Views.Settings
         //Checks if the empID is the designated admin account number
         private bool IsAdmin()
         {
-            bool isAdmin = false;
-            if (empID == "1")
-            {
-                isAdmin = true;
-            }
-
+            bool isAdmin = empID == "1";
             return isAdmin;
         }
 

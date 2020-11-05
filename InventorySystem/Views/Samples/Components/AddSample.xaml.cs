@@ -6,6 +6,9 @@ using Windows.UI;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml.Hosting;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Globalization;
+using InventorySystem.Views.Shell;
 
 namespace InventorySystem.Views.Samples.Components
 {
@@ -20,16 +23,16 @@ namespace InventorySystem.Views.Samples.Components
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             passedVars.Clear();
-            if(e.Parameter is string)
+            if (e.Parameter is string)
             {
                 empID = e.Parameter.ToString();
             }
             else
             {
                 passedVars = e.Parameter as List<string>;
-                empID = passedVars[0];
-                LotNumBox.Text = passedVars[1];
-                NameAndDosageBox.Text = passedVars[2];
+                empID = passedVars?[0];
+                LotNumBox.Text = passedVars?[1] ?? string.Empty;
+                NameAndDosageBox.Text = passedVars?[2] ?? string.Empty;
                 //Debug.WriteLine(LotNumBox.Text);
             }
 
@@ -54,7 +57,7 @@ namespace InventorySystem.Views.Samples.Components
                             {
                                 if (LogMode == "ADD")
                                 {
-                                    SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(), "NULL", "NULL", LogMode);
+                                    SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(CultureInfo.CurrentCulture), "NULL", "NULL", LogMode);
                                     OutputSuccess.Text = "Successfully added " + CountBox.Text + " units of " + LotNumBox.Text;
                                     Clear();
                                 }
@@ -62,7 +65,7 @@ namespace InventorySystem.Views.Samples.Components
                                 {
                                     if (SQL.ManageDB.Check_RepID_RegEx(RepID.Text))
                                     {
-                                        SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(), "NULL", RepID.Text, LogMode);
+                                        SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(CultureInfo.CurrentCulture), "NULL", RepID.Text, LogMode);
                                         OutputSuccess.Text = "Successfully recieved " + CountBox.Text + " units of " + LotNumBox.Text + " from " + RepID.Text;
                                         Clear();
                                     }
@@ -118,14 +121,14 @@ namespace InventorySystem.Views.Samples.Components
         private void HandleCheck(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
-            if (rb.Name == "ManualButton")
+            if (rb?.Name == "ManualButton")
             {
                 LogMode = "ADD";
                 RepIDTitle.Visibility = Visibility.Collapsed;
                 RepID.Visibility = Visibility.Collapsed;
                 RepIDWhiteSpace.Visibility = Visibility.Collapsed;
             }
-            else if (rb.Name == "ReceiveButton")
+            else if (rb?.Name == "ReceiveButton")
             {
                 LogMode = "RECEIVE";
                 RepIDTitle.Visibility = Visibility.Visible;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -7,6 +8,7 @@ using System.Security.Cryptography;
 using Windows.UI.Core;
 using System.Windows;
 using System.Text.RegularExpressions;
+using InventorySystem.Views.Shell;
 
 namespace InventorySystem.Views.Samples
 {
@@ -90,7 +92,7 @@ namespace InventorySystem.Views.Samples
                     };
                     Grid.SetRow(recButton, count);
                     Grid.SetColumn(recButton, 1);
-                    recButton.Click += (sender, e) => RecButton_Click(sender, e);
+                    recButton.Click += RecButton_Click;
 
                     Button distButton = new Button
                     {

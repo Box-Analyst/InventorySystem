@@ -23,11 +23,9 @@ namespace InventorySystem
         //Upon Clicking Login, user is sent to the Main Page of the Application.
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string hashedPW;
             PasswordHash hash = new PasswordHash(password.Password);
             hash.SetHash();
-            hashedPW = hash.GetHash();
-
+            var hashedPW = hash.GetHash();
             try
             {
                 int empID = int.Parse(employeeID.Text);
@@ -47,20 +45,16 @@ namespace InventorySystem
                     ContentDialogResult result = await invalidLogin.ShowAsync();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                if (ex != null)
+                Clear();
+                ContentDialog invalidInput = new ContentDialog
                 {
-                    Clear();
-                    ContentDialog invalidInput = new ContentDialog
-                    {
-                        Title = "Invalid Input",
-                        Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await invalidInput.ShowAsync();
-                }
-                else { };
+                    Title = "Invalid Input",
+                    Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                    CloseButtonText = "Ok"
+                };
+                ContentDialogResult result = await invalidInput.ShowAsync();
             }
 
 
