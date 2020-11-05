@@ -13,13 +13,18 @@ namespace InventorySystem.Views.Samples.Components
     public sealed partial class DistributeSample : Page
     {
         private string empID;
+        private List<string> passedVars = new List<string>();
         public DistributeSample()
         {
             this.InitializeComponent();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter?.ToString();
+            passedVars.Clear();
+            passedVars = e.Parameter as List<string>;
+            empID = passedVars[0];
+            LotNumBox.Text = passedVars[1];
+            NameAndDosageBox.Text = passedVars[2];
         }
         private void Add_Sample(object sender, RoutedEventArgs e)
         {

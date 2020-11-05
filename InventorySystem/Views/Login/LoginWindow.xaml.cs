@@ -79,6 +79,5 @@ namespace InventorySystem
             employeeID.Text = "";
             password.Password = "";
         }
-
     }
 }

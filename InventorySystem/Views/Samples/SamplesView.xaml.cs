@@ -2,21 +2,31 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.WindowManagement;
+using System.Security.Cryptography;
+using Windows.UI.Core;
+using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace InventorySystem.Views.Samples
 {
     public sealed partial class SamplesView : Page
     {
-        private string empID;
+        private string empID, currentSample;
+        private List<string> passedVars = new List<string>();
         public SamplesView()
         {
             this.InitializeComponent();
             SizeChanged += new SizeChangedEventHandler(Page_SizeChanged);
+
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             empID = e.Parameter?.ToString();
+            passedVars.Clear();
+            passedVars.Add(GetEmpID());
             ConstructSamplesList();
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -54,12 +64,14 @@ namespace InventorySystem.Views.Samples
 
                 foreach (string sample in samples)
                 {
+                    currentSample = sample;
                     RowDefinition sampleRow = new RowDefinition();
                     sampleListGrid.RowDefinitions.Add(sampleRow);
                     sampleRow.Height = GridLength.Auto;
 
                     Button sampleButton = new Button
                     {
+                        Name = "sampleButton" + count,
                         Content = sample,
                         HorizontalContentAlignment = HorizontalAlignment.Left,
                         Margin = new Thickness(0, 0, 2, 2),
@@ -67,24 +79,29 @@ namespace InventorySystem.Views.Samples
                     };
                     Grid.SetRow(sampleButton, count);
                     Grid.SetColumn(sampleButton, 0);
+                    sampleButton.Click += new RoutedEventHandler(SampleButton_Click);
 
                     Button recButton = new Button
                     {
+                        Name = "recButton" + count,
                         Content = "Receive",
                         Width = .15 * GetWidth(),
                         Margin = new Thickness(0, 0, 2, 2)
                     };
                     Grid.SetRow(recButton, count);
                     Grid.SetColumn(recButton, 1);
+                    recButton.Click += (sender, e) => RecButton_Click(sender, e);
 
                     Button distButton = new Button
                     {
+                        Name = "distButton" + count,
                         Content = "Distribute",
                         Width = .15 * GetWidth(),
                         Margin = new Thickness(0, 0, 0, 2)
                     };
                     Grid.SetRow(distButton, count);
                     Grid.SetColumn(distButton, 2);
+                    distButton.Click += new RoutedEventHandler(DistButton_Click);
 
                     sampleListGrid.Children.Add(sampleButton);
                     sampleListGrid.Children.Add(recButton);
@@ -138,6 +155,7 @@ namespace InventorySystem.Views.Samples
 
                 Button sampleButton = new Button
                 {
+                    Name = "sampleButton" + count,
                     Content = sample,
                     HorizontalContentAlignment = HorizontalAlignment.Left,
                     Margin = new Thickness(0, 0, 2, 2),
@@ -145,24 +163,29 @@ namespace InventorySystem.Views.Samples
                 };
                 Grid.SetRow(sampleButton, count);
                 Grid.SetColumn(sampleButton, 0);
+                sampleButton.Click += new RoutedEventHandler(SampleButton_Click);
 
                 Button recButton = new Button
                 {
+                    Name = "recButton" + count,
                     Content = "Receive",
                     Width = .15 * GetWidth(),
                     Margin = new Thickness(0, 0, 2, 2)
                 };
                 Grid.SetRow(recButton, count);
                 Grid.SetColumn(recButton, 1);
+                recButton.Click += new RoutedEventHandler(RecButton_Click);
 
                 Button distButton = new Button
                 {
+                    Name = "distButton" + count,
                     Content = "Distribute",
                     Width = .15 * GetWidth(),
                     Margin = new Thickness(0, 0, 0, 2)
                 };
                 Grid.SetRow(distButton, count);
                 Grid.SetColumn(distButton, 2);
+                distButton.Click += new RoutedEventHandler(DistButton_Click);
 
                 sampleListGrid.Children.Add(sampleButton);
                 sampleListGrid.Children.Add(recButton);
@@ -173,6 +196,46 @@ namespace InventorySystem.Views.Samples
 
         }
 
+
+        //Onclick event that occurs if the Sample number is clicked
+        //Will navigate to a sample information page and pass all relevant data via passedVars
+        private void SampleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SamplesView), GetEmpID());
+        }
+
+        //Onclick event that occurs if the Receive button is clicked
+        //Will navigate to the AddSample page with data based on
+        //which sample's button was pressed.
+        private void RecButton_Click(object sender, RoutedEventArgs e)
+        {
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
+            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", null);
+            //Grabs the button's name property and extracts the integer (based on count)
+            string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
+            int count = int.Parse(resultString);
+            currentSample = samples[count];
+            passedVars.Add(samples[count]);
+            passedVars.Add(names_dose[count]);
+            //Debug.WriteLine(currentSample);
+            Frame.Navigate(typeof(Components.AddSample), passedVars);
+        }
+
+        //Onclick event that occurs if the Distribute button is clicked
+        //Will navigate to the DistributeSample page with data based on
+        //which sample's button was pressed.
+        private void DistButton_Click(object sender, RoutedEventArgs e)
+        {
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
+            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", null);
+            string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
+            int count = int.Parse(resultString);
+            currentSample = samples[count];
+            passedVars.Add(currentSample);
+            passedVars.Add(names_dose[count]);
+            //Debug.WriteLine(currentSample);
+            Frame.Navigate(typeof(Components.DistributeSample), passedVars);
+        }
         //Deletes the Grid's rows and content within, leaving the columns for use in rebuilding the list
         private void ClearContent()
         {
@@ -196,6 +259,5 @@ namespace InventorySystem.Views.Samples
         {
             return empID;
         }
-
     }
 }

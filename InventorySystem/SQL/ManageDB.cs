@@ -388,78 +388,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
-        // Method to update isExpired
 
-        public static void Update_IsExpired()
-        {
-            List<string> entries = new List<string>();
-            List<string> entryLotNumbers = new List<string>();
-            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
-            {
-                db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT ExpirationDate, LotNum FROM Sample WHERE isExpired = 0", db);
-                SqliteDataReader query;
-                try
-                {
-                    query = selectCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    Debug.WriteLine("Exception:" + error);
-                    db.Close();
-                    return;
-                }
-                while (query.Read())
-                {
-                    var tmp = query.GetString(0);
-                    entries.Add(tmp);
-                    var tmp1 = query.GetString(1);
-                    entryLotNumbers.Add(tmp1);
-                }
-                for (int i = 0; i < entries.Count; i++)
-                {
-                    if (Check_IsExpired(entries[i]))
-                    {
-                        SqliteCommand insertCommand = new SqliteCommand
-                        {
-                            Connection = db,
-
-                            //Use parameterized query to prevent SQL injection attacks
-                            CommandText = "UPDATE Sample SET isExpired = @Entry2 WHERE LotNum = @Entry1;"
-                        };
-                        insertCommand.Parameters.AddWithValue("@Entry1", entryLotNumbers[i]);
-                        insertCommand.Parameters.AddWithValue("@Entry2", false);
-                        try
-                        {
-                            insertCommand.ExecuteReader();
-                        }
-                        catch (SqliteException error)
-                        {
-                            Debug.WriteLine(error);
-                            db.Close();
-                            return;
-                        }
-                    }
-                }
-                db.Close();
-            }
-        }
-
-        // Method to check if a sample is about to expire
-
-        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
-        {
-            bool check = false;
-            var cultureInfo = new CultureInfo("en-US");
-            DateTime localDate = DateTime.Now;
-            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
-            expirationDate.AddDays(noticeTime);
-            if (localDate >= expirationDate)
-            {
-                check = true;
-            }
-            return check;
-        }
 
         // Method to insert new Employees into the Employee table
 
