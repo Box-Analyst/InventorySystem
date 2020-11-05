@@ -15,20 +15,34 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml.Hosting;
+using System.Diagnostics;
 
 namespace InventorySystem.Views.Samples.Components
 {
     public sealed partial class AddSample : Page
     {
-        private string empID;
-        private string LogMode;
+        private string empID, LogMode;
+        private List<string> passedVars = new List<string>();
         public AddSample()
         {
             this.InitializeComponent();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter.ToString();
+            passedVars.Clear();
+            if(e.Parameter is string)
+            {
+                empID = e.Parameter.ToString();
+            }
+            else
+            {
+                passedVars = e.Parameter as List<string>;
+                empID = passedVars[0];
+                LotNumBox.Text = passedVars[1];
+                NameAndDosageBox.Text = passedVars[2];
+                //Debug.WriteLine(LotNumBox.Text);
+            }
+
         }
 
         private void Add_Sample(object sender, RoutedEventArgs e)
@@ -137,6 +151,5 @@ namespace InventorySystem.Views.Samples.Components
             ExpirationDateBox.Text = "";
             RepID.Text = "";
         }
-
     }
 }
