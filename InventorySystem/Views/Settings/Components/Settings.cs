@@ -1,7 +1,4 @@
-﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-
-namespace InventorySystem.Views.Settings.Components
+﻿namespace InventorySystem.Views.Settings.Components
 {
     static class Settings
     {

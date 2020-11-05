@@ -18,14 +18,15 @@
                 <x:String>Light</x:String>
                 <x:String>Dark</x:String>
             </ComboBox>
-            <TextBlock Margin="0,24,0,4">Manage Database</TextBlock>
+            <TextBlock Margin="0,24,0,4">Manage Database*</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <Button Click="ImportButton_Click" Content="Import Database" Margin="0,0,10,0" />
                 <Button Click="ExportButton_Click" Content="Export Database" />
             </StackPanel>
             <TextBlock x:Name="ExportSuccess" Margin="0,24,0,4" Visibility="Collapsed"></TextBlock>
-            <TextBlock Text ="Add an Employee account (Admin)" Margin="0,24,0,4" FontSize="14"  />
+            <TextBlock Text ="Add an Employee account*" Margin="0,24,0,4" FontSize="14"  />
             <Button Content="Add Employee(s)" Click="AddNewUserButton_Click"/>
+            <TextBlock Margin="0,24,0,4">* requires admin</TextBlock>
         </StackPanel>
     </Grid>
 </Page>

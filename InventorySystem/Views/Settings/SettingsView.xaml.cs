@@ -4,10 +4,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-using System.Diagnostics;
 using System.Collections.Generic;
-using Windows.ApplicationModel.Background;
-using System.IO;
 
 namespace InventorySystem.Views.Settings
 {
@@ -39,7 +36,7 @@ namespace InventorySystem.Views.Settings
         //When Settings is navigated to, empID is passed to this function and stored in private class variable empID
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter.ToString();
+            empID = e.Parameter?.ToString();
         }
 
         private async void ThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -96,7 +93,7 @@ namespace InventorySystem.Views.Settings
                     Content = "You must be signed in to the Admin account to add users.",
                     CloseButtonText = "Ok"
                 };
-                ContentDialogResult result = await noPrivilege.ShowAsync();
+                await noPrivilege.ShowAsync();
             }
         }
 
@@ -119,92 +116,168 @@ namespace InventorySystem.Views.Settings
 
         private async void ImportButton_Click(object sender, RoutedEventArgs e)
         {
-            var LocalState = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-            string activeDBString = LocalState + @"\SamplesDB.db";
-            string bakDB = LocalState + @"\SamplesDB." + DateTime.Now.Ticks + ".bak";
-            File.Copy(activeDBString, bakDB, true);
-
-            if (File.Exists(bakDB))
+            if (IsAdmin() == true)
             {
-                var activeDB = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
-
-                var picker = new Windows.Storage.Pickers.FileOpenPicker();
-                picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.List;
-                picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder;
-                picker.FileTypeFilter.Add(".db");
-
-                Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
-                if (file != null)
+                ContentDialog importBakAlert = new ContentDialog
                 {
-                    var buffer = await Windows.Storage.FileIO.ReadBufferAsync(file);
-                    Windows.Storage.CachedFileManager.DeferUpdates(activeDB);
-                    await Windows.Storage.FileIO.WriteBufferAsync(activeDB, buffer);
+                    Title = "Backup Before Importing",
+                    Content = "You must backup the existing database before importing.\nPlease select where you'd like to backup to on the following screen.",
+                    CloseButtonText = "Ok"
+                };
+                ContentDialogResult resultBak = await importBakAlert.ShowAsync();
 
-                    Windows.Storage.Provider.FileUpdateStatus status =
-                        await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(activeDB);
+                string bakDB = "SamplesDB." + DateTime.Now.Ticks + ".bak";
 
-                    if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
+                var activeDBBak = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
+                var bufferDBBak = await Windows.Storage.FileIO.ReadBufferAsync(activeDBBak);
+
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker
+                {
+                    SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder
+                };
+                // Dropdown of file types the user can save the file as
+                savePicker.FileTypeChoices.Add("Backup File", new List<string>() { ".bak" });
+                // Default file name if the user does not type one in or select a file to replace
+                savePicker.SuggestedFileName = bakDB;
+
+                Windows.Storage.StorageFile fileBak = await savePicker.PickSaveFileAsync();
+                if (fileBak != null)
+                {
+                    // Prevent updates to the remote version of the file until
+                    // we finish making changes and call CompleteUpdatesAsync.
+                    Windows.Storage.CachedFileManager.DeferUpdates(fileBak);
+                    // write to file
+                    //await Windows.Storage.FileIO.WriteTextAsync(file, file.Name);
+                    await Windows.Storage.FileIO.WriteBufferAsync(fileBak, bufferDBBak);
+
+                    // Let Windows know that we're finished changing the file so
+                    // the other app can update the remote version of the file.
+                    // Completing updates may require Windows to ask for user input.
+                    Windows.Storage.Provider.FileUpdateStatus statusDBBak =
+                        await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(fileBak);
+                    if (statusDBBak == Windows.Storage.Provider.FileUpdateStatus.Complete)
                     {
-                        ExportSuccess.Text = "File " + file.Name + " was imported.";
+                        ContentDialog importAlert = new ContentDialog
+                        {
+                            Title = "Backup Successful",
+                            Content = "Backup to " + fileBak.Path + " was successful.\nSelect the file you would like to import on the following screen.",
+                            CloseButtonText = "Ok"
+                        };
+                        await importAlert.ShowAsync();
+
+                        var activeDB = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
+
+                        var picker = new Windows.Storage.Pickers.FileOpenPicker
+                        {
+                            ViewMode = Windows.Storage.Pickers.PickerViewMode.List,
+                            SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder
+                        };
+                        picker.FileTypeFilter.Add(".db");
+
+                        Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+                        if (file != null)
+                        {
+                            var buffer = await Windows.Storage.FileIO.ReadBufferAsync(file);
+                            Windows.Storage.CachedFileManager.DeferUpdates(activeDB);
+                            await Windows.Storage.FileIO.WriteBufferAsync(activeDB, buffer);
+
+                            Windows.Storage.Provider.FileUpdateStatus status =
+                                await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(activeDB);
+
+                            if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
+                            {
+                                ExportSuccess.Text = "File " + file.Name + " was imported.";
+                            }
+                            else
+                            {
+                                ExportSuccess.Text = "File " + file.Name + " couldn't be imported.";
+                            }
+                        }
+                        else
+                        {
+                            ExportSuccess.Text = "Operation cancelled or interrupted.";
+                        }
                     }
                     else
                     {
-                        ExportSuccess.Text = "File " + file.Name + " couldn't be imported.";
+                        ExportSuccess.Text = "Failed to backup existing DB before import.";
                     }
                 }
                 else
                 {
-                    ExportSuccess.Text = "Operation cancelled.";
+                    ExportSuccess.Text = "Operation cancelled or interrupted.";
                 }
+
+                ExportSuccess.Visibility = Visibility.Visible;
             }
             else
             {
-                ExportSuccess.Text = "Failed to backup existing DB before import.";
+                ContentDialog noPrivilege = new ContentDialog
+                {
+                    Title = "Insufficient Privileges",
+                    Content = "You must be signed in to the Admin account to manage the database.",
+                    CloseButtonText = "Ok"
+                };
+                await noPrivilege.ShowAsync();
             }
-            ExportSuccess.Visibility = Visibility.Visible;
         }
 
         private async void ExportButton_Click(object sender, RoutedEventArgs e)
         {
-            var activeDB = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
-            var buffer = await Windows.Storage.FileIO.ReadBufferAsync(activeDB);
-
-            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder;
-            // Dropdown of file types the user can save the file as
-            savePicker.FileTypeChoices.Add("SQLite Database", new List<string>() { ".db" });
-            // Default file name if the user does not type one in or select a file to replace
-            savePicker.SuggestedFileName = "SamplesDB";
-
-            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
-            if (file != null)
+            if (IsAdmin() == true)
             {
-                // Prevent updates to the remote version of the file until
-                // we finish making changes and call CompleteUpdatesAsync.
-                Windows.Storage.CachedFileManager.DeferUpdates(file);
-                // write to file
-                //await Windows.Storage.FileIO.WriteTextAsync(file, file.Name);
-                await Windows.Storage.FileIO.WriteBufferAsync(file, buffer);
+                var activeDB = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
+                var buffer = await Windows.Storage.FileIO.ReadBufferAsync(activeDB);
 
-                // Let Windows know that we're finished changing the file so
-                // the other app can update the remote version of the file.
-                // Completing updates may require Windows to ask for user input.
-                Windows.Storage.Provider.FileUpdateStatus status =
-                    await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
-                if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
+                var savePicker = new Windows.Storage.Pickers.FileSavePicker
                 {
-                    ExportSuccess.Text = "File " + file.Name + " was saved.";
+                    SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder
+                };
+                // Dropdown of file types the user can save the file as
+                savePicker.FileTypeChoices.Add("SQLite Database", new List<string>() { ".db" });
+                // Default file name if the user does not type one in or select a file to replace
+                savePicker.SuggestedFileName = "SamplesDB";
+
+                Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+                if (file != null)
+                {
+                    // Prevent updates to the remote version of the file until
+                    // we finish making changes and call CompleteUpdatesAsync.
+                    Windows.Storage.CachedFileManager.DeferUpdates(file);
+                    // write to file
+                    //await Windows.Storage.FileIO.WriteTextAsync(file, file.Name);
+                    await Windows.Storage.FileIO.WriteBufferAsync(file, buffer);
+
+                    // Let Windows know that we're finished changing the file so
+                    // the other app can update the remote version of the file.
+                    // Completing updates may require Windows to ask for user input.
+                    Windows.Storage.Provider.FileUpdateStatus status =
+                        await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+                    if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
+                    {
+                        ExportSuccess.Text = "File " + file.Name + " was exported.";
+                    }
+                    else
+                    {
+                        ExportSuccess.Text = "File " + file.Name + " couldn't be exported.";
+                    }
                 }
                 else
                 {
-                    ExportSuccess.Text = "File " + file.Name + " couldn't be saved.";
+                    ExportSuccess.Text = "Operation cancelled or interrupted.";
                 }
+                ExportSuccess.Visibility = Visibility.Visible;
             }
             else
             {
-                ExportSuccess.Text = "Operation cancelled.";
+                ContentDialog noPrivilege = new ContentDialog
+                {
+                    Title = "Insufficient Privileges",
+                    Content = "You must be signed in to the Admin account to manage the database.",
+                    CloseButtonText = "Ok"
+                };
+                await noPrivilege.ShowAsync();
             }
-            ExportSuccess.Visibility = Visibility.Visible;
         }
     }
 }

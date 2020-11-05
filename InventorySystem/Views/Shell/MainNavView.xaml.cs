@@ -1,12 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace InventorySystem.Views.Shell
 {
-    public sealed partial class MainNavView : Page
+    public sealed partial class MainNavView
     {
         private string empID;
         public MainNavView()
@@ -17,7 +18,7 @@ namespace InventorySystem.Views.Shell
         //When MainNavView is navigated to, empID is passed to this function and stored in private class variable empID
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter.ToString();
+            empID = e.Parameter?.ToString();
         }
 
         // NavView stuff
@@ -28,7 +29,7 @@ namespace InventorySystem.Views.Shell
             //NavView.MenuItems.Add(new NavigationViewItem()
             //{ Content = "My content", Icon = new SymbolIcon(Symbol.Folder), Tag = "content" });
 
-            // set the initial SelectedItem 
+            // set the initial SelectedItem
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {
                 if (item is NavigationViewItem && item.Tag.ToString() == "home")
@@ -110,16 +111,35 @@ namespace InventorySystem.Views.Shell
         }
         // End AutoSuggestBox
 
-
         // Add Sample button
-        private void AppBarButton_Clicked(object sender, RoutedEventArgs e)
+        private void AppBarButton_Clicked(object sender, TappedRoutedEventArgs e)
         {
+            NavView.SelectedItem = null;
             ContentFrame.Navigate(typeof(Samples.Components.AddSample), GetEmpID());
         }
 
         public string GetEmpID()
         {
             return empID;
+        }
+
+        private async void SignOutButton_Clicked(object sender, TappedRoutedEventArgs e)
+        {
+            ContentDialog areYouSure = new ContentDialog
+            {
+                Title = "Sign Out?",
+                Content = "This will sign you out of the app and return to the login screen.",
+                PrimaryButtonText = "Cancel",
+                CloseButtonText = "Yes"
+
+            };
+
+            ContentDialogResult result = await areYouSure.ShowAsync();
+            if (result != ContentDialogResult.Primary)
+            {
+                NavView.SelectedItem = null;
+                Frame.Navigate(typeof(LoginWindow));
+            }
         }
     }
 }

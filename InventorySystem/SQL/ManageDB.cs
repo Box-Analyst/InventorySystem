@@ -4,14 +4,8 @@ using System.Configuration;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using System.IO;
-using Windows.Storage;
-using System.Runtime.InteropServices;
-using Windows.UI.WindowManagement;
 using InventorySystem.Views.Login;
 using System.Diagnostics;
-using InventorySystem.Views.Login;
 
 namespace InventorySystem.SQL
 {
@@ -24,7 +18,7 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db")) //Name of .db file doesn't matter, but should be consistent across all SqliteConnection objects
             {
                 db.Open(); //Open connection to database
-                
+
                 const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR (6) NOT NULL, IsActive BOOLEAN NOT NULL)";
                 SqliteCommand createTable = new SqliteCommand(tableCommand1, db);
 
@@ -84,7 +78,7 @@ namespace InventorySystem.SQL
                     db.Close();
                     return;
                 }
-                if (!query.HasRows)
+                if (query.HasRows == false)
                 {
                     SqliteCommand insertCommand = new SqliteCommand
                     {
@@ -104,13 +98,11 @@ namespace InventorySystem.SQL
                     {
                         Debug.WriteLine("Exception: " + error);
                     }
-                } else
-                {
-                    Debug.WriteLine("Else: " + query.Read());
                 }
                 db.Close();
             }
         }
+
         // Method to grab entries from the SQLite database
         public static List<string> Grab_Entries(string table, string column, object search)
         {
@@ -118,9 +110,11 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT @Column FROM @Table", db);
-                selectCommand.Parameters.AddWithValue("@Table", table);
-                selectCommand.Parameters.AddWithValue("@Column", column);
+                SqliteCommand selectCommand = new SqliteCommand
+                {
+                    Connection = db,
+                    CommandText = "SELECT " + column + " FROM " + table
+                };
                 SqliteDataReader query;
                 try
                 {
@@ -453,19 +447,6 @@ namespace InventorySystem.SQL
 
         // Method to check if a sample is about to expire
 
-        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
-        {
-            bool check = false;
-            var cultureInfo = new CultureInfo("en-US");
-            DateTime localDate = DateTime.Now;
-            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
-            expirationDate.AddDays(noticeTime);
-            if (localDate >= expirationDate)
-            {
-                check = true;
-            }
-            return check;
-        }
 
         // Method to insert new Employees into the Employee table
 
@@ -532,8 +513,8 @@ namespace InventorySystem.SQL
             }
             return check;
         }
-        
-        
+
+
         // Method to insert text into the SQLite database
         public static void Add_Text(object sender, RoutedEventArgs e, string inputVal)
         {
@@ -591,6 +572,23 @@ namespace InventorySystem.SQL
             }
             return check;
 
+        }
+        public static int NumberOfRows()
+        {
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("Select COUNT(*) from Sample", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                int numRows = 0;
+                if (query.Read())
+                {
+                    numRows = int.Parse($"{query[0]}");
+                    return numRows;
+                }
+                db.Close();
+                return numRows;
+            }
         }
     }
 }

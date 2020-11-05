@@ -9,7 +9,10 @@
 
     <NavigationView x:Name="NavView"
                       ItemInvoked="NavView_ItemInvoked"
-                      Loaded="NavView_Loaded">
+                      Loaded="NavView_Loaded"
+                      IsBackEnabled="False"
+                      IsBackButtonVisible="Collapsed"
+                      PaneDisplayMode="LeftCompact">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -20,6 +23,10 @@
                     <VisualState.Setters>
                         <Setter Target="NavView.PaneDisplayMode" Value="Top" />
                         <Setter Target="AppBarPanel.Orientation" Value="Horizontal"/>
+                        <Setter Target="AddNavItem.Content" Value="" />
+                        <Setter Target="AddNavItem.Width" Value="44" />
+                        <Setter Target="UserProfileItem.Content" Value="" />
+                        <Setter Target="UserProfileItem.Width" Value="44" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -45,8 +52,14 @@
 
         <NavigationView.PaneFooter>
             <StackPanel Name="AppBarPanel" Orientation="Vertical">
-                <AppBarButton x:Uid="AddNavItem" Click="AppBarButton_Clicked" Width="44" Height="44" Icon="Add" Tag="add"></AppBarButton>
-                <!--<AppBarButton x:Uid="NotifyIcon" Click="NotifyBarButton_Click" Width="44" Height="44" Icon="Flag" Tag="notif"></AppBarButton>-->
+
+                <NavigationViewItem x:Uid="AddNavItem" Name="AddNavItem" Content="Add" Icon="Add" Tag="add" Tapped="AppBarButton_Clicked" />
+                <NavigationViewItem x:Uid="UserProfileItem" Name="UserProfileItem" Content="Sign Out" Tag="user" Tapped="SignOutButton_Clicked">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF3B1;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
             </StackPanel>
         </NavigationView.PaneFooter>
 
