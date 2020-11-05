@@ -11,11 +11,11 @@
 
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
-            <fa:FontAwesome Icon="ExclamationTriangle" FontSize="40" Margin="16 0 0 0" HorizontalAlignment="Left" />
+            <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
             <TextBlock x:Name="expiredAlert" Margin="0,24,0,4"></TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <fa:FontAwesome Icon="ExclamationTriangle" FontSize="40" Margin="16 0 0 0" HorizontalAlignment="Left" />
+            <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
             <TextBlock x:Name="expireSoonAlert" Margin="0,24,0,4"></TextBlock>
         </StackPanel>
     </StackPanel>

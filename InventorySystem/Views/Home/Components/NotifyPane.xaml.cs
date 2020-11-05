@@ -96,7 +96,7 @@ namespace InventorySystem.Views.Home.Components
                 }
             }
             int expiryListCount = entriesExpireSoon.Count - 1;
-            expiredAlert.Text = entriesExpireSoon[0] + " and " + expiryListCount + " more samples are expiring soon.";
+            expireSoonAlert.Text = entriesExpireSoon[0] + " and " + expiryListCount + " more samples are expiring soon.";
         }
     }
 }

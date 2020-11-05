@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Frame Name="NotifyFrame" Height="100" Grid.Row="0"></Frame>
+        <Frame Name="NotifyFrame" Grid.Row="0"></Frame>
 
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"

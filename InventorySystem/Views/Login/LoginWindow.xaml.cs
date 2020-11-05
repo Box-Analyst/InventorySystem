@@ -92,17 +92,5 @@ namespace InventorySystem
             password.Password = "";
         }
 
-        private void password_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == VirtualKey.Enter)
-            {
-                LoginButton_Click(sender, e);
-            }
-        }
-        // private void AddNewUserButton_Click(object sender, RoutedEventArgs e)
-        // {
-        //     this.Frame.Navigate(typeof(Views.Login.Components.AddUsers));
-        // }
-
     }
 }
