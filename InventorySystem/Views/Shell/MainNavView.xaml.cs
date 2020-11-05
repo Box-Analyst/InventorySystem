@@ -117,7 +117,7 @@ namespace InventorySystem.Views.Shell
         private void AppBarButton_Clicked(object sender, TappedRoutedEventArgs e)
         {
             NavView.SelectedItem = null;
-            ContentFrame.Navigate(typeof(Samples.Components.AddSample));
+            ContentFrame.Navigate(typeof(Samples.Components.AddSample), GetEmpID());
         }
 
         public string GetEmpID()

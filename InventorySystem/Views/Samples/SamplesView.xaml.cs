@@ -30,6 +30,7 @@ namespace InventorySystem.Views.Samples
         {
             this.InitializeComponent();
             SizeChanged += new SizeChangedEventHandler(Page_SizeChanged);
+            
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -85,6 +86,7 @@ namespace InventorySystem.Views.Samples
                     };
                     Grid.SetRow(sampleButton, count);
                     Grid.SetColumn(sampleButton, 0);
+                    sampleButton.Click += new RoutedEventHandler(SampleButton_Click);
 
                     Button recButton = new Button
                     {
@@ -94,6 +96,7 @@ namespace InventorySystem.Views.Samples
                     };
                     Grid.SetRow(recButton, count);
                     Grid.SetColumn(recButton, 1);
+                    recButton.Click += new RoutedEventHandler(RecButton_Click);
 
                     Button distButton = new Button
                     {
@@ -103,6 +106,7 @@ namespace InventorySystem.Views.Samples
                     };
                     Grid.SetRow(distButton, count);
                     Grid.SetColumn(distButton, 2);
+                    distButton.Click += new RoutedEventHandler(DistButton_Click);
 
                     sampleListGrid.Children.Add(sampleButton);
                     sampleListGrid.Children.Add(recButton);
@@ -163,6 +167,7 @@ namespace InventorySystem.Views.Samples
                 };
                 Grid.SetRow(sampleButton, count);
                 Grid.SetColumn(sampleButton, 0);
+                sampleButton.Click += new RoutedEventHandler(SampleButton_Click);
 
                 Button recButton = new Button
                 {
@@ -172,6 +177,7 @@ namespace InventorySystem.Views.Samples
                 };
                 Grid.SetRow(recButton, count);
                 Grid.SetColumn(recButton, 1);
+                recButton.Click += new RoutedEventHandler(RecButton_Click);
 
                 Button distButton = new Button
                 {
@@ -181,6 +187,7 @@ namespace InventorySystem.Views.Samples
                 };
                 Grid.SetRow(distButton, count);
                 Grid.SetColumn(distButton, 2);
+                distButton.Click += new RoutedEventHandler(DistButton_Click);
 
                 sampleListGrid.Children.Add(sampleButton);
                 sampleListGrid.Children.Add(recButton);
@@ -191,6 +198,19 @@ namespace InventorySystem.Views.Samples
 
         }
         
+        private void SampleButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void RecButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Components.AddSample), GetEmpID());
+        }
+
+        private void DistButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Components.DistributeSample), GetEmpID());
+        }
         //Deletes the Grid's rows and content within, leaving the columns for use in rebuilding the list
         private void ClearContent()
         {
