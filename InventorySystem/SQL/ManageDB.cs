@@ -84,7 +84,7 @@ namespace InventorySystem.SQL
                     db.Close();
                     return;
                 }
-                if (!query.HasRows)
+                if (query.HasRows == false)
                 {
                     SqliteCommand insertCommand = new SqliteCommand
                     {
@@ -105,13 +105,10 @@ namespace InventorySystem.SQL
                         Debug.WriteLine("Exception: " + error);
                     }
                 }
-                else
-                {
-                    Debug.WriteLine("Else: " + query.Read());
-                }
                 db.Close();
             }
         }
+
         // Method to grab entries from the SQLite database
         public static List<string> Grab_Entries(string table, string column, object search)
         {
@@ -119,9 +116,11 @@ namespace InventorySystem.SQL
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT @Column FROM @Table", db);
-                selectCommand.Parameters.AddWithValue("@Table", table);
-                selectCommand.Parameters.AddWithValue("@Column", column);
+                SqliteCommand selectCommand = new SqliteCommand
+                {
+                    Connection = db,
+                    CommandText = "SELECT " + column + " FROM " + table
+                };
                 SqliteDataReader query;
                 try
                 {
@@ -244,6 +243,75 @@ namespace InventorySystem.SQL
                     check = false;
                 }
                 db.Close();
+            }
+            return check;
+        }
+
+        public static void Update_IsExpired()
+        {
+            List<string> entries = new List<string>();
+            List<string> entryLotNumbers = new List<string>();
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT ExpirationDate, LotNum FROM Sample WHERE isExpired = 0", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Console.WriteLine("Exception:" + error);
+                    db.Close();
+                    return;
+                }
+                while (query.Read())
+                {
+                    var tmp = query.GetString(0);
+                    entries.Add(tmp);
+                    var tmp1 = query.GetString(1);
+                    entryLotNumbers.Add(tmp1);
+                }
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (Check_IsExpired(entries[i]))
+                    {
+                        SqliteCommand insertCommand = new SqliteCommand
+                        {
+                            Connection = db,
+
+                            //Use parameterized query to prevent SQL injection attacks
+                            CommandText = "UPDATE Sample SET isExpired = @Entry2 WHERE LotNum = @Entry1;"
+                        };
+                        insertCommand.Parameters.AddWithValue("@Entry1", entryLotNumbers[i]);
+                        insertCommand.Parameters.AddWithValue("@Entry2", false);
+                        try
+                        {
+                            insertCommand.ExecuteReader();
+                        }
+                        catch (SqliteException error)
+                        {
+                            Console.WriteLine(error);
+                            db.Close();
+                            return;
+                        }
+                    }
+                }
+                db.Close();
+            }
+        }
+
+        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
+        {
+            bool check = false;
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
+            expirationDate.AddDays(noticeTime);
+            if (localDate >= expirationDate)
+            {
+                check = true;
             }
             return check;
         }
@@ -592,6 +660,23 @@ namespace InventorySystem.SQL
             }
             return check;
 
+        }
+        public static int NumberOfRows()
+        {
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("Select COUNT(*) from Sample", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                int numRows = 0;
+                if (query.Read())
+                {
+                    numRows = int.Parse($"{query[0]}");
+                    return numRows;
+                }
+                db.Close();
+                return numRows;
+            }
         }
     }
 }

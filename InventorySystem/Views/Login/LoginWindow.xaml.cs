@@ -78,6 +78,13 @@ namespace InventorySystem
 
         }
 
+        private void password_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                LoginButton_Click(sender, e);
+            }
+        }
         //Clears the Employee ID and Password fields
         public void Clear()
         {
