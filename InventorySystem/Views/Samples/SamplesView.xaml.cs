@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using Windows.UI.Core;
 using System.Windows;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace InventorySystem.Views.Samples
 {
@@ -46,7 +47,7 @@ namespace InventorySystem.Views.Samples
 
         private void ConstructSamplesList()
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "LotNum", null);
             int numRows = SQL.ManageDB.NumberOfRows();
             int count = 0;
             if (numRows != 0)
@@ -145,7 +146,7 @@ namespace InventorySystem.Views.Samples
         private void UpdateSamplesList()
         {
             ClearContent();
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "LotNum", null);
             int count = 0;
             foreach (string sample in samples)
             {
@@ -209,8 +210,8 @@ namespace InventorySystem.Views.Samples
         //which sample's button was pressed.
         private void RecButton_Click(object sender, RoutedEventArgs e)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
-            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "LotNum", null);
+            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", null);
             //Grabs the button's name property and extracts the integer (based on count)
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
             int count = int.Parse(resultString);
@@ -226,8 +227,8 @@ namespace InventorySystem.Views.Samples
         //which sample's button was pressed.
         private void DistButton_Click(object sender, RoutedEventArgs e)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
-            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", null);
+            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "LotNum", null);
+            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", null);
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
             int count = int.Parse(resultString);
             currentSample = samples[count];

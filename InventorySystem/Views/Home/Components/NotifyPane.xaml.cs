@@ -83,14 +83,14 @@ namespace InventorySystem.Views.Home.Components
 
                 for (int i = 0; i < entries.Count; i++)
                 {
-                    if (SQL.ManageDB.Check_ExpiresSoon(entryExpiryDate[i], 30))
+                    if (SQL.ManageDB.Check_ExpiresSoon(entryExpiryDate[i], -30))
                     {
                         entriesExpireSoon.Add(entries[i]);
                     }
                 }
             }
             int expiryListCount = entriesExpireSoon.Count - 1;
-            if (expiryListCount <= 0)
+            if (expiryListCount < 0)
             {
                 ExpireSoonAlert.Text = "No samples are expiring soon.";
             }

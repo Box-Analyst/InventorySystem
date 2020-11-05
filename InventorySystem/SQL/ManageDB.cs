@@ -6,6 +6,7 @@ using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
 using InventorySystem.Views.Login;
 using System.Diagnostics;
+using Windows.UI.Xaml.Controls;
 
 namespace InventorySystem.SQL
 {
@@ -104,7 +105,7 @@ namespace InventorySystem.SQL
         }
 
         // Method to grab entries from the SQLite database
-        public static List<string> Grab_Entries(string table, string column, object search)
+        public static List<string> Grab_Entries(string table, string returnColumn, string comparisonColumn, object search)
         {
             List<string> entries = new List<string>();
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
@@ -113,7 +114,7 @@ namespace InventorySystem.SQL
                 SqliteCommand selectCommand = new SqliteCommand
                 {
                     Connection = db,
-                    CommandText = "SELECT " + column + " FROM " + table
+                    CommandText = "SELECT " + returnColumn +", " + comparisonColumn + " FROM " + table
                 };
                 SqliteDataReader query;
                 try
@@ -130,11 +131,11 @@ namespace InventorySystem.SQL
                 {
                     // if search is specified, only return values containing that query
                     // otherwise return entire column
-                    if (search != null && query.GetString(0).ToLower().Contains(search.ToString().ToLower()))
+                    if (search != null && query.GetString(1).ToLower().Contains(search.ToString().ToLower()))
                     {
                         entries.Add(query.GetString(0));
                     }
-                    else
+                    else if(search == null)
                     {
                         entries.Add(query.GetString(0));
                     }
@@ -589,6 +590,19 @@ namespace InventorySystem.SQL
                 db.Close();
                 return numRows;
             }
+        }
+        // Method to check if a sample is about to expire
+        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
+        {
+            bool check = false;
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
+            if (localDate >= expirationDate.AddDays(noticeTime))
+            {
+                check = true;
+            }
+            return check;
         }
     }
 }

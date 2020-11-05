@@ -6,6 +6,7 @@ using Windows.UI;
 using Windows.UI.WindowManagement;
 using Windows.UI.Xaml.Hosting;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace InventorySystem.Views.Samples.Components
 {
