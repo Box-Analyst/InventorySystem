@@ -1,26 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.VoiceCommands;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.WindowManagement;
 using System.Security.Cryptography;
 using Windows.UI.Core;
 using System.Windows;
 using System.Text.RegularExpressions;
+using InventorySystem.Views.Shell;
 
 namespace InventorySystem.Views.Samples
 {
@@ -32,11 +20,11 @@ namespace InventorySystem.Views.Samples
         {
             this.InitializeComponent();
             SizeChanged += new SizeChangedEventHandler(Page_SizeChanged);
-            
+
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter.ToString();
+            empID = e.Parameter?.ToString();
             passedVars.Clear();
             passedVars.Add(GetEmpID());
             ConstructSamplesList();
@@ -50,12 +38,12 @@ namespace InventorySystem.Views.Samples
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if((Math.Abs(e.NewSize.Width-e.PreviousSize.Width))>0)
+            if ((Math.Abs(e.NewSize.Width - e.PreviousSize.Width)) > 0)
             {
                 UpdateSamplesList();
             }
 
-            
+
         }
 
         private void ConstructSamplesList()
@@ -104,7 +92,7 @@ namespace InventorySystem.Views.Samples
                     };
                     Grid.SetRow(recButton, count);
                     Grid.SetColumn(recButton, 1);
-                    recButton.Click += (sender, e) => RecButton_Click(sender, e);
+                    recButton.Click += RecButton_Click;
 
                     Button distButton = new Button
                     {
@@ -123,7 +111,7 @@ namespace InventorySystem.Views.Samples
                     count++;
 
                 }
-            }      
+            }
         }
 
         //Not working/saving for later ---DONT MERGE---
@@ -155,8 +143,8 @@ namespace InventorySystem.Views.Samples
         }*/
 
         //Working, but slow/memory heavy
-       //Updates the Sample list by calling ClearContent, and rebuilding the grid's rows using preexisting columns
-       private void UpdateSamplesList()
+        //Updates the Sample list by calling ClearContent, and rebuilding the grid's rows using preexisting columns
+        private void UpdateSamplesList()
         {
             ClearContent();
             var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", null);
@@ -209,7 +197,8 @@ namespace InventorySystem.Views.Samples
             }
 
         }
-        
+
+
         //Onclick event that occurs if the Sample number is clicked
         //Will navigate to a sample information page and pass all relevant data via passedVars
         private void SampleButton_Click(object sender, RoutedEventArgs e)
@@ -218,7 +207,7 @@ namespace InventorySystem.Views.Samples
         }
 
         //Onclick event that occurs if the Receive button is clicked
-        //Will navigate to the AddSample page with data based on 
+        //Will navigate to the AddSample page with data based on
         //which sample's button was pressed.
         private void RecButton_Click(object sender, RoutedEventArgs e)
         {
@@ -235,7 +224,7 @@ namespace InventorySystem.Views.Samples
         }
 
         //Onclick event that occurs if the Distribute button is clicked
-        //Will navigate to the DistributeSample page with data based on 
+        //Will navigate to the DistributeSample page with data based on
         //which sample's button was pressed.
         private void DistButton_Click(object sender, RoutedEventArgs e)
         {
@@ -252,14 +241,14 @@ namespace InventorySystem.Views.Samples
         //Deletes the Grid's rows and content within, leaving the columns for use in rebuilding the list
         private void ClearContent()
         {
-                foreach (RowDefinition row in sampleListGrid.RowDefinitions)
+            foreach (RowDefinition row in sampleListGrid.RowDefinitions)
+            {
+                foreach (UIElement control in sampleListGrid.Children)
                 {
-                    foreach (UIElement control in sampleListGrid.Children)
-                    {
-                        sampleListGrid.Children.Remove(control);
-                    }
-                    sampleListGrid.RowDefinitions.Remove(row);
+                    sampleListGrid.Children.Remove(control);
                 }
+                sampleListGrid.RowDefinitions.Remove(row);
+            }
 
         }
 

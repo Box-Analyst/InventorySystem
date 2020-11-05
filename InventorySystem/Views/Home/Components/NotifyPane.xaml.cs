@@ -1,20 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace InventorySystem.Views.Home.Components
 {
@@ -54,7 +41,14 @@ namespace InventorySystem.Views.Home.Components
                 db.Close();
             }
             int expiryListCount = entries.Count - 1;
-            expiredAlert.Text = entries[0] + " and " + expiryListCount + " more samples are expired.";
+            if (expiryListCount <= 0)
+            {
+                ExpiredAlert.Text = "No expired samples found.";
+            }
+            else
+            {
+                ExpiredAlert.Text = entries[0] + " and " + expiryListCount + " more samples are expired.";
+            }
         }
 
         private void expireSoonList()
@@ -96,7 +90,14 @@ namespace InventorySystem.Views.Home.Components
                 }
             }
             int expiryListCount = entriesExpireSoon.Count - 1;
-            expiredAlert.Text = entriesExpireSoon[0] + " and " + expiryListCount + " more samples are expiring soon.";
+            if (expiryListCount <= 0)
+            {
+                ExpireSoonAlert.Text = "No samples are expiring soon.";
+            }
+            else
+            {
+                ExpireSoonAlert.Text = entriesExpireSoon[0] + " and " + expiryListCount + " more samples are expiring soon.";
+            }
         }
     }
 }

@@ -1,20 +1,7 @@
-﻿﻿using InventorySystem.Views.Settings;
+﻿using InventorySystem.Views.Settings;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.Cryptography;
-using System.Text;
-using System.Windows;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -34,12 +21,11 @@ namespace InventorySystem.Views.Login.Components
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter.ToString();
+            empID = e.Parameter?.ToString();
         }
         public void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
-            string hashedPW;
             //If checkEmployee is false (user doesn't exist), create user account
             if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
             {
@@ -47,7 +33,7 @@ namespace InventorySystem.Views.Login.Components
                 if (password.Password == passwordRetype.Password)
                 {
                     hash.SetHash();
-                    hashedPW = hash.GetHash();
+                    var hashedPW = hash.GetHash();
                     SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), hashedPW, "True");
                     this.Frame.Navigate(typeof(SettingsView), GetEmpID());
                 }

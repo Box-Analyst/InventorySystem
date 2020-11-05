@@ -1,6 +1,5 @@
-﻿using InventorySystem.Views.Samples.Components;
-using System;
-using System.Diagnostics;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,7 +8,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace InventorySystem.Views.Shell
 {
-    public sealed partial class MainNavView : Page
+    public sealed partial class MainNavView
     {
         private string empID;
         public MainNavView()
@@ -20,7 +19,7 @@ namespace InventorySystem.Views.Shell
         //When MainNavView is navigated to, empID is passed to this function and stored in private class variable empID
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter.ToString();
+            empID = e.Parameter?.ToString();
         }
 
         // NavView stuff

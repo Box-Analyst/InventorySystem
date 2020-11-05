@@ -4,17 +4,12 @@ using System.Configuration;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using System.IO;
-using Windows.Storage;
-using System.Runtime.InteropServices;
-using Windows.UI.WindowManagement;
 using InventorySystem.Views.Login;
 using System.Diagnostics;
 
 namespace InventorySystem.SQL
 {
-    static class ManageDB
+    internal static class ManageDB
     {
         // Method to initialize database
         public static void InitializeDB()
@@ -63,10 +58,9 @@ namespace InventorySystem.SQL
         private static void AddAdminAccount()
         {
             int empID = 1;
-            string hashedPW;
             PasswordHash hash = new PasswordHash("password");
             hash.SetHash();
-            hashedPW = hash.GetHash();
+            var hashedPW = hash.GetHash();
 
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
@@ -148,9 +142,9 @@ namespace InventorySystem.SQL
             }
             return entries;
         }
+
         // Method to insert Samples into the Sample table
         // Needs to check if Sample exists
-
         public static bool Check_Sample(object sender, RoutedEventArgs e, string LotNumber)
         {
             bool check = false;
@@ -181,6 +175,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
         public static bool Update_Sample(object sender, RoutedEventArgs e, string LotNumber, int count)
         {
             bool check = true;
@@ -209,6 +204,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
         public static bool Add_Sample(object sender, RoutedEventArgs e, string LotNumber, string NameandDosage, int count, string expirationdate, bool isExpired)
         {
             bool check = true;
@@ -242,75 +238,6 @@ namespace InventorySystem.SQL
                     check = false;
                 }
                 db.Close();
-            }
-            return check;
-        }
-
-        public static void Update_IsExpired()
-        {
-            List<string> entries = new List<string>();
-            List<string> entryLotNumbers = new List<string>();
-            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
-            {
-                db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT ExpirationDate, LotNum FROM Sample WHERE isExpired = 0", db);
-                SqliteDataReader query;
-                try
-                {
-                    query = selectCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    Console.WriteLine("Exception:" + error);
-                    db.Close();
-                    return;
-                }
-                while (query.Read())
-                {
-                    var tmp = query.GetString(0);
-                    entries.Add(tmp);
-                    var tmp1 = query.GetString(1);
-                    entryLotNumbers.Add(tmp1);
-                }
-                for (int i = 0; i < entries.Count; i++)
-                {
-                    if (Check_IsExpired(entries[i]))
-                    {
-                        SqliteCommand insertCommand = new SqliteCommand
-                        {
-                            Connection = db,
-
-                            //Use parameterized query to prevent SQL injection attacks
-                            CommandText = "UPDATE Sample SET isExpired = @Entry2 WHERE LotNum = @Entry1;"
-                        };
-                        insertCommand.Parameters.AddWithValue("@Entry1", entryLotNumbers[i]);
-                        insertCommand.Parameters.AddWithValue("@Entry2", false);
-                        try
-                        {
-                            insertCommand.ExecuteReader();
-                        }
-                        catch (SqliteException error)
-                        {
-                            Console.WriteLine(error);
-                            db.Close();
-                            return;
-                        }
-                    }
-                }
-                db.Close();
-            }
-        }
-
-        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
-        {
-            bool check = false;
-            var cultureInfo = new CultureInfo("en-US");
-            DateTime localDate = DateTime.Now;
-            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
-            expirationDate.AddDays(noticeTime);
-            if (localDate >= expirationDate)
-            {
-                check = true;
             }
             return check;
         }
@@ -450,6 +377,75 @@ namespace InventorySystem.SQL
             return check;
         }
 
+        // Method to update isExpired	
+        public static void Update_IsExpired()
+        {
+            List<string> entries = new List<string>();
+            List<string> entryLotNumbers = new List<string>();
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT ExpirationDate, LotNum FROM Sample WHERE isExpired = 0", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine("Exception:" + error);
+                    db.Close();
+                    return;
+                }
+                while (query.Read())
+                {
+                    var tmp = query.GetString(0);
+                    entries.Add(tmp);
+                    var tmp1 = query.GetString(1);
+                    entryLotNumbers.Add(tmp1);
+                }
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (!Check_IsExpired(entries[i])) continue;
+                    SqliteCommand insertCommand = new SqliteCommand
+                    {
+                        Connection = db,
+
+                        //Use parameterized query to prevent SQL injection attacks	
+                        CommandText = "UPDATE Sample SET isExpired = @Entry2 WHERE LotNum = @Entry1;"
+                    };
+                    insertCommand.Parameters.AddWithValue("@Entry1", entryLotNumbers[i]);
+                    insertCommand.Parameters.AddWithValue("@Entry2", false);
+                    try
+                    {
+                        insertCommand.ExecuteReader();
+                    }
+                    catch (SqliteException error)
+                    {
+                        Debug.WriteLine(error);
+                        db.Close();
+                        return;
+                    }
+                }
+                db.Close();
+            }
+        }
+
+        // Method to check if a sample is about to expire
+        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
+        {
+            bool check = false;
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
+            if (localDate >= expirationDate.AddDays(noticeTime))
+            {
+                check = true;
+            }
+            return check;
+        }
+
+        // Method to check if a sample is expired
         public static bool Check_IsExpired(string expirationdate)
         {
             bool check = false;
@@ -465,7 +461,6 @@ namespace InventorySystem.SQL
 
 
         // Method to insert new Employees into the Employee table
-
         public static bool Add_Employee(object sender, RoutedEventArgs e, int empID, string pin, string isActive)
         {
             bool check = true;
@@ -495,6 +490,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
         // Method to insert log line into Log table
         // This method should be used cautiously!
         public static bool Add_Log(object sender, RoutedEventArgs e, string empID, string LotNumber, string whenModified, string patientID, string RepID, string LogType)
@@ -529,7 +525,6 @@ namespace InventorySystem.SQL
             }
             return check;
         }
-
 
         // Method to insert text into the SQLite database
         public static void Add_Text(object sender, RoutedEventArgs e, string inputVal)
@@ -589,6 +584,7 @@ namespace InventorySystem.SQL
             return check;
 
         }
+
         public static int NumberOfRows()
         {
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
