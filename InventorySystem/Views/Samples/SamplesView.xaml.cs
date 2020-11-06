@@ -28,7 +28,6 @@ namespace InventorySystem.Views.Samples
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             passedVars.Clear();
-            passedVars.Add(empID);
             if (e.Parameter is string)
             {
                 empID = e.Parameter.ToString();
@@ -61,10 +60,11 @@ namespace InventorySystem.Views.Samples
         {
             ClearContent();
             List<string> samples;
-            if(NameandDosageText != null)
+            if (NameandDosageText != null)
             {
                 samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "NameandDosage", NameandDosageText);
-            } else
+            }
+            else
             {
                 samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
             }
@@ -167,7 +167,7 @@ namespace InventorySystem.Views.Samples
             {
                 samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
             }
-            int count = 0;
+            int count = 1;
             foreach (string sample in samples)
             {
                 RowDefinition sampleRow = new RowDefinition();
