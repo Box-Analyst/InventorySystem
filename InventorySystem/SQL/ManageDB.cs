@@ -378,6 +378,7 @@ namespace InventorySystem.SQL
             return check;
         }
 
+        // Method to check if a sample is expired
         public static bool Check_IsExpired(string expirationdate)
         {
             bool check = false;
@@ -443,23 +444,6 @@ namespace InventorySystem.SQL
                 db.Close();
             }
         }
-
-        // Method to check if a sample is about to expire
-
-        // Method to check if a sample is expired
-        public static bool Check_IsExpired(string expirationdate)
-        {
-            bool check = false;
-            var cultureInfo = new CultureInfo("en-US");
-            DateTime localDate = DateTime.Now;
-            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
-            if (localDate >= expirationDate)
-            {
-                check = true;
-            }
-            return check;
-        }
-
 
         // Method to insert new Employees into the Employee table
         public static bool Add_Employee(object sender, RoutedEventArgs e, int empID, string pin, string isActive)
