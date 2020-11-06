@@ -103,66 +103,66 @@ namespace InventorySystem.Views.Home.Components
         private void ConstructExpiredList()
         {
             var samples = ExpiryList();
-            int numRows = SQL.ManageDB.NumberOfRows();
             int count = 0;
-            if (numRows != 0)
+            if (SQL.ManageDB.IsEmpty())
             {
-                ColumnDefinition sampleCol = new ColumnDefinition();
-                ColumnDefinition recCol = new ColumnDefinition();
-                ColumnDefinition distCol = new ColumnDefinition();
-                sampleCol.Width = new GridLength(7, GridUnitType.Star);
-                recCol.Width = new GridLength(1.5, GridUnitType.Star);
-                distCol.Width = new GridLength(1.5, GridUnitType.Star);
-                expiryListGrid.ColumnDefinitions.Add(sampleCol);
-                expiryListGrid.ColumnDefinitions.Add(recCol);
-                expiryListGrid.ColumnDefinitions.Add(distCol);
+                return;
+            }
+            ColumnDefinition sampleCol = new ColumnDefinition();
+            ColumnDefinition recCol = new ColumnDefinition();
+            ColumnDefinition distCol = new ColumnDefinition();
+            sampleCol.Width = new GridLength(7, GridUnitType.Star);
+            recCol.Width = new GridLength(1.5, GridUnitType.Star);
+            distCol.Width = new GridLength(1.5, GridUnitType.Star);
+            expiryListGrid.ColumnDefinitions.Add(sampleCol);
+            expiryListGrid.ColumnDefinitions.Add(recCol);
+            expiryListGrid.ColumnDefinitions.Add(distCol);
 
-                foreach (string sample in samples)
+            foreach (string sample in samples)
+            {
+                //currentSample = sample;
+                RowDefinition sampleRow = new RowDefinition();
+                expiryListGrid.RowDefinitions.Add(sampleRow);
+                sampleRow.Height = GridLength.Auto;
+
+                Button sampleButton = new Button
                 {
-                    //currentSample = sample;
-                    RowDefinition sampleRow = new RowDefinition();
-                    expiryListGrid.RowDefinitions.Add(sampleRow);
-                    sampleRow.Height = GridLength.Auto;
+                    Name = "sampleButton" + count,
+                    Content = sample,
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(0, 0, 2, 2),
+                    Width = .7 * GetWidth()
+                };
+                Grid.SetRow(sampleButton, count);
+                Grid.SetColumn(sampleButton, 0);
+                //sampleButton.Click += new RoutedEventHandler(SampleButton_Click);
 
-                    Button sampleButton = new Button
-                    {
-                        Name = "sampleButton" + count,
-                        Content = sample,
-                        HorizontalContentAlignment = HorizontalAlignment.Left,
-                        Margin = new Thickness(0, 0, 2, 2),
-                        Width = .7 * GetWidth()
-                    };
-                    Grid.SetRow(sampleButton, count);
-                    Grid.SetColumn(sampleButton, 0);
-                    //sampleButton.Click += new RoutedEventHandler(SampleButton_Click);
+                Button recButton = new Button
+                {
+                    Name = "recButton" + count,
+                    Content = "Receive",
+                    Width = .15 * GetWidth(),
+                    Margin = new Thickness(0, 0, 2, 2)
+                };
+                Grid.SetRow(recButton, count);
+                Grid.SetColumn(recButton, 1);
+                //recButton.Click += RecButton_Click;
 
-                    Button recButton = new Button
-                    {
-                        Name = "recButton" + count,
-                        Content = "Receive",
-                        Width = .15 * GetWidth(),
-                        Margin = new Thickness(0, 0, 2, 2)
-                    };
-                    Grid.SetRow(recButton, count);
-                    Grid.SetColumn(recButton, 1);
-                    //recButton.Click += RecButton_Click;
+                Button distButton = new Button
+                {
+                    Name = "distButton" + count,
+                    Content = "Distribute",
+                    Width = .15 * GetWidth(),
+                    Margin = new Thickness(0, 0, 0, 2)
+                };
+                Grid.SetRow(distButton, count);
+                Grid.SetColumn(distButton, 2);
+                //distButton.Click += new RoutedEventHandler(DistButton_Click);
 
-                    Button distButton = new Button
-                    {
-                        Name = "distButton" + count,
-                        Content = "Distribute",
-                        Width = .15 * GetWidth(),
-                        Margin = new Thickness(0, 0, 0, 2)
-                    };
-                    Grid.SetRow(distButton, count);
-                    Grid.SetColumn(distButton, 2);
-                    //distButton.Click += new RoutedEventHandler(DistButton_Click);
-
-                    expiryListGrid.Children.Add(sampleButton);
-                    expiryListGrid.Children.Add(recButton);
-                    expiryListGrid.Children.Add(distButton);
-                    count++;
-                }
+                expiryListGrid.Children.Add(sampleButton);
+                expiryListGrid.Children.Add(recButton);
+                expiryListGrid.Children.Add(distButton);
+                count++;
             }
         }
 

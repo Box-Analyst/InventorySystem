@@ -585,21 +585,26 @@ namespace InventorySystem.SQL
 
         }
 
-        public static int NumberOfRows()
+        public static bool IsEmpty()
         {
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
                 SqliteCommand selectCommand = new SqliteCommand("Select COUNT(*) from Sample", db);
                 SqliteDataReader query = selectCommand.ExecuteReader();
-                int numRows = 0;
+                int numRows;
+                bool check = true;
                 if (query.Read())
                 {
                     numRows = int.Parse($"{query[0]}");
-                    return numRows;
+                    if (numRows > 0)
+                    {
+                        check = false;
+                    }
+                    return check;
                 }
                 db.Close();
-                return numRows;
+                return check;
             }
         }
     }

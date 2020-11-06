@@ -12,11 +12,13 @@
         <TextBlock Text="Add User" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal"/>
         <TextBox x:Name="employeeID" Header="Employee ID" Margin="0,24,0,0" MaxLength="12" Width="400" HorizontalAlignment="Center"/>
         <PasswordBox x:Name="password" Header="Password" Margin=" 0,24,0,0" MaxLength="20" Width="400" HorizontalAlignment="Center" />
-        <PasswordBox x:Name="passwordRetype" Header="Retype Password" Margin=" 0,24,0,0" MaxLength="20" Width="400" HorizontalAlignment="Center" />
+        <PasswordBox x:Name="passwordRetype" Header="Retype Password" Margin=" 0,24,0,0" MaxLength="20" Width="400" HorizontalAlignment="Center" KeyUp="password_KeyUp"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Cancel" Click="CancelButton_Click" Margin="0,24,8,0" Width="80"/>
             <Button Content="Add Employee" Click="AddUserButton_Click" Margin="8,24,0,0"/>
         </StackPanel>
+        <TextBlock Text="&#x0a;"/>
+        <TextBlock x:Name="OutputSuccess" HorizontalAlignment="Center"></TextBlock>
     </StackPanel>
 
 </Page>
