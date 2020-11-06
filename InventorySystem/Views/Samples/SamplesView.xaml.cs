@@ -69,9 +69,8 @@ namespace InventorySystem.Views.Samples
                 samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
             }
 
-            int numRows = SQL.ManageDB.NumberOfRows();
             int count = 1;
-            if (numRows == 0) return;
+            if (SQL.ManageDB.IsEmpty()) return;
             ColumnDefinition sampleCol = new ColumnDefinition();
             ColumnDefinition recCol = new ColumnDefinition();
             ColumnDefinition distCol = new ColumnDefinition();

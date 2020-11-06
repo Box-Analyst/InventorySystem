@@ -99,9 +99,11 @@ namespace InventorySystem.Views.Home.Components
         private void ConstructExpiredList()
         {
             var samples = ExpiryList();
-            int numRows = SQL.ManageDB.NumberOfRows();
             int count = 0;
-            if (numRows == 0) return;
+            if (SQL.ManageDB.IsEmpty())
+            {
+                return;
+            }
             ColumnDefinition sampleCol = new ColumnDefinition();
             ColumnDefinition recCol = new ColumnDefinition();
             sampleCol.Width = new GridLength(8.5, GridUnitType.Star);

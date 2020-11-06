@@ -1,7 +1,9 @@
 ﻿using InventorySystem.Views.Settings;
 using System;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -35,10 +37,12 @@ namespace InventorySystem.Views.Login.Components
                     hash.SetHash();
                     var hashedPW = hash.GetHash();
                     SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), hashedPW, "True");
-                    this.Frame.Navigate(typeof(SettingsView), empID);
+                    OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
+                    Clear();
                 }
                 else
                 {
+                    Clear();
                     DisplayAddUserPasswordError();
                 }
 
@@ -47,6 +51,7 @@ namespace InventorySystem.Views.Login.Components
             }
             else
             {
+                Clear();
                 DisplayAddUserError();
             }
 
@@ -78,6 +83,20 @@ namespace InventorySystem.Views.Login.Components
             };
 
             ContentDialogResult result = await addUserError.ShowAsync();
+        }
+
+        private void password_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                AddUserButton_Click(sender, e);
+            }
+        }
+        public void Clear()
+        {
+            employeeID.Text = "";
+            password.Password = "";
+            passwordRetype.Password = "";
         }
     }
 }
