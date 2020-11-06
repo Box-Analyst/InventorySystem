@@ -11,12 +11,13 @@ using System.Text.RegularExpressions;
 using InventorySystem.Views.Shell;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Text;
+using System.Collections.Generic;
 
 namespace InventorySystem.Views.Samples
 {
     public sealed partial class SamplesView : Page
     {
-        private string empID, currentSample;
+        private string empID, currentSample, NameandDosageText;
         private List<string> passedVars = new List<string>();
         public SamplesView()
         {
@@ -26,8 +27,19 @@ namespace InventorySystem.Views.Samples
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            empID = e.Parameter?.ToString();
             passedVars.Clear();
+            passedVars.Add(empID);
+            if (e.Parameter is string)
+            {
+                empID = e.Parameter.ToString();
+            }
+            else
+            {
+                passedVars = e.Parameter as List<string>;
+                empID = passedVars[0];
+                NameandDosageText = passedVars?[1];
+                passedVars.Clear();
+            }
             passedVars.Add(empID);
             ConstructSamplesList();
         }
@@ -47,7 +59,16 @@ namespace InventorySystem.Views.Samples
 
         private void ConstructSamplesList()
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
+            ClearContent();
+            List<string> samples;
+            if(NameandDosageText != null)
+            {
+                samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "NameandDosage", NameandDosageText);
+            } else
+            {
+                samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
+            }
+
             int numRows = SQL.ManageDB.NumberOfRows();
             int count = 1;
             if (numRows == 0) return;
@@ -138,38 +159,16 @@ namespace InventorySystem.Views.Samples
         private void UpdateSamplesList()
         {
             ClearContent();
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
-            int count = 1;
-
-            RowDefinition headerRow = new RowDefinition();
-            sampleListGrid.RowDefinitions.Add(headerRow);
-            headerRow.Height = GridLength.Auto;
-
-            TextBlock header = new TextBlock();
-            header.Text = "Sample Lot Numbers";
-            header.Margin = new Thickness(0, 0, 0, 4);
-            Grid.SetRow(header, 0);
-            Grid.SetColumn(header, 0);
-
-            TextBlock recHeader = new TextBlock();
-            recHeader.Text = "Receive";
-            recHeader.TextAlignment = TextAlignment.Center;
-            recHeader.Margin = new Thickness(0, 0, 0, 4);
-            Grid.SetRow(recHeader, 0);
-            Grid.SetColumn(recHeader, 1);
-
-            TextBlock distHeader = new TextBlock();
-            distHeader.Text = "Distribute";
-            distHeader.TextAlignment = TextAlignment.Center;
-            distHeader.Margin = new Thickness(0, 0, 0, 4);
-            Grid.SetRow(distHeader, 0);
-            Grid.SetColumn(distHeader, 2);
-
-            sampleListGrid.Children.Add(header);
-            sampleListGrid.Children.Add(recHeader);
-            sampleListGrid.Children.Add(distHeader);
-
-
+            List<string> samples;
+            if (NameandDosageText != null)
+            {
+                samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "NameandDosage", NameandDosageText);
+            }
+            else
+            {
+                samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
+            }
+            int count = 0;
             foreach (string sample in samples)
             {
                 RowDefinition sampleRow = new RowDefinition();
@@ -232,8 +231,18 @@ namespace InventorySystem.Views.Samples
         //which sample's button was pressed.
         private void RecButton_Click(object sender, RoutedEventArgs e)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
-            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "isExpired", 0);
+            List<string> samples;
+            List<string> names_dose;
+            if (NameandDosageText != null)
+            {
+                samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "NameandDosage", NameandDosageText);
+                names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", NameandDosageText);
+            }
+            else
+            {
+                samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
+                names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "isExpired", 0);
+            }
             //Grabs the button's name property and extracts the integer (based on count)
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
             int count = int.Parse(resultString) - 1;
@@ -249,8 +258,18 @@ namespace InventorySystem.Views.Samples
         //which sample's button was pressed.
         private void DistButton_Click(object sender, RoutedEventArgs e)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
-            var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "isExpired", 0);
+            List<string> samples;
+            List<string> names_dose;
+            if (NameandDosageText != null)
+            {
+                samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "NameandDosage", NameandDosageText);
+                names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "NameandDosage", NameandDosageText);
+            }
+            else
+            {
+                samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
+                names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "isExpired", 0);
+            }
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
             int count = int.Parse(resultString) - 1;
             currentSample = samples[count];

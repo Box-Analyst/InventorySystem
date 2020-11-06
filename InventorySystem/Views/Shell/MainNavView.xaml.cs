@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,6 +13,7 @@ namespace InventorySystem.Views.Shell
     public sealed partial class MainNavView
     {
         private string empID;
+        private List<string> passedVars = new List<string>();
         public MainNavView()
         {
             this.InitializeComponent();
@@ -86,6 +89,12 @@ namespace InventorySystem.Views.Shell
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             // Set sender.Text. You can use args.SelectedItem to build your text string.
+            sender.Text = args.SelectedItem.ToString();
+            passedVars.Clear();
+            passedVars.Add(empID);
+            passedVars.Add(sender.Text);
+            Debug.WriteLine(sender.Text);
+            ContentFrame.Navigate(typeof(Samples.SamplesView), passedVars);
         }
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -93,10 +102,20 @@ namespace InventorySystem.Views.Shell
             if (args.ChosenSuggestion != null)
             {
                 // User selected an item from the suggestion list, take an action on it here.
+                passedVars.Clear();
+                passedVars.Add(empID);
+                passedVars.Add(sender.Text);
+                Debug.WriteLine(sender.Text);
+                ContentFrame.Navigate(typeof(Samples.SamplesView), passedVars);
             }
             else
             {
                 // Use args.QueryText to determine what to do.
+                passedVars.Clear();
+                passedVars.Add(empID);
+                passedVars.Add(sender.Text);
+                Debug.WriteLine(sender.Text);
+                ContentFrame.Navigate(typeof(Samples.SamplesView), passedVars);
             }
         }
         // End AutoSuggestBox

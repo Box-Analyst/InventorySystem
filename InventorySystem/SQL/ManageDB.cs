@@ -6,6 +6,7 @@ using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
 using InventorySystem.Views.Login;
 using System.Diagnostics;
+using Windows.UI.Xaml.Controls;
 
 namespace InventorySystem.SQL
 {
@@ -377,6 +378,18 @@ namespace InventorySystem.SQL
             return check;
         }
 
+        public static bool Check_IsExpired(string expirationdate)
+        {
+            bool check = false;
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
+            if (localDate >= expirationDate)
+            {
+                check = true;
+            }
+            return check;
+        }
         // Method to update isExpired
         public static void Update_IsExpired()
         {
@@ -432,18 +445,6 @@ namespace InventorySystem.SQL
         }
 
         // Method to check if a sample is about to expire
-        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
-        {
-            bool check = false;
-            var cultureInfo = new CultureInfo("en-US");
-            DateTime localDate = DateTime.Now;
-            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
-            if (localDate >= expirationDate.AddDays(noticeTime))
-            {
-                check = true;
-            }
-            return check;
-        }
 
         // Method to check if a sample is expired
         public static bool Check_IsExpired(string expirationdate)
@@ -601,6 +602,19 @@ namespace InventorySystem.SQL
                 db.Close();
                 return numRows;
             }
+        }
+        // Method to check if a sample is about to expire
+        public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
+        {
+            bool check = false;
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(expirationdate, cultureInfo);
+            if (localDate >= expirationDate.AddDays(noticeTime))
+            {
+                check = true;
+            }
+            return check;
         }
     }
 }

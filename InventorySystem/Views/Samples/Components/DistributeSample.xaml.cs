@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
+using System.Collections.Generic;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace InventorySystem.Views.Samples.Components
@@ -27,13 +27,62 @@ namespace InventorySystem.Views.Samples.Components
             LotNumBox.Text = passedVars?[1] ?? string.Empty;
             NameAndDosageBox.Text = passedVars?[2] ?? string.Empty;
         }
-        private void Add_Sample(object sender, RoutedEventArgs e)
+        private void Distribute_Sample(object sender, RoutedEventArgs e)
         {
-            if (SQL.ManageDB.Add_Sample(sender, e, LotNumBox.Text, NameAndDosageBox.Text, Int32.Parse(CountBox.Text), ExpirationDateBox.Text, false))
+            if (SQL.ManageDB.Check_Count_RegEx(DisAmountBox.Text))
             {
-                Console.WriteLine("Success!");
+                if (SQL.ManageDB.Check_RepID_RegEx(PatientIDBox.Text))
+                {
+                    if (SQL.ManageDB.Update_Sample(sender, e, LotNumBox.Text, -Int32.Parse(DisAmountBox.Text)))
+                    {
+                        SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(), PatientIDBox.Text, "NULL", "DISTRIBUTE");
+                        DistributeButton.Visibility = Visibility.Collapsed;
+                        ContinueButton.Visibility = Visibility.Visible;
+                        OutputSuccess.Text = "Successfully Distributed " + DisAmountBox.Text + " Units of " + LotNumBox.Text + " to " + PatientIDBox.Text;
+                        Clear();
+                    } else
+                    {
+                        OutputSuccess.Text = "Failed to Distribute!";
+                    }
+                } else
+                {
+                    DisplayError("Invalid Patient ID Input", "Patient ID is formatted Incorrectly or empty. \nFormatting should be alphanumeric, or numbers and letters only!");
+                }
+            } else
+            {
+                DisplayError("Invalid Distribution Amount Input", "Distribution Amount is formatted Incorrectly or empty. \nOnly insert integers!");
             }
             //Output.ItemsSource = SQL.ManageDB.Grab_Entries_col();
+        }
+
+        public string GetEmpID()
+        {
+            return empID;
+        }
+
+        private async void DisplayError(string title, string content)
+        {
+            ContentDialog addError = new ContentDialog
+            {
+                Title = title,
+                Content = content,
+                CloseButtonText = "Ok"
+            };
+
+            ContentDialogResult result = await addError.ShowAsync();
+        }
+
+        public void Clear()
+        {
+            LotNumBox.Text = "";
+            NameAndDosageBox.Text = "";
+            DisAmountBox.Text = "";
+            PatientIDBox.Text = "";
+        }
+
+        private void NavBack(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Samples.SamplesView));
         }
     }
 }
