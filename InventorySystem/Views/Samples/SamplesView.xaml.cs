@@ -50,89 +50,87 @@ namespace InventorySystem.Views.Samples
             var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
             int numRows = SQL.ManageDB.NumberOfRows();
             int count = 1;
-            if (numRows != 0)
+            if (numRows == 0) return;
+            ColumnDefinition sampleCol = new ColumnDefinition();
+            ColumnDefinition recCol = new ColumnDefinition();
+            ColumnDefinition distCol = new ColumnDefinition();
+            sampleCol.Width = new GridLength(8.8, GridUnitType.Star);
+            recCol.Width = new GridLength(0.6, GridUnitType.Star);
+            distCol.Width = new GridLength(0.6, GridUnitType.Star);
+            sampleListGrid.ColumnDefinitions.Add(sampleCol);
+            sampleListGrid.ColumnDefinitions.Add(recCol);
+            sampleListGrid.ColumnDefinitions.Add(distCol);
+
+            RowDefinition headerRow = new RowDefinition();
+            sampleListGrid.RowDefinitions.Add(headerRow);
+
+            TextBlock header = new TextBlock();
+            header.Text = "Sample Lot Numbers";
+            Grid.SetRow(header, 0);
+            Grid.SetColumn(header, 0);
+
+            TextBlock recHeader = new TextBlock();
+            recHeader.Text = "Receive";
+            recHeader.TextAlignment = TextAlignment.Center;
+            header.Margin = new Thickness(0, 0, 0, 4);
+            Grid.SetRow(recHeader, 0);
+            Grid.SetColumn(recHeader, 1);
+
+            TextBlock distHeader = new TextBlock();
+            distHeader.Text = "Distribute";
+            distHeader.TextAlignment = TextAlignment.Center;
+            distHeader.Margin = new Thickness(0, 0, 0, 4);
+            Grid.SetRow(distHeader, 0);
+            Grid.SetColumn(distHeader, 2);
+
+            sampleListGrid.Children.Add(header);
+            sampleListGrid.Children.Add(recHeader);
+            sampleListGrid.Children.Add(distHeader);
+
+            foreach (string sample in samples)
             {
-                ColumnDefinition sampleCol = new ColumnDefinition();
-                ColumnDefinition recCol = new ColumnDefinition();
-                ColumnDefinition distCol = new ColumnDefinition();
-                sampleCol.Width = new GridLength(8.8, GridUnitType.Star);
-                recCol.Width = new GridLength(0.6, GridUnitType.Star);
-                distCol.Width = new GridLength(0.6, GridUnitType.Star);
-                sampleListGrid.ColumnDefinitions.Add(sampleCol);
-                sampleListGrid.ColumnDefinitions.Add(recCol);
-                sampleListGrid.ColumnDefinitions.Add(distCol);
+                RowDefinition sampleRow = new RowDefinition();
+                sampleListGrid.RowDefinitions.Add(sampleRow);
+                sampleRow.Height = GridLength.Auto;
 
-                RowDefinition headerRow = new RowDefinition();
-                sampleListGrid.RowDefinitions.Add(headerRow);
-
-                TextBlock header = new TextBlock();
-                header.Text = "Sample Lot Numbers";
-                Grid.SetRow(header, 0);
-                Grid.SetColumn(header, 0);
-
-                TextBlock recHeader = new TextBlock();
-                recHeader.Text = "Receive";
-                recHeader.TextAlignment = TextAlignment.Center;
-                header.Margin = new Thickness(0, 0, 0, 4);
-                Grid.SetRow(recHeader, 0);
-                Grid.SetColumn(recHeader, 1);
-
-                TextBlock distHeader = new TextBlock();
-                distHeader.Text = "Distribute";
-                distHeader.TextAlignment = TextAlignment.Center;
-                distHeader.Margin = new Thickness(0, 0, 0, 4);
-                Grid.SetRow(distHeader, 0);
-                Grid.SetColumn(distHeader, 2);
-
-                sampleListGrid.Children.Add(header);
-                sampleListGrid.Children.Add(recHeader);
-                sampleListGrid.Children.Add(distHeader);
-
-                foreach (string sample in samples)
+                Button sampleButton = new Button
                 {
-                    RowDefinition sampleRow = new RowDefinition();
-                    sampleListGrid.RowDefinitions.Add(sampleRow);
-                    sampleRow.Height = GridLength.Auto;
+                    Name = "sampleButton" + count,
+                    Content = sample,
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(0, 0, 2, 2),
+                    Width = .88 * GetWidth()
+                };
+                Grid.SetRow(sampleButton, count);
+                Grid.SetColumn(sampleButton, 0);
+                sampleButton.Click += new RoutedEventHandler(SampleButton_Click);
 
-                    Button sampleButton = new Button
-                    {
-                        Name = "sampleButton" + count,
-                        Content = sample,
-                        HorizontalContentAlignment = HorizontalAlignment.Left,
-                        Margin = new Thickness(0, 0, 2, 2),
-                        Width = .88 * GetWidth()
-                    };
-                    Grid.SetRow(sampleButton, count);
-                    Grid.SetColumn(sampleButton, 0);
-                    sampleButton.Click += new RoutedEventHandler(SampleButton_Click);
+                Button recButton = new Button
+                {
+                    Name = "recButton" + count,
+                    Content = "+",
+                    Width = .06 * GetWidth(),
+                    Margin = new Thickness(0, 0, 2, 2)
+                };
+                Grid.SetRow(recButton, count);
+                Grid.SetColumn(recButton, 1);
+                recButton.Click += RecButton_Click;
 
-                    Button recButton = new Button
-                    {
-                        Name = "recButton" + count,
-                        Content = "+",
-                        Width = .06 * GetWidth(),
-                        Margin = new Thickness(0, 0, 2, 2)
-                    };
-                    Grid.SetRow(recButton, count);
-                    Grid.SetColumn(recButton, 1);
-                    recButton.Click += RecButton_Click;
+                Button distButton = new Button
+                {
+                    Name = "distButton" + count,
+                    Content = "–",
+                    Width = .06 * GetWidth(),
+                    Margin = new Thickness(0, 0, 0, 2)
+                };
+                Grid.SetRow(distButton, count);
+                Grid.SetColumn(distButton, 2);
+                distButton.Click += new RoutedEventHandler(DistButton_Click);
 
-                    Button distButton = new Button
-                    {
-                        Name = "distButton" + count,
-                        Content = "–",
-                        Width = .06 * GetWidth(),
-                        Margin = new Thickness(0, 0, 0, 2)
-                    };
-                    Grid.SetRow(distButton, count);
-                    Grid.SetColumn(distButton, 2);
-                    distButton.Click += new RoutedEventHandler(DistButton_Click);
-
-                    sampleListGrid.Children.Add(sampleButton);
-                    sampleListGrid.Children.Add(recButton);
-                    sampleListGrid.Children.Add(distButton);
-                    count++;
-                }
+                sampleListGrid.Children.Add(sampleButton);
+                sampleListGrid.Children.Add(recButton);
+                sampleListGrid.Children.Add(distButton);
+                count++;
             }
         }
 
@@ -238,7 +236,7 @@ namespace InventorySystem.Views.Samples
             var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "isExpired", 0);
             //Grabs the button's name property and extracts the integer (based on count)
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
-            int count = int.Parse(resultString)-1;
+            int count = int.Parse(resultString) - 1;
             currentSample = samples[count];
             passedVars.Add(samples[count]);
             passedVars.Add(names_dose[count]);
@@ -254,7 +252,7 @@ namespace InventorySystem.Views.Samples
             var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "isExpired", 0);
             var names_dose = SQL.ManageDB.Grab_Entries("Sample", "NameandDosage", "isExpired", 0);
             string resultString = Regex.Match(((Button)sender).Name, @"\d+").Value;
-            int count = int.Parse(resultString)-1;
+            int count = int.Parse(resultString) - 1;
             currentSample = samples[count];
             passedVars.Add(currentSample);
             passedVars.Add(names_dose[count]);
