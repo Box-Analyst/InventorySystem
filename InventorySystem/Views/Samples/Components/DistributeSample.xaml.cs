@@ -82,7 +82,7 @@ namespace InventorySystem.Views.Samples.Components
 
         private void NavBack(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Samples.SamplesView));
+            this.Frame.Navigate(typeof(Samples.SamplesView), empID);
         }
     }
 }
