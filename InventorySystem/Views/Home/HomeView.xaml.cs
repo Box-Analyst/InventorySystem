@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using InventorySystem.Views.Shell;
 using Microsoft.Data.Sqlite;
 
 namespace InventorySystem.Views.Home
@@ -59,7 +60,11 @@ namespace InventorySystem.Views.Home
                 db.Close();
             }
             int expiryListCount = entries.Count - 1;
-            if (expiryListCount < 0) ExpiredAlert.Text = "No samples are expired.";
+            if (expiryListCount < 0)
+            {
+                ExpiredFrame.Visibility = Visibility.Collapsed;
+                ExpiredList.Visibility = Visibility.Collapsed;
+            }
             else if (expiryListCount == 0) ExpiredAlert.Text = entries[0] + " is expired.";
             else ExpiredAlert.Text = entries[0] + " and " + expiryListCount + " more samples are expired.";
 
@@ -106,7 +111,11 @@ namespace InventorySystem.Views.Home
                 }
             }
             int expiryListCount = entriesExpireSoon.Count - 1;
-            if (expiryListCount < 0) ExpireSoonAlert.Text = "No samples are expiring soon.";
+            if (expiryListCount < 0)
+            {
+                ExpireSoonFrame.Visibility = Visibility.Collapsed;
+                ExpireSoonButton.Visibility = Visibility.Collapsed;
+            }
             else if (expiryListCount == 0) ExpireSoonAlert.Text = entriesExpireSoon[0] + " is expiring soon.";
             else ExpireSoonAlert.Text = entriesExpireSoon[0] + " and " + expiryListCount + " more samples are expiring soon.";
         }
@@ -122,12 +131,10 @@ namespace InventorySystem.Views.Home
             }
             ColumnDefinition sampleCol = new ColumnDefinition();
             ColumnDefinition recCol = new ColumnDefinition();
-            sampleCol.Width = new GridLength(8.5, GridUnitType.Star);
-            recCol.Width = new GridLength(1.5, GridUnitType.Star);
+            sampleCol.Width = new GridLength(10, GridUnitType.Star);
             ExpiryListGrid.ColumnDefinitions.Add(sampleCol);
-            ExpiryListGrid.ColumnDefinitions.Add(recCol);
 
-            foreach (string sample in samples)
+            for (int i = 1; i < samples.Count; i++)
             {
                 RowDefinition sampleRow = new RowDefinition();
                 ExpiryListGrid.RowDefinitions.Add(sampleRow);
@@ -136,26 +143,15 @@ namespace InventorySystem.Views.Home
                 Button sampleButton = new Button
                 {
                     Name = "sampleButton" + count,
-                    Content = sample,
+                    Content = samples[i],
                     HorizontalContentAlignment = HorizontalAlignment.Left,
                     Margin = new Thickness(0, 0, 2, 2),
-                    Width = .85 * GetWidth()
+                    Width = GetWidth()
                 };
                 Grid.SetRow(sampleButton, count);
                 Grid.SetColumn(sampleButton, 0);
 
-                Button recButton = new Button
-                {
-                    Name = "recButton" + count,
-                    Content = "Resolve",
-                    Width = .15 * GetWidth(),
-                    Margin = new Thickness(0, 0, 2, 2)
-                };
-                Grid.SetRow(recButton, count);
-                Grid.SetColumn(recButton, 1);
-
                 ExpiryListGrid.Children.Add(sampleButton);
-                ExpiryListGrid.Children.Add(recButton);
                 count++;
             }
         }
@@ -165,6 +161,14 @@ namespace InventorySystem.Views.Home
         {
             return ((Frame)Window.Current.Content).ActualWidth;
 
+        }
+
+        private void ExpireSoonButton_OnClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ResolveExpiredButton_OnClick(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

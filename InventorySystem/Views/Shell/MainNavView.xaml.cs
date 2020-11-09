@@ -138,11 +138,9 @@ namespace InventorySystem.Views.Shell
             };
 
             ContentDialogResult result = await areYouSure.ShowAsync();
-            if (result != ContentDialogResult.Primary)
-            {
-                NavView.SelectedItem = null;
-                Frame.Navigate(typeof(LoginWindow));
-            }
+            if (result == ContentDialogResult.Primary) return;
+            NavView.SelectedItem = null;
+            Frame.Navigate(typeof(LoginWindow));
         }
     }
 }
