@@ -116,7 +116,7 @@ namespace InventorySystem.Views.Settings
                 };
                 ContentDialogResult resultBak = await importBakAlert.ShowAsync();
 
-                string bakDB = "SamplesDB." + DateTime.Now.Ticks + ".bak";
+                string bakDB = "SamplesDB." + DateTime.Now.Ticks + ".db";
 
                 var activeDBBak = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
                 var bufferDBBak = await Windows.Storage.FileIO.ReadBufferAsync(activeDBBak);
