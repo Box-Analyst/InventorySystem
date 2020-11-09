@@ -19,7 +19,6 @@ namespace InventorySystem.Views.Home
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             NotifyFrame.Navigate(typeof(Components.NotifyPane), empID);
-            SamplesFrame.Navigate(typeof(SamplesView), empID);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

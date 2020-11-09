@@ -15,13 +15,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Frame Name="NotifyFrame" Grid.Row="0"></Frame>
-
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalContentAlignment="Stretch"
                       Grid.Row="1">
-            <Frame Name="SamplesFrame"></Frame>
+            <Frame Name="NotifyFrame" Grid.Row="0"></Frame>
         </ScrollViewer>
     </Grid>
 
