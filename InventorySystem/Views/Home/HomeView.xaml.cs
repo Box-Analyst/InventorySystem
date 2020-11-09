@@ -1,7 +1,9 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using InventorySystem.Views.Samples;
+using Microsoft.Data.Sqlite;
 
 namespace InventorySystem.Views.Home
 {
@@ -11,19 +13,158 @@ namespace InventorySystem.Views.Home
         public HomeView()
         {
             this.InitializeComponent();
+            ExpiryList();
+            ExpireSoonList();
+            ConstructExpiredList();
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             empID = e.Parameter?.ToString();
         }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            NotifyFrame.Navigate(typeof(Components.NotifyPane), empID);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //throw new NotImplementedException();
+        }
+
+        // Method for getting a list of expired samples
+        private List<string> ExpiryList()
+        {
+            List<string> entries = new List<string>();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage FROM Sample WHERE isExpired = 1", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine("Exception:" + error);
+                    db.Close();
+                    return null;
+                }
+                while (query.Read())
+                {
+                    var tmp = query.GetString(0);
+                    entries.Add(tmp);
+                }
+                db.Close();
+            }
+            int expiryListCount = entries.Count - 1;
+            if (expiryListCount < 0) ExpiredAlert.Text = "No samples are expired.";
+            else if (expiryListCount == 0) ExpiredAlert.Text = entries[0] + " is expired.";
+            else ExpiredAlert.Text = entries[0] + " and " + expiryListCount + " more samples are expired.";
+
+            return entries;
+        }
+
+        // Method for grabbing a list of expiring soon samples
+        private void ExpireSoonList()
+        {
+            List<string> entries = new List<string>();
+            List<string> entryExpiryDate = new List<string>();
+            List<string> entriesExpireSoon = new List<string>();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage, ExpirationDate FROM Sample WHERE isExpired = 0", db);
+                SqliteDataReader query;
+                try
+                {
+                    query = selectCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine("Exception:" + error);
+                    db.Close();
+                    return;
+                }
+                while (query.Read())
+                {
+                    var tmp = query.GetString(0);
+                    entries.Add(tmp);
+                    var tmp1 = query.GetString(1);
+                    entryExpiryDate.Add(tmp1);
+                }
+                db.Close();
+
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (SQL.ManageDB.Check_ExpiresSoon(entryExpiryDate[i], -30))
+                    {
+                        entriesExpireSoon.Add(entries[i]);
+                    }
+                }
+            }
+            int expiryListCount = entriesExpireSoon.Count - 1;
+            if (expiryListCount < 0) ExpireSoonAlert.Text = "No samples are expiring soon.";
+            else if (expiryListCount == 0) ExpireSoonAlert.Text = entriesExpireSoon[0] + " is expiring soon.";
+            else ExpireSoonAlert.Text = entriesExpireSoon[0] + " and " + expiryListCount + " more samples are expiring soon.";
+        }
+
+        // Method for constructing list of expired samples
+        private void ConstructExpiredList()
+        {
+            var samples = ExpiryList();
+            int count = 0;
+            if (SQL.ManageDB.IsEmpty())
+            {
+                return;
+            }
+            ColumnDefinition sampleCol = new ColumnDefinition();
+            ColumnDefinition recCol = new ColumnDefinition();
+            sampleCol.Width = new GridLength(8.5, GridUnitType.Star);
+            recCol.Width = new GridLength(1.5, GridUnitType.Star);
+            ExpiryListGrid.ColumnDefinitions.Add(sampleCol);
+            ExpiryListGrid.ColumnDefinitions.Add(recCol);
+
+            foreach (string sample in samples)
+            {
+                RowDefinition sampleRow = new RowDefinition();
+                ExpiryListGrid.RowDefinitions.Add(sampleRow);
+                sampleRow.Height = GridLength.Auto;
+
+                Button sampleButton = new Button
+                {
+                    Name = "sampleButton" + count,
+                    Content = sample,
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(0, 0, 2, 2),
+                    Width = .85 * GetWidth()
+                };
+                Grid.SetRow(sampleButton, count);
+                Grid.SetColumn(sampleButton, 0);
+
+                Button recButton = new Button
+                {
+                    Name = "recButton" + count,
+                    Content = "Resolve",
+                    Width = .15 * GetWidth(),
+                    Margin = new Thickness(0, 0, 2, 2)
+                };
+                Grid.SetRow(recButton, count);
+                Grid.SetColumn(recButton, 1);
+
+                ExpiryListGrid.Children.Add(sampleButton);
+                ExpiryListGrid.Children.Add(recButton);
+                count++;
+            }
+        }
+
+        // Method for getting page width
+        private static double GetWidth()
+        {
+            return ((Frame)Window.Current.Content).ActualWidth;
+
         }
     }
 }

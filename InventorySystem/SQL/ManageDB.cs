@@ -6,7 +6,6 @@ using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
 using InventorySystem.Views.Login;
 using System.Diagnostics;
-using Windows.UI.Xaml.Controls;
 
 namespace InventorySystem.SQL
 {

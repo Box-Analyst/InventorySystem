@@ -2,13 +2,8 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI;
-using Windows.UI.WindowManagement;
-using Windows.UI.Xaml.Hosting;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Globalization;
-using InventorySystem.Views.Shell;
 
 namespace InventorySystem.Views.Samples.Components
 {

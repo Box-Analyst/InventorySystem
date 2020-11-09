@@ -8,11 +8,11 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <NavigationView x:Name="NavView"
-                      ItemInvoked="NavView_ItemInvoked"
-                      Loaded="NavView_Loaded"
-                      IsBackEnabled="False"
-                      IsBackButtonVisible="Collapsed"
-                      PaneDisplayMode="LeftCompact">
+                    ItemInvoked="NavView_ItemInvoked"
+                    Loaded="NavView_Loaded"
+                    IsBackEnabled="False"
+                    IsBackButtonVisible="Collapsed"
+                    PaneDisplayMode="LeftCompact">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

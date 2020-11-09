@@ -4,23 +4,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="using:FontAwesome.UWP"
     Loaded="Page_Loaded"
     SizeChanged="Page_SizeChanged"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
+            <TextBlock x:Name="ExpireSoonAlert" Margin="0,24,0,4"></TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
+            <TextBlock x:Name="ExpiredAlert" Margin="0,24,0,4"></TextBlock>
+        </StackPanel>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
-                      HorizontalContentAlignment="Stretch"
-                      Grid.Row="1">
-            <Frame Name="NotifyFrame" Grid.Row="0"></Frame>
+                      Grid.Row="1" HorizontalContentAlignment="Stretch">
+            <Grid Name ="ExpiryListGrid" VerticalAlignment="Top">
+            </Grid>
         </ScrollViewer>
-    </Grid>
+    </StackPanel>
 
 </Page>

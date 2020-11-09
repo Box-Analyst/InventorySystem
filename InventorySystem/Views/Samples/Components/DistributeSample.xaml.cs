@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using System.Collections.Generic;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace InventorySystem.Views.Samples.Components
@@ -40,15 +40,18 @@ namespace InventorySystem.Views.Samples.Components
                         ContinueButton.Visibility = Visibility.Visible;
                         OutputSuccess.Text = "Successfully Distributed " + DisAmountBox.Text + " Units of " + LotNumBox.Text + " to " + PatientIDBox.Text;
                         Clear();
-                    } else
+                    }
+                    else
                     {
                         OutputSuccess.Text = "Failed to Distribute!";
                     }
-                } else
+                }
+                else
                 {
                     DisplayError("Invalid Patient ID Input", "Patient ID is formatted Incorrectly or empty. \nFormatting should be alphanumeric, or numbers and letters only!");
                 }
-            } else
+            }
+            else
             {
                 DisplayError("Invalid Distribution Amount Input", "Distribution Amount is formatted Incorrectly or empty. \nOnly insert integers!");
             }

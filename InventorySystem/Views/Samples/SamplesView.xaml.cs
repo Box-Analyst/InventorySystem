@@ -3,15 +3,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.WindowManagement;
-using System.Security.Cryptography;
-using Windows.UI.Core;
-using System.Windows;
 using System.Text.RegularExpressions;
-using InventorySystem.Views.Shell;
-using Windows.UI.Xaml.Documents;
-using Windows.UI.Text;
-using System.Collections.Generic;
 
 namespace InventorySystem.Views.Samples
 {
