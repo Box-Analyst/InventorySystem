@@ -20,9 +20,11 @@ namespace InventorySystem.Views.Samples
     public sealed partial class SamplesView : Page
     {
         private string empID, currentSampleNo, currentSampleName, currentSampleExpDate, NameandDosageText;
+        private string isSampleSearched = "false";
         private int currentSampleCount;
         private List<string> passedVars = new List<string>();
         private static List<Sample> SampleList = new List<Sample>();
+        private static List<Sample> SearchedSample = new List<Sample>();
         public SamplesView()
         {
             this.InitializeComponent();
@@ -40,11 +42,16 @@ namespace InventorySystem.Views.Samples
                 passedVars = e.Parameter as List<string>;
                 empID = passedVars[0];
                 NameandDosageText = passedVars?[1];
+                isSampleSearched = passedVars[2];
                 passedVars.Clear();
             }
             passedVars.Add(empID);
             SampleList.Clear();
             ConstructSamplesList();
+            if(isSampleSearched == "true")
+            {
+                OnSearchedSamplesList();
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e) { }
@@ -56,7 +63,6 @@ namespace InventorySystem.Views.Samples
             List<string> SampleNameDose = new List<string>();
             if (NameandDosageText != null)
             {
-                
                 SampleList = SampleDataSource.GetSearchedSample(NameandDosageText);
                 foreach (Sample s in SampleList)
                 {
@@ -75,10 +81,20 @@ namespace InventorySystem.Views.Samples
             sampleListView.ItemsSource = SampleNameDose;
 
             sampleListView.ItemClick += new ItemClickEventHandler(SampleClick);
+        }
+
+        private void OnSearchedSamplesList()
+        {
+            SearchedSample = SampleDataSource.GetSearchedSample(NameandDosageText);
+            currentSampleNo = SearchedSample[0].LotNum;
+            currentSampleName = SearchedSample[0].NameandDosage;
+            currentSampleCount = SearchedSample[0].Count;
+            currentSampleExpDate = SearchedSample[0].ExpirationDate;
+            DisplaySampleInformation();
+
 
 
         }
-
         public void SampleClick(object sender, ItemClickEventArgs e)
         {
             ClearDetailsPanel();
