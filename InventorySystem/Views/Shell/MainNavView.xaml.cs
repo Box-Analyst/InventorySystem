@@ -92,7 +92,7 @@ namespace InventorySystem.Views.Shell
             passedVars.Clear();
             passedVars.Add(empID);
             passedVars.Add(sender.Text);
-            passedVars.Add("true");
+            //passedVars.Add("true");
             Debug.WriteLine(sender.Text);
             ContentFrame.Navigate(typeof(Samples.SamplesView), passedVars);
         }
@@ -105,7 +105,7 @@ namespace InventorySystem.Views.Shell
                 passedVars.Clear();
                 passedVars.Add(empID);
                 passedVars.Add(sender.Text);
-                passedVars.Add("true");
+                //passedVars.Add("true");
                 Debug.WriteLine(sender.Text);
                 ContentFrame.Navigate(typeof(Samples.SamplesView), passedVars);
             }
@@ -115,7 +115,7 @@ namespace InventorySystem.Views.Shell
                 passedVars.Clear();
                 passedVars.Add(empID);
                 passedVars.Add(sender.Text);
-                passedVars.Add("false");
+                //passedVars.Add("false");
                 Debug.WriteLine(sender.Text);
                 ContentFrame.Navigate(typeof(Samples.SamplesView), passedVars);
             }
