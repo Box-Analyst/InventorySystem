@@ -107,6 +107,8 @@
     <Compile Include="Views\Samples\Components\DistributeSample.xaml.cs">
       <DependentUpon>DistributeSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Samples\Components\Sample.cs" />
+    <Compile Include="Views\Samples\Components\SampleDataSource.cs" />
     <Compile Include="Views\Samples\SamplesView.xaml.cs">
       <DependentUpon>SamplesView.xaml</DependentUpon>
     </Compile>

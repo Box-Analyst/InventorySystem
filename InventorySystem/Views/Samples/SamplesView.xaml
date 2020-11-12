@@ -9,11 +9,19 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+    <SplitView IsPaneOpen="True"
+           DisplayMode="Inline"
+           OpenPaneLength="296">
+        <SplitView.Pane>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto"
                       Grid.Row="1" HorizontalContentAlignment="Stretch">
-        <Grid Name ="sampleListGrid" VerticalAlignment="Top">
-        </Grid>
-    </ScrollViewer>
-
+                <StackPanel x:Name="sampleView" VerticalAlignment="Top">
+                    <ListView x:Name="sampleListView" SelectionMode="None" IsItemClickEnabled="True" Background="DimGray" >
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
+        </SplitView.Pane>
+        <StackPanel Margin="75,0,0,0" Name="detailsPanel" />
+    </SplitView>
 </Page>
