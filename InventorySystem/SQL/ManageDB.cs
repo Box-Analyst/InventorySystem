@@ -242,6 +242,34 @@ namespace InventorySystem.SQL
             return check;
         }
 
+        public static bool Delete_Sample(object sender, RoutedEventArgs e, string LotNumber)
+        {
+            bool check = true;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand deleteCommand = new SqliteCommand
+                {
+                    Connection = db,
+
+                    //Use parameterized query to prevent SQL injection attacks
+                    CommandText = "DELETE FROM Sample WHERE LotNum = @Entry1;"
+                };
+                deleteCommand.Parameters.AddWithValue("@Entry1", LotNumber);
+                try
+                {
+                    deleteCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine("Exception: " + error);
+                    check = false;
+                }
+                db.Close();
+            }
+            return check;
+        }
+
         public static bool Check_ExpirationDate_RegEx(string expirationdate)
         {
             bool check = false;
