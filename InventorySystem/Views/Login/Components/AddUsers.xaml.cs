@@ -31,7 +31,6 @@ namespace InventorySystem.Views.Login.Components
             //If checkEmployee is false (user doesn't exist), create user account
             if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
             {
-                //If checkPassword is true (password and retyped password matches), continue with account creation)
                 if (password.Password == passwordRetype.Password)
                 {
                     hash.SetHash();
@@ -83,7 +82,7 @@ namespace InventorySystem.Views.Login.Components
             ContentDialogResult result = await addUserError.ShowAsync();
         }
 
-        private void password_KeyUp(object sender, KeyRoutedEventArgs e)
+        private void Password_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
             {

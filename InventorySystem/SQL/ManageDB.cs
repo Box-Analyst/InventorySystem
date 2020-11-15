@@ -551,7 +551,39 @@ namespace InventorySystem.SQL
                     CommandText = "INSERT INTO Login VALUES (@Entry1, @Entry2, @Entry3, @Entry4, @Entry5);"
                 };
                 insertCommand.Parameters.AddWithValue("@Entry1", empID);
-                insertCommand.Parameters.AddWithValue("Entry2", salt);
+                insertCommand.Parameters.AddWithValue("@Entry2", salt);
+                insertCommand.Parameters.AddWithValue("@Entry3", pin);
+                insertCommand.Parameters.AddWithValue("@Entry4", isActive);
+                insertCommand.Parameters.AddWithValue("@Entry5", lastLoggedIn);
+                try
+                {
+                    insertCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine(error);
+                    check = false;
+                }
+                db.Close();
+            }
+            return check;
+        }
+
+        public static bool Update_Employee(object sender, RoutedEventArgs e, int empID, string salt, string pin, bool isActive, DateTime lastLoggedIn)
+        {
+            bool check = true;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand insertCommand = new SqliteCommand
+                {
+                    Connection = db,
+
+                    //Use parameterized query to prevent SQL injection attacks
+                    CommandText = "UPDATE Login SET salt = @Entry2, pin = @Entry3, isActive = @Entry4, lastLoggedIn = @Entry5 WHERE Emp_id = @Entry1;"
+                };
+                insertCommand.Parameters.AddWithValue("@Entry1", empID);
+                insertCommand.Parameters.AddWithValue("@Entry2", salt);
                 insertCommand.Parameters.AddWithValue("@Entry3", pin);
                 insertCommand.Parameters.AddWithValue("@Entry4", isActive);
                 insertCommand.Parameters.AddWithValue("@Entry5", lastLoggedIn);
