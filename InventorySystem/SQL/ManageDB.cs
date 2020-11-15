@@ -143,6 +143,29 @@ namespace InventorySystem.SQL
             }
         }
 
+        public static void UpdateAcctLoggedIn(int empID)
+        {
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand updateCommand = new SqliteCommand
+                {
+                    Connection = db,
+                    CommandText = "UPDATE Login SET lastLoggedIn = @lastLoggedIn WHERE Emp_id = @empID;"
+                };
+                updateCommand.Parameters.AddWithValue("@lastLoggedIn", DateTime.Now);
+                updateCommand.Parameters.AddWithValue("@empID", empID);
+                try
+                {
+                    updateCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine(error);
+                }
+                db.Close();
+            }
+        }
         // Method to grab entries from the SQLite database
         public static List<string> Grab_Entries(string table, string returnColumn, string comparisonColumn, object search)
         {

@@ -26,10 +26,8 @@ namespace InventorySystem
         {
             PasswordHash hash = new PasswordHash(password.Password);
             string salt = SQL.ManageDB.Grab_Entries("Login", "Salt", "Emp_id", employeeID.Text)[0];
-            Debug.WriteLine(salt);
             hash.SetHash(salt);
             string hashedPW = hash.GetHash();
-            Debug.WriteLine(hashedPW);
             try
             {
                 int empID = int.Parse(employeeID.Text);
@@ -38,6 +36,7 @@ namespace InventorySystem
                     if (SQL.ManageDB.CheckAcctActive(empID))
                     {
                         SQL.ManageDB.Update_IsExpired();
+                        SQL.ManageDB.UpdateAcctLoggedIn(empID);
                         this.Frame.Navigate(typeof(Views.Shell.MainNavView), empID);
                     }
                     else
