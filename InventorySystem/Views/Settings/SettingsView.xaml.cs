@@ -97,6 +97,7 @@ namespace InventorySystem.Views.Settings
             }
         }
 
+
         //Checks if the empID is the designated admin account number
         private bool IsAdmin()
         {

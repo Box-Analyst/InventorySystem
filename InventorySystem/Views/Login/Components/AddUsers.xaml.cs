@@ -36,7 +36,8 @@ namespace InventorySystem.Views.Login.Components
                 {
                     hash.SetHash();
                     var hashedPW = hash.GetHash();
-                    SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), hashedPW, "True");
+                    var salt = hash.GetSalt();
+                    SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
                     OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
                     Clear();
                 }
@@ -45,9 +46,6 @@ namespace InventorySystem.Views.Login.Components
                     Clear();
                     DisplayAddUserPasswordError();
                 }
-
-
-
             }
             else
             {

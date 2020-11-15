@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using InventorySystem.Views.Shell;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Text;
-using System.Collections.Generic;
 using System.Diagnostics;
 using InventorySystem.Views.Samples.Components;
 

@@ -1,5 +1,6 @@
 ﻿using InventorySystem.Views.Login;
 using System;
+using System.Diagnostics;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,22 +18,40 @@ namespace InventorySystem
         public LoginWindow()
         {
             this.InitializeComponent();
-
+            SQL.ManageDB.SetAcctsExpired();
         }
 
         //Upon Clicking Login, user is sent to the Main Page of the Application.
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
-            hash.SetHash();
-            var hashedPW = hash.GetHash();
+            string salt = SQL.ManageDB.Grab_Entries("Login", "Salt", "Emp_id", employeeID.Text)[0];
+            Debug.WriteLine(salt);
+            hash.SetHash(salt);
+            string hashedPW = hash.GetHash();
+            Debug.WriteLine(hashedPW);
             try
             {
                 int empID = int.Parse(employeeID.Text);
                 if (SQL.ManageDB.CheckPassword(hashedPW, empID))
                 {
-                    SQL.ManageDB.Update_IsExpired();
-                    this.Frame.Navigate(typeof(Views.Shell.MainNavView), empID);
+                    if (SQL.ManageDB.CheckAcctActive(empID))
+                    {
+                        SQL.ManageDB.Update_IsExpired();
+                        this.Frame.Navigate(typeof(Views.Shell.MainNavView), empID);
+                    }
+                    else
+                    {
+                        Clear();
+                        ContentDialog expiredAcct = new ContentDialog
+                        {
+                            Title = "Expired User Account",
+                            Content = "The account associated with this Employee ID has expired. \nPlease contact your local Admin account holder to get your account reactivated. \n\n(Note: Accounts expire after 90 days of inactivity)",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await expiredAcct.ShowAsync();
+                    }
+
                 }
                 else
                 {

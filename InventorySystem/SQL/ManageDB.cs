@@ -19,7 +19,7 @@ namespace InventorySystem.SQL
             {
                 db.Open(); //Open connection to database
 
-                const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Pin VARCHAR (6) NOT NULL, IsActive BOOLEAN NOT NULL)";
+                const string tableCommand1 = "CREATE TABLE IF NOT EXISTS Login (Emp_id NUMERIC PRIMARY KEY NOT NULL UNIQUE, Salt VARCHAR (64), Pin VARCHAR (64) NOT NULL, IsActive BOOLEAN NOT NULL, lastLoggedIn DATETIME)";
                 SqliteCommand createTable = new SqliteCommand(tableCommand1, db);
 
                 try
@@ -60,7 +60,8 @@ namespace InventorySystem.SQL
             int empID = 1;
             PasswordHash hash = new PasswordHash("password");
             hash.SetHash();
-            var hashedPW = hash.GetHash();
+            string hashedPW = hash.GetHash();
+            string salt = hash.GetSalt();
 
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
@@ -84,11 +85,13 @@ namespace InventorySystem.SQL
                         Connection = db,
 
                         //Use parameterized query to prevent SQL injection attacks
-                        CommandText = "Insert into Login Values(@employeeID, @pw, @isActive)"
+                        CommandText = "Insert into Login Values(@employeeID, @salt, @pw, @isActive, @lastLoggedIn);"
                     };
                     insertCommand.Parameters.AddWithValue("@employeeID", empID);
+                    insertCommand.Parameters.AddWithValue("@salt", salt);
                     insertCommand.Parameters.AddWithValue("@pw", hashedPW);
                     insertCommand.Parameters.AddWithValue("@isActive", true);
+                    insertCommand.Parameters.AddWithValue("@lastLoggedIn", DateTime.Now);
                     try
                     {
                         insertCommand.ExecuteReader();
@@ -99,6 +102,44 @@ namespace InventorySystem.SQL
                     }
                 }
                 db.Close();
+            }
+        }
+
+        //Sets accounts inactive if they aren't used for 90 days
+        public static void SetAcctsExpired()
+        {
+            List<string> expAccts = Grab_Entries("Login", "lastLoggedIn", "lastLoggedIn", null);
+            bool isActive = true;
+            var cultureInfo = new CultureInfo("en-US");
+            DateTime localDate = DateTime.Now;
+            foreach (string s in expAccts)
+            {
+                DateTime expDate = DateTime.Parse(s, cultureInfo);
+                if (localDate >= expDate.AddDays(90))
+                {
+                    isActive = false;
+                    using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+                    {
+                        db.Open();
+                        SqliteCommand updateCommand = new SqliteCommand
+                        {
+                            Connection = db,
+                            CommandText = "UPDATE Login SET isActive = @isActive WHERE lastLoggedIn = @lastLoggedIn;"
+                        };
+                        updateCommand.Parameters.AddWithValue("@isActive", isActive);
+                        updateCommand.Parameters.AddWithValue("@lastLoggedIn", expDate);
+                        try
+                        {
+                            updateCommand.ExecuteReader();
+                        }
+                        catch (SqliteException error)
+                        {
+                            Debug.WriteLine(error);
+                        }
+                        db.Close();
+                    }
+                }
+                else { isActive = true; }
             }
         }
 
@@ -473,7 +514,7 @@ namespace InventorySystem.SQL
         }
 
         // Method to insert new Employees into the Employee table
-        public static bool Add_Employee(object sender, RoutedEventArgs e, int empID, string pin, string isActive)
+        public static bool Add_Employee(object sender, RoutedEventArgs e, int empID, string salt, string pin, bool isActive, DateTime lastLoggedIn)
         {
             bool check = true;
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
@@ -484,11 +525,13 @@ namespace InventorySystem.SQL
                     Connection = db,
 
                     //Use parameterized query to prevent SQL injection attacks
-                    CommandText = "INSERT INTO Login VALUES (@Entry1, @Entry2, @Entry3);"
+                    CommandText = "INSERT INTO Login VALUES (@Entry1, @Entry2, @Entry3, @Entry4, @Entry5);"
                 };
                 insertCommand.Parameters.AddWithValue("@Entry1", empID);
-                insertCommand.Parameters.AddWithValue("@Entry2", pin);
-                insertCommand.Parameters.AddWithValue("@Entry3", isActive);
+                insertCommand.Parameters.AddWithValue("Entry2", salt);
+                insertCommand.Parameters.AddWithValue("@Entry3", pin);
+                insertCommand.Parameters.AddWithValue("@Entry4", isActive);
+                insertCommand.Parameters.AddWithValue("@Entry5", lastLoggedIn);
                 try
                 {
                     insertCommand.ExecuteReader();
@@ -595,6 +638,20 @@ namespace InventorySystem.SQL
             }
             return check;
 
+        }
+        public static bool CheckAcctActive(int employeeID)
+        {
+            bool check;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand("SELECT * from Login WHERE Emp_id = @empID and isActive = true", db);
+                selectCommand.Parameters.AddWithValue("@empID", employeeID);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                check = query.HasRows;
+                db.Close();
+            }
+            return check;
         }
 
         public static bool IsEmpty()
