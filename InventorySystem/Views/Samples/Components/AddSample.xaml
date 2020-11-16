@@ -7,8 +7,10 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <Grid>
+    <ScrollViewer Padding="0 0 32 0">
         <StackPanel Canvas.Left="10" Canvas.Top="101">
+            <TextBlock FontSize="28" Style="{StaticResource TitleTextBlockStyle}">Add/Receive</TextBlock>
+            <TextBlock Text="&#x0a;" FontSize="10"/>
 
             <TextBlock>Lot Number</TextBlock>
             <TextBox x:Name="LotNumBox" PlaceholderText="ABC1234" />
@@ -42,5 +44,6 @@
             <TextBlock x:Name="OutputSuccess"></TextBlock>
 
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
+
 </Page>
