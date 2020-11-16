@@ -17,6 +17,7 @@ namespace InventorySystem.Views.Login.Components
     public sealed partial class AddUsers : Page
     {
         private string empID;
+        private int privLevel;
         public AddUsers()
         {
             this.InitializeComponent();
@@ -33,12 +34,19 @@ namespace InventorySystem.Views.Login.Components
             {
                 if (password.Password == passwordRetype.Password)
                 {
-                    hash.SetHash();
-                    var hashedPW = hash.GetHash();
-                    var salt = hash.GetSalt();
-                    SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
-                    OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
-                    Clear();
+                    if(privLevel == 1 || privLevel == 2)
+                    {
+                        hash.SetHash();
+                        var hashedPW = hash.GetHash();
+                        var salt = hash.GetSalt();
+                        SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now, privLevel);
+                        OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
+                        Clear();
+                    }
+                    else
+                    {
+                        DisplayNoOptionSelected();
+                    }
                 }
                 else
                 {
@@ -52,6 +60,20 @@ namespace InventorySystem.Views.Login.Components
                 DisplayAddUserError();
             }
 
+        }
+
+        private void HandleCheck(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb?.Name == "DoctorChoice")
+            {
+                privLevel = 1;
+            }
+            else if (rb?.Name == "StandardChoice")
+            {
+                privLevel = 2;
+            }
+            else { privLevel = 5; }
         }
         public void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -80,6 +102,18 @@ namespace InventorySystem.Views.Login.Components
             };
 
             ContentDialogResult result = await addUserError.ShowAsync();
+        }
+
+        private async void DisplayNoOptionSelected()
+        {
+            ContentDialog noOptionError = new ContentDialog
+            {
+                Title = "Invalid Account Creation",
+                Content = "Account Type not selected. Please select an option and try again.",
+                CloseButtonText = "Ok"
+            };
+
+            ContentDialogResult result = await noOptionError.ShowAsync();
         }
 
         private void Password_KeyUp(object sender, KeyRoutedEventArgs e)

@@ -139,7 +139,7 @@ namespace InventorySystem.Views.Settings
         //Checks if the empID is the designated admin account number
         private bool IsAdmin()
         {
-            bool isAdmin = empID == "1";
+            bool isAdmin = empID == SQL.ManageDB.Grab_Entries("Login", "Emp_id", "PrivLevel", 0)[0];
             return isAdmin;
         }
 
