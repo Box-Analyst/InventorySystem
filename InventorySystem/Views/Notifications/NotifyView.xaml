@@ -8,6 +8,20 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <TextBlock>NotifyView</TextBlock>
+        <StackPanel>
+            <TextBlock FontSize="28" Style="{StaticResource TitleTextBlockStyle}">Alerts</TextBlock>
+            <TextBlock Text="&#x0a;" FontSize="10"/>
+
+            <TextBlock>Expired Samples</TextBlock>
+            <ScrollViewer Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                          x:Name="ExpiredList"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalContentAlignment="Stretch">
+                <Grid Name ="ExpiryListGrid" VerticalAlignment="Top">
+                </Grid>
+            </ScrollViewer>
+            <TextBlock>Expiring Soon</TextBlock>
+        </StackPanel>
     </Grid>
 </Page>

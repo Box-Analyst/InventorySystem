@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using InventorySystem.Views.Notifications;
 using InventorySystem.Views.Shell;
 using Microsoft.Data.Sqlite;
 
@@ -114,7 +115,7 @@ namespace InventorySystem.Views.Home
             if (expiryListCount < 0)
             {
                 ExpireSoonFrame.Visibility = Visibility.Collapsed;
-                ExpireSoonButton.Visibility = Visibility.Collapsed;
+                //ExpireSoonButton.Visibility = Visibility.Collapsed;
             }
             else if (expiryListCount == 0) ExpireSoonAlert.Text = entriesExpireSoon[0] + " is expiring soon.";
             else ExpireSoonAlert.Text = entriesExpireSoon[0] + " and " + expiryListCount + " more samples are expiring soon.";
@@ -165,6 +166,7 @@ namespace InventorySystem.Views.Home
 
         private void ExpireSoonButton_OnClick(object sender, RoutedEventArgs e)
         {
+
         }
 
         private void ResolveExpiredButton_OnClick(object sender, RoutedEventArgs e)
