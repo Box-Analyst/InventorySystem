@@ -33,12 +33,6 @@
         </VisualStateManager.VisualStateGroups >
 
         <NavigationView.MenuItems>
-            <NavigationViewItem x:Uid="HomeNavItem" Content="Home" Tag="home">
-                <NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xE10F;"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItemSeparator/>
             <NavigationViewItem x:Uid="AlertsNavItem" Content="Alerts" Icon="Flag" Tag="alerts" />
             <NavigationViewItem x:Uid="MusicNavItem" Icon="List" Content="Samples" Tag="samples" />
         </NavigationView.MenuItems>

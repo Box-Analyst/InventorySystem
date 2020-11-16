@@ -6,6 +6,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using InventorySystem.Views.Notifications;
+using InventorySystem.Views.Samples;
+using System.Diagnostics;
 
 namespace InventorySystem.Views.Shell
 {
@@ -35,14 +38,14 @@ namespace InventorySystem.Views.Shell
             // set the initial SelectedItem
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {
-                if (item is NavigationViewItem && item.Tag.ToString() == "home")
+                if (item is NavigationViewItem && item.Tag.ToString() == "alerts")
                 {
                     NavView.SelectedItem = item;
                     break;
                 }
             }
             // Load Home on app start
-            ContentFrame.Navigate(typeof(Home.HomeView), empID);
+            ContentFrame.Navigate(typeof(NotifyView), empID);
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -58,10 +61,6 @@ namespace InventorySystem.Views.Shell
             //Each case will pass the employeeID to the page to be navigated to for logging purposes
             switch (item.Tag)
             {
-                case "home":
-                    ContentFrame.Navigate(typeof(Home.HomeView), empID);
-                    break;
-
                 case "alerts":
                     ContentFrame.Navigate(typeof(Notifications.NotifyView), empID);
                     break;

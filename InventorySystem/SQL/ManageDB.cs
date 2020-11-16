@@ -334,6 +334,31 @@ namespace InventorySystem.SQL
             return check;
         }
 
+        public static bool Delete_Expired(object sender, RoutedEventArgs e)
+        {
+            bool check = true;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand deleteCommand = new SqliteCommand
+                {
+                    Connection = db,
+                    CommandText = "DELETE FROM Sample WHERE isExpired = 1;"
+                };
+                try
+                {
+                    deleteCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine("Exception: " + error);
+                    check = false;
+                }
+                db.Close();
+            }
+            return check;
+        }
+
         public static bool Check_ExpirationDate_RegEx(string expirationdate)
         {
             bool check = false;
@@ -482,6 +507,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
         // Method to update isExpired
         public static void Update_IsExpired()
         {
@@ -694,6 +720,7 @@ namespace InventorySystem.SQL
             return check;
 
         }
+
         public static bool CheckAcctActive(int employeeID)
         {
             bool check;
@@ -731,6 +758,7 @@ namespace InventorySystem.SQL
                 return check;
             }
         }
+
         // Method to check if a sample is about to expire
         public static bool Check_ExpiresSoon(string expirationdate, double noticeTime)
         {
