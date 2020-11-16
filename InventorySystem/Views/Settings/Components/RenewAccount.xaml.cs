@@ -59,8 +59,8 @@ namespace InventorySystem.Views.Settings.Components
 
         private bool IsAdmin()
         {
-            bool isAdmin = empID == SQL.ManageDB.Grab_Entries("Login", "Emp_id", "PrivLevel", 0)[0];
-            return isAdmin;
+            string privLevel = SQL.ManageDB.Grab_Entries("Login", "PrivLevel", "Emp_id", empID)[0];
+            return privLevel == "0";
         }
 
         public void RenewButton_Click(object sender, RoutedEventArgs e)
