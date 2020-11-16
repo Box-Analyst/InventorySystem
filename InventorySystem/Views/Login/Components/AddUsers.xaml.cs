@@ -29,35 +29,42 @@ namespace InventorySystem.Views.Login.Components
         public void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
-            //If checkEmployee is false (user doesn't exist), create user account
-            if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
+            if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
             {
-                if (password.Password == passwordRetype.Password)
+                DisplayInputError();
+            }
+            else
+            {
+                //If checkEmployee is false (user doesn't exist), create user account
+                if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
                 {
-                    if(privLevel == 1 || privLevel == 2)
+                    if (password.Password == passwordRetype.Password)
                     {
-                        hash.SetHash();
-                        var hashedPW = hash.GetHash();
-                        var salt = hash.GetSalt();
-                        SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now, privLevel);
-                        OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
-                        Clear();
+                        if (privLevel == 1 || privLevel == 2)
+                        {
+                            hash.SetHash();
+                            var hashedPW = hash.GetHash();
+                            var salt = hash.GetSalt();
+                            SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now, privLevel);
+                            OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
+                            Clear();
+                        }
+                        else
+                        {
+                            DisplayNoOptionSelected();
+                        }
                     }
                     else
                     {
-                        DisplayNoOptionSelected();
+                        Clear();
+                        DisplayAddUserPasswordError();
                     }
                 }
                 else
                 {
                     Clear();
-                    DisplayAddUserPasswordError();
+                    DisplayAddUserError();
                 }
-            }
-            else
-            {
-                Clear();
-                DisplayAddUserError();
             }
 
         }
@@ -80,6 +87,17 @@ namespace InventorySystem.Views.Login.Components
             this.Frame.Navigate(typeof(SettingsView), empID);
         }
 
+        private async void DisplayInputError()
+        {
+            ContentDialog inputError = new ContentDialog
+            {
+                Title = "Invalid Account Creation",
+                Content = "One or more fields are empty. Please enter \ninformation into all fields and try again.",
+                CloseButtonText = "Ok"
+            };
+
+            ContentDialogResult result = await inputError.ShowAsync();
+        }
         private async void DisplayAddUserPasswordError()
         {
             ContentDialog addUserPasswordError = new ContentDialog

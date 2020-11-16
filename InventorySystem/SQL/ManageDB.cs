@@ -661,6 +661,34 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+        public static bool Update_Employee(object sender, RoutedEventArgs e, int empID, int privLevel)
+        {
+            bool check = true;
+            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+            {
+                db.Open();
+                SqliteCommand insertCommand = new SqliteCommand
+                {
+                    Connection = db,
+
+                    //Use parameterized query to prevent SQL injection attacks
+                    CommandText = "UPDATE Login SET PrivLevel = @Entry2 WHERE Emp_id = @Entry1;"
+                };
+                insertCommand.Parameters.AddWithValue("@Entry1", empID);
+                insertCommand.Parameters.AddWithValue("@Entry2", privLevel);
+                try
+                {
+                    insertCommand.ExecuteReader();
+                }
+                catch (SqliteException error)
+                {
+                    Debug.WriteLine(error);
+                    check = false;
+                }
+                db.Close();
+            }
+            return check;
+        }
 
         // Method to insert log line into Log table
         // This method should be used cautiously!

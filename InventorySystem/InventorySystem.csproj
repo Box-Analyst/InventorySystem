@@ -115,6 +115,9 @@
     <Compile Include="Views\Samples\Components\AddSample.xaml.cs">
       <DependentUpon>AddSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\Components\ChangePrivilege.xaml.cs">
+      <DependentUpon>ChangePrivilege.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\Components\RenewAccount.xaml.cs">
       <DependentUpon>RenewAccount.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Samples\Components\AddSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\Components\ChangePrivilege.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
