@@ -37,7 +37,6 @@ namespace InventorySystem.Views.Settings.Components
             passedVars = e.Parameter as List<string>;
             empID = passedVars[0];
             typeOfPage = passedVars[1];
-            changeType = passedVars?[2];
             if(typeOfPage == "renew")
             {
                 HeaderText.Text = "Renew Account";
@@ -46,7 +45,8 @@ namespace InventorySystem.Views.Settings.Components
             }
             else
             {
-                if(changeType == "nonAdminChange")
+                //if(changeType == "nonAdminChange")
+                if(IsAdmin() == false)
                 {
                     employeeID.Text = empID;
                 }
@@ -56,7 +56,13 @@ namespace InventorySystem.Views.Settings.Components
             }
 
         }
-      
+
+        private bool IsAdmin()
+        {
+            bool isAdmin = empID == SQL.ManageDB.Grab_Entries("Login", "Emp_id", "PrivLevel", 0)[0];
+            return isAdmin;
+        }
+
         public void RenewButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
@@ -99,7 +105,7 @@ namespace InventorySystem.Views.Settings.Components
         public void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             //Checks if Admin is trying to change passwords, if true, allow changes to all empID numbers
-            if (changeType == "adminChange")
+            if (IsAdmin() == true)
             {
                 PasswordHash hash = new PasswordHash(password.Password);
                 //Check if the user account exists to renew
@@ -118,7 +124,6 @@ namespace InventorySystem.Views.Settings.Components
                     {
                         Clear();
                         DisplayPasswordCheckError();
-
                     }
                 }
                 else
@@ -128,7 +133,7 @@ namespace InventorySystem.Views.Settings.Components
                 }
             }
             //Checks if a nonAdmin is trying to change passwords, only allows change if employee is changing their own password
-            else if (changeType == "nonAdminChange")
+            else
             {
                 PasswordHash hash = new PasswordHash(password.Password);
                 if (employeeID.Text == empID)

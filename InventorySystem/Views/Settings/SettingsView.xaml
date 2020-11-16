@@ -29,7 +29,8 @@
             <TextBlock Text ="Modify an Employee account" Margin="0,24,0,4" FontSize="14"  />
             <StackPanel Orientation="Horizontal">
                 <Button Content="Renew Expired Account*" Click="RenewButton_Click" Margin="0,0,10,0"/>
-                <Button Content="Reset Password" Click="ResetPasswordButton_Click" />
+                <Button Content="Reset Password" Click="ResetPasswordButton_Click" Margin="0,0,10,0"/>
+                <Button Content="Change Privileges" Click="ChangePrivButton_Click" Visibility="Collapsed"/>
             </StackPanel>
             <TextBlock Margin="0,24,0,24">* requires admin</TextBlock>
             <TextBlock>Created by Box Analyst.</TextBlock>

@@ -155,7 +155,7 @@ namespace InventorySystem.Views.Samples
             passedVars.Add(currentSampleName);
             Frame.Navigate(typeof(AddSample), passedVars);
         }
-        private async void DistButton_Click(object sender, RoutedEventArgs e)
+        private void DistButton_Click(object sender, RoutedEventArgs e)
         {
             if(HasClearance() == true)
             {
@@ -165,15 +165,19 @@ namespace InventorySystem.Views.Samples
             }
             else
             {
-                ContentDialog noPrivilege = new ContentDialog
-                {
-                    Title = "Insufficient Privileges",
-                    Content = "This account does not have the privileges associated with distributing samples to patients.",
-                    CloseButtonText = "Ok"
-                };
-                await noPrivilege.ShowAsync();
+                DisplayNoPrivilege();
             }
+        }
 
+        private async void DisplayNoPrivilege()
+        {
+            ContentDialog noPrivilege = new ContentDialog
+            {
+                Title = "Insufficient Privileges",
+                Content = "This account does not have the privileges associated with distributing samples to patients.",
+                CloseButtonText = "Ok"
+            };
+            await noPrivilege.ShowAsync();
         }
         private void ClearDetailsPanel()
         {
@@ -182,8 +186,8 @@ namespace InventorySystem.Views.Samples
 
         private bool HasClearance()
         {
-            bool hasClearance = (empID == SQL.ManageDB.Grab_Entries("Login", "Emp_id", "PrivLevel", 0)[0]) || empID == (empID = SQL.ManageDB.Grab_Entries("Login", "Emp_id", "PrivLevel", 1)[0]);
-            return hasClearance;
+            string privLevel = SQL.ManageDB.Grab_Entries("Login", "PrivLevel", "Emp_id", empID)[0];
+            return (privLevel == "0" || privLevel == "1");
         }
 
     }

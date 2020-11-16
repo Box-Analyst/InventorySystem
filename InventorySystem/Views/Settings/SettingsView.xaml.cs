@@ -126,21 +126,26 @@ namespace InventorySystem.Views.Settings
             passedVars.Add("reset");
             if (IsAdmin() == true)
             {
-                passedVars.Add("adminChange");
+                //passedVars.Add("adminChange");
                 this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
             }
             else
             {
-                passedVars.Add("nonAdminChange");
+                //passedVars.Add("nonAdminChange");
                 this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
             }
+        }
+
+        private void ChangePrivButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         //Checks if the empID is the designated admin account number
         private bool IsAdmin()
         {
-            bool isAdmin = empID == SQL.ManageDB.Grab_Entries("Login", "Emp_id", "PrivLevel", 0)[0];
-            return isAdmin;
+            string privLevel = SQL.ManageDB.Grab_Entries("Login", "PrivLevel", "Emp_id", empID)[0];
+            return privLevel == "0";
         }
 
         private async void ImportButton_Click(object sender, RoutedEventArgs e)
