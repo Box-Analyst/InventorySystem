@@ -26,9 +26,9 @@
             <TextBlock x:Name="ExportSuccess" Margin="0,24,0,4" Visibility="Collapsed"></TextBlock>
             <TextBlock Text ="Add an Employee account*" Margin="0,24,0,4" FontSize="14"  />
             <Button Content="Add Employee(s)" Click="AddNewUserButton_Click"/>
-            <TextBlock Text ="Modify an Employee account*" Margin="0,24,0,4" FontSize="14"  />
+            <TextBlock Text ="Modify an Employee account" Margin="0,24,0,4" FontSize="14"  />
             <StackPanel Orientation="Horizontal">
-                <Button Content="Renew Expired Account" Click="RenewButton_Click" Margin="0,0,10,0"/>
+                <Button Content="Renew Expired Account*" Click="RenewButton_Click" Margin="0,0,10,0"/>
                 <Button Content="Reset Password" Click="ResetPasswordButton_Click" />
             </StackPanel>
             <TextBlock Margin="0,24,0,24">* requires admin</TextBlock>

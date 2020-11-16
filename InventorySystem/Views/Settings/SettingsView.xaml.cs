@@ -105,10 +105,12 @@ namespace InventorySystem.Views.Settings
             passedVars.Add("renew");
             if (IsAdmin() == true)
             {
+                passedVars.Add("adminChange");
                 this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
             }
             else
             {
+                passedVars.RemoveAt(1);
                 ContentDialog noPrivilege = new ContentDialog
                 {
                     Title = "Insufficient Privileges",
@@ -119,22 +121,18 @@ namespace InventorySystem.Views.Settings
             }
         }
 
-        private async void ResetPasswordButton_Click(object sender, RoutedEventArgs e)
+        private void ResetPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             passedVars.Add("reset");
             if (IsAdmin() == true)
             {
+                passedVars.Add("adminChange");
                 this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
             }
             else
             {
-                ContentDialog noPrivilege = new ContentDialog
-                {
-                    Title = "Insufficient Privileges",
-                    Content = "You must be signed in to the Admin account to add users.",
-                    CloseButtonText = "Ok"
-                };
-                await noPrivilege.ShowAsync();
+                passedVars.Add("nonAdminChange");
+                this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
             }
         }
 
