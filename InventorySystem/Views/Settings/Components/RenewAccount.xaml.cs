@@ -108,7 +108,7 @@ namespace InventorySystem.Views.Settings.Components
             }
 
         }
-        public void ResetButton_Click(object sender, RoutedEventArgs e)
+        public async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             //Checks if Admin is trying to change passwords, if true, allow changes to all empID numbers
             if (IsAdmin() == true)
@@ -120,30 +120,44 @@ namespace InventorySystem.Views.Settings.Components
                 }
                 else
                 {
-                    //Check if the user account exists to renew
-                    if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+                    try
                     {
-                        if (password.Password == passwordRetype.Password)
+                        //Check if the user account exists to renew
+                        if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
                         {
-                            hash.SetHash();
-                            var hashedPW = hash.GetHash();
-                            var salt = hash.GetSalt();
-                            SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
-                            OutputSuccess.Text = "Successfully reset Employee " + employeeID.Text + "'s password.";
-                            Clear();
+                            if (password.Password == passwordRetype.Password)
+                            {
+                                hash.SetHash();
+                                var hashedPW = hash.GetHash();
+                                var salt = hash.GetSalt();
+                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
+                                OutputSuccess.Text = "Successfully reset Employee " + employeeID.Text + "'s password.";
+                                Clear();
+                            }
+                            else
+                            {
+                                string temp = employeeID.Text;
+                                Clear();
+                                DisplayPasswordCheckError();
+                                employeeID.Text = temp;
+                            }
                         }
                         else
                         {
-                            string temp = employeeID.Text;
                             Clear();
-                            DisplayPasswordCheckError();
-                            employeeID.Text = temp;
+                            DisplayUserNotFound();
                         }
                     }
-                    else
+                    catch (Exception)
                     {
                         Clear();
-                        DisplayUserNotFound();
+                        ContentDialog invalidInput = new ContentDialog
+                        {
+                            Title = "Invalid Input",
+                            Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await invalidInput.ShowAsync();
                     }
                 }
             }
@@ -157,29 +171,43 @@ namespace InventorySystem.Views.Settings.Components
                 }
                 else
                 {
-                    if (employeeID.Text == empID)
+                    try
                     {
-                        if (password.Password == passwordRetype.Password)
+                        if (employeeID.Text == empID)
                         {
-                            hash.SetHash();
-                            var hashedPW = hash.GetHash();
-                            var salt = hash.GetSalt();
-                            SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
-                            OutputSuccess.Text = "Password reset successfully!";
-                            Clear();
+                            if (password.Password == passwordRetype.Password)
+                            {
+                                hash.SetHash();
+                                var hashedPW = hash.GetHash();
+                                var salt = hash.GetSalt();
+                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
+                                OutputSuccess.Text = "Password reset successfully!";
+                                Clear();
+                            }
+                            else
+                            {
+                                string temp = employeeID.Text;
+                                Clear();
+                                DisplayPasswordCheckError();
+                                employeeID.Text = temp;
+                            }
                         }
                         else
                         {
-                            string temp = employeeID.Text;
                             Clear();
-                            DisplayPasswordCheckError();
-                            employeeID.Text = temp;
+                            DisplayNoPrivilege();
                         }
                     }
-                    else
+                    catch (Exception)
                     {
                         Clear();
-                        DisplayNoPrivilege();
+                        ContentDialog invalidInput = new ContentDialog
+                        {
+                            Title = "Invalid Input",
+                            Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await invalidInput.ShowAsync();
                     }
                 }
             }

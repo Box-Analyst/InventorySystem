@@ -34,7 +34,7 @@ namespace InventorySystem.Views.Settings.Components
             empID = e.Parameter?.ToString();
         }
 
-        public void ChangePrivButton_Click(object sender, RoutedEventArgs e)
+        public async void ChangePrivButton_Click(object sender, RoutedEventArgs e)
         {
             if (employeeID.Text.ToString() == "")
             {
@@ -42,43 +42,57 @@ namespace InventorySystem.Views.Settings.Components
             }
             else
             {
-                //Check if the user account exists to renew
-                if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+                try
                 {
-                    if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == true)
+                    //Check if the user account exists to renew
+                    if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
                     {
-                        if (CheckIfAdmin() == false)
+                        if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == true)
                         {
-                            SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
-                            OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
-                            if (privLevel == 1)
+                            if (CheckIfAdmin() == false)
                             {
-                                OutputSuccess2.Text = "This user now has Doctor permissions.";
+                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
+                                OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
+                                if (privLevel == 1)
+                                {
+                                    OutputSuccess2.Text = "This user now has Doctor permissions.";
+                                }
+                                else if (privLevel == 2)
+                                {
+                                    OutputSuccess2.Text = "This user now has Standard permissions.";
+                                }
+                                Clear();
                             }
-                            else if (privLevel == 2)
+                            else
                             {
-                                OutputSuccess2.Text = "This user now has Standard permissions.";
+                                Clear();
+                                DisplayCannotChangeAdmin();
                             }
-                            Clear();
+
                         }
                         else
                         {
                             Clear();
-                            DisplayCannotChangeAdmin();
+                            DisplayUserExpired();
                         }
 
                     }
                     else
                     {
                         Clear();
-                        DisplayUserExpired();
+                        DisplayUserNotFound();
                     }
-
                 }
-                else
+                catch (Exception)
                 {
                     Clear();
-                    DisplayUserNotFound();
+                    ContentDialog invalidInput = new ContentDialog
+                    {
+                        Title = "Invalid Input",
+                        Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await invalidInput.ShowAsync();
                 }
             }
         }

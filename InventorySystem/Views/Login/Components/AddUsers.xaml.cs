@@ -26,7 +26,7 @@ namespace InventorySystem.Views.Login.Components
         {
             empID = e.Parameter?.ToString();
         }
-        public void AddUserButton_Click(object sender, RoutedEventArgs e)
+        public async void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
             if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
@@ -35,35 +35,49 @@ namespace InventorySystem.Views.Login.Components
             }
             else
             {
-                //If checkEmployee is false (user doesn't exist), create user account
-                if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
+                try
                 {
-                    if (password.Password == passwordRetype.Password)
+                    //If checkEmployee is false (user doesn't exist), create user account
+                    if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
                     {
-                        if (privLevel == 1 || privLevel == 2)
+                        if (password.Password == passwordRetype.Password)
                         {
-                            hash.SetHash();
-                            var hashedPW = hash.GetHash();
-                            var salt = hash.GetSalt();
-                            SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now, privLevel);
-                            OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
-                            Clear();
+                            if (privLevel == 1 || privLevel == 2)
+                            {
+                                hash.SetHash();
+                                var hashedPW = hash.GetHash();
+                                var salt = hash.GetSalt();
+                                SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now, privLevel);
+                                OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
+                                Clear();
+                            }
+                            else
+                            {
+                                DisplayNoOptionSelected();
+                            }
                         }
                         else
                         {
-                            DisplayNoOptionSelected();
+                            Clear();
+                            DisplayAddUserPasswordError();
                         }
                     }
                     else
                     {
                         Clear();
-                        DisplayAddUserPasswordError();
+                        DisplayAddUserError();
                     }
                 }
-                else
+                catch (Exception)
                 {
                     Clear();
-                    DisplayAddUserError();
+                    ContentDialog invalidInput = new ContentDialog
+                    {
+                        Title = "Invalid Input",
+                        Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await invalidInput.ShowAsync();
                 }
             }
 

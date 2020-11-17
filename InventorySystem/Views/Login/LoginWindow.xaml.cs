@@ -24,12 +24,12 @@ namespace InventorySystem
         //Upon Clicking Login, user is sent to the Main Page of the Application.
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            PasswordHash hash = new PasswordHash(password.Password);
-            string salt = SQL.ManageDB.Grab_Entries("Login", "Salt", "Emp_id", employeeID.Text)[0];
-            hash.SetHash(salt);
-            string hashedPW = hash.GetHash();
             try
             {
+                PasswordHash hash = new PasswordHash(password.Password);
+                string salt = SQL.ManageDB.Grab_Entries("Login", "Salt", "Emp_id", employeeID.Text)[0];
+                hash.SetHash(salt);
+                string hashedPW = hash.GetHash();
                 int empID = int.Parse(employeeID.Text);
                 if (SQL.ManageDB.CheckPassword(hashedPW, empID))
                 {
