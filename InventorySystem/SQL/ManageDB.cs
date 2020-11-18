@@ -5,6 +5,13 @@ using System.Globalization;
 using Microsoft.Data.Sqlite;
 using Windows.UI.Xaml;
 using InventorySystem.Views.Login;
+using System.Configuration;
+using System.Globalization;
+using Windows.UI.Xaml.Controls;
+using System.IO;
+using Windows.Storage;
+using System.Runtime.InteropServices;
+//using Windows.UI.WindowManagement;
 using System.Diagnostics;
 
 namespace InventorySystem.SQL
