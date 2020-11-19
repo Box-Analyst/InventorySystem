@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -16,6 +17,28 @@ namespace InventorySystem
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+        public static new App Current => (App)Application.Current;
+        public event EventHandler IsIdleChanged;
+
+        private DispatcherTimer idleTimer;
+
+        private bool isIdle;
+        public bool IsIdle
+        {
+            get
+            {
+                return isIdle;
+            }
+
+            private set
+            {
+                if (isIdle != value)
+                {
+                    isIdle = value;
+                    IsIdleChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
         public App()
         {
             this.InitializeComponent();
@@ -33,7 +56,10 @@ namespace InventorySystem
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
+            idleTimer = new DispatcherTimer();
+            idleTimer.Interval = TimeSpan.FromSeconds(10);  // 10s idle delay
+            idleTimer.Tick += onIdleTimerTick;
+            Window.Current.CoreWindow.PointerMoved += onCoreWindowPointerMoved;
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -90,6 +116,19 @@ namespace InventorySystem
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private void onIdleTimerTick(object sender, object e)
+        {
+            idleTimer.Stop();
+            IsIdle = true;
+        }
+
+        private void onCoreWindowPointerMoved(CoreWindow sender, PointerEventArgs args)
+        {
+            idleTimer.Stop();
+            idleTimer.Start();
+            IsIdle = false;
         }
     }
 }
