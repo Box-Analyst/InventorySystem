@@ -18,11 +18,11 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{x:Bind NavView.CompactModeThresholdWidth}"/>
+                        <AdaptiveTrigger MinWindowWidth="{x:Bind NavView.CompactModeThresholdWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="NavView.PaneDisplayMode" Value="Top" />
-                        <Setter Target="AppBarPanel.Orientation" Value="Horizontal"/>
+                        <Setter Target="AppBarPanel.Orientation" Value="Horizontal" />
                         <Setter Target="AddNavItem.Content" Value="" />
                         <Setter Target="AddNavItem.Width" Value="44" />
                         <Setter Target="UserProfileItem.Content" Value="" />
@@ -30,7 +30,7 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups >
+        </VisualStateManager.VisualStateGroups>
 
         <NavigationView.MenuItems>
             <NavigationViewItem x:Uid="AlertsNavItem" Content="Alerts" Icon="Flag" Tag="alerts" />
@@ -41,7 +41,7 @@
             <AutoSuggestBox PlaceholderText="Search" QueryIcon="Find" Width="200"
                 TextChanged="AutoSuggestBox_TextChanged"
                 QuerySubmitted="AutoSuggestBox_QuerySubmitted"
-                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
         </NavigationView.AutoSuggestBox>
 
         <NavigationView.PaneFooter>
@@ -50,21 +50,18 @@
                 <NavigationViewItem x:Uid="AddNavItem" Name="AddNavItem" Content="Add" Icon="Add" Tag="add" Tapped="AppBarButton_Clicked" />
                 <NavigationViewItem x:Uid="UserProfileItem" Name="UserProfileItem" Content="Sign Out" Tag="user" Tapped="SignOutButton_Clicked">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF3B1;"/>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF3B1;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-
             </StackPanel>
         </NavigationView.PaneFooter>
 
         <Frame x:Name="ContentFrame" Margin="24">
             <Frame.ContentTransitions>
                 <TransitionCollection>
-                    <NavigationThemeTransition/>
+                    <NavigationThemeTransition />
                 </TransitionCollection>
             </Frame.ContentTransitions>
         </Frame>
-
     </NavigationView>
-
 </Page>

@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.ApplicationModel.Core;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using System.Collections.Generic;
 
 namespace InventorySystem.Views.Settings
 {
     public sealed partial class SettingsView : Page
     {
         private string empID;
-        List<string> passedVars = new List<string>();
+        private List<string> passedVars = new List<string>();
+
         public SettingsView()
         {
             InitializeComponent();
@@ -54,14 +55,12 @@ namespace InventorySystem.Views.Settings
                 Content = "The application will restart upon changing this setting. Select Yes to continue, Cancel to go back.",
                 PrimaryButtonText = "Cancel",
                 CloseButtonText = "Yes"
-
             };
 
             ContentDialogResult result = await areYouSure.ShowAsync();
 
             if (result != ContentDialogResult.Primary)
             {
-
                 switch (ThemePicker.SelectedItem?.ToString().Split(new[] { ": " }, StringSplitOptions.None).Last())
                 {
                     case "Light":
@@ -83,7 +82,6 @@ namespace InventorySystem.Views.Settings
 
         private void ThemePicker_DropDownClosed(object sender, object e)
         {
-
         }
 
         private void AddNewUserButton_Click(object sender, RoutedEventArgs e)

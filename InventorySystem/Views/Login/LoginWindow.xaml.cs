@@ -1,6 +1,5 @@
 ﻿using InventorySystem.Views.Login;
 using System;
-using System.Diagnostics;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -50,7 +49,6 @@ namespace InventorySystem
                         };
                         ContentDialogResult result = await expiredAcct.ShowAsync();
                     }
-
                 }
                 else
                 {
@@ -76,8 +74,6 @@ namespace InventorySystem
 
                 ContentDialogResult result = await inputError.ShowAsync();
             }
-
-
         }
 
         private void password_KeyUp(object sender, KeyRoutedEventArgs e)
@@ -87,6 +83,7 @@ namespace InventorySystem
                 LoginButton_Click(sender, e);
             }
         }
+
         //Clears the Employee ID and Password fields
         public void Clear()
         {

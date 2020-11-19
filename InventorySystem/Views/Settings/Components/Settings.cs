@@ -1,6 +1,6 @@
 ﻿namespace InventorySystem.Views.Settings.Components
 {
-    static class Settings
+    internal static class Settings
     {
         // Method for modifying app settings
         public static string ModifySetting(string settingName, string settingValue)

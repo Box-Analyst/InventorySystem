@@ -1,14 +1,9 @@
-﻿using System;
+﻿using InventorySystem.Views.Samples.Components;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using System.Text.RegularExpressions;
-using InventorySystem.Views.Shell;
-using Windows.UI.Xaml.Documents;
-using Windows.UI.Text;
-using System.Diagnostics;
-using InventorySystem.Views.Samples.Components;
 
 namespace InventorySystem.Views.Samples
 {
@@ -20,6 +15,7 @@ namespace InventorySystem.Views.Samples
         private List<string> passedVars = new List<string>();
         private static List<Sample> SampleList = new List<Sample>();
         private static List<Sample> SearchedSample = new List<Sample>();
+
         public SamplesView()
         {
             this.InitializeComponent();
@@ -43,15 +39,19 @@ namespace InventorySystem.Views.Samples
             passedVars.Add(empID);
             SampleList.Clear();
             ConstructSamplesList();
-            if(isSampleSearched == true)
+            if (isSampleSearched == true)
             {
                 OnSearchedSamplesList();
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e) { }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
 
-        private void Page_SizeChanged(object sender, SizeChangedEventArgs e) { }
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+        }
 
         private void ConstructSamplesList()
         {
@@ -66,8 +66,8 @@ namespace InventorySystem.Views.Samples
                         SampleNameDose.Add(s.NameandDosage);
                     }
                 }
-                else 
-                { 
+                else
+                {
                     isSampleSearched = false;
                     SampleList = SampleDataSource.GetSamples();
                     foreach (Sample s in SampleList)
@@ -158,7 +158,6 @@ namespace InventorySystem.Views.Samples
             detailsPanel.Children.Add(countText);
             detailsPanel.Children.Add(expDateText);
             detailsPanel.Children.Add(buttonPanel);
-
         }
 
         private void RecButton_Click(object sender, RoutedEventArgs e)
@@ -167,9 +166,10 @@ namespace InventorySystem.Views.Samples
             passedVars.Add(currentSampleName);
             Frame.Navigate(typeof(AddSample), passedVars);
         }
+
         private void DistButton_Click(object sender, RoutedEventArgs e)
         {
-            if(HasClearance() == true)
+            if (HasClearance() == true)
             {
                 passedVars.Add(currentSampleNo);
                 passedVars.Add(currentSampleName);
@@ -191,9 +191,10 @@ namespace InventorySystem.Views.Samples
             };
             await noPrivilege.ShowAsync();
         }
+
         private void ClearDetailsPanel()
         {
-                detailsPanel.Children.Clear();
+            detailsPanel.Children.Clear();
         }
 
         private bool HasClearance()
@@ -201,6 +202,5 @@ namespace InventorySystem.Views.Samples
             string privLevel = SQL.ManageDB.Grab_Entries("Login", "PrivLevel", "Emp_id", empID)[0];
             return (privLevel == "0" || privLevel == "1");
         }
-
     }
 }

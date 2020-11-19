@@ -1,10 +1,10 @@
-﻿using Windows.UI.Xaml;
+﻿using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
 using Windows.UI.Notifications;
-using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
+using Windows.UI.Xaml;
 
 namespace InventorySystem.Views.Notifications
 {
-    static class Alerts
+    internal static class Alerts
     {
         // Method to initialize alerts on startup
         public static void InitializeAlerts()

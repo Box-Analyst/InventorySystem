@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using InventorySystem.Views.Settings;
-using Microsoft.Data.Sqlite;
 
 namespace InventorySystem.Views.Notifications
 {
     public sealed partial class NotifyView : Page
     {
         private string empID;
+
         public NotifyView()
         {
             this.InitializeComponent();
@@ -222,7 +221,6 @@ namespace InventorySystem.Views.Notifications
         private static double GetWidth()
         {
             return ((Frame)Window.Current.Content).ActualWidth;
-
         }
 
         private async void ResolveExpiredButton_OnClick(object sender, RoutedEventArgs e)
@@ -233,7 +231,6 @@ namespace InventorySystem.Views.Notifications
                 Content = "This action will delete all expired samples, and cannot be undone.",
                 PrimaryButtonText = "Cancel",
                 CloseButtonText = "Delete"
-
             };
 
             ContentDialogResult result = await areYouSure.ShowAsync();

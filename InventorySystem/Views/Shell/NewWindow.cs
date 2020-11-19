@@ -1,13 +1,13 @@
 ﻿using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using Windows.ApplicationModel.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace InventorySystem.Views.Shell
 {
-    static class NewWindow
+    internal static class NewWindow
     {
         public static async void CreateNewWindow(Type frameView)
         {

@@ -4,10 +4,11 @@ using System.Text;
 
 namespace InventorySystem.Views.Login
 {
-    class PasswordHash
+    internal class PasswordHash
     {
         private static string hash, salt;
         private static byte[] bytesToHash, saltBytes;
+
         public PasswordHash(string password)
         {
             hash = password;
@@ -58,6 +59,7 @@ namespace InventorySystem.Views.Login
         {
             return hash;
         }
+
         public string GetSalt()
         {
             return salt;

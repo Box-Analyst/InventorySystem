@@ -1,18 +1,13 @@
-﻿using System;
+﻿using InventorySystem.Views.Login;
+using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using Microsoft.Data.Sqlite;
-using Windows.UI.Xaml;
-using InventorySystem.Views.Login;
-using System.Configuration;
-using System.Globalization;
-using Windows.UI.Xaml.Controls;
-using System.IO;
-using Windows.Storage;
-using System.Runtime.InteropServices;
+
 //using Windows.UI.WindowManagement;
 using System.Diagnostics;
+using System.Globalization;
+using Windows.UI.Xaml;
 
 namespace InventorySystem.SQL
 {
@@ -181,6 +176,7 @@ namespace InventorySystem.SQL
                 db.Close();
             }
         }
+
         // Method to grab entries from the SQLite database
         public static List<string> Grab_Entries(string table, string returnColumn, string comparisonColumn, object search)
         {
@@ -642,6 +638,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
         public static bool Update_Employee(object sender, RoutedEventArgs e, int empID, string salt, string pin, bool isActive, DateTime lastLoggedIn, int privLevel)
         {
             bool check = true;
@@ -674,6 +671,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
+
         public static bool Update_Employee(object sender, RoutedEventArgs e, int empID, int privLevel)
         {
             bool check = true;
@@ -794,7 +792,6 @@ namespace InventorySystem.SQL
                 db.Close();
             }
             return check;
-
         }
 
         public static bool CheckAcctActive(int employeeID)

@@ -15,10 +15,12 @@ namespace InventorySystem.Views.Samples.Components
     {
         private string empID;
         private List<string> passedVars = new List<string>();
+
         public DistributeSample()
         {
             this.InitializeComponent();
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             passedVars.Clear();
@@ -27,6 +29,7 @@ namespace InventorySystem.Views.Samples.Components
             LotNumBox.Text = passedVars?[1] ?? string.Empty;
             NameAndDosageBox.Text = passedVars?[2] ?? string.Empty;
         }
+
         private void Distribute_Sample(object sender, RoutedEventArgs e)
         {
             if (SQL.ManageDB.Check_Count_RegEx(DisAmountBox.Text))

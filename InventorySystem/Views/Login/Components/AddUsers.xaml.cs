@@ -6,7 +6,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
-
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace InventorySystem.Views.Login.Components
@@ -18,14 +17,17 @@ namespace InventorySystem.Views.Login.Components
     {
         private string empID;
         private int privLevel;
+
         public AddUsers()
         {
             this.InitializeComponent();
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             empID = e.Parameter?.ToString();
         }
+
         public void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
@@ -88,6 +90,7 @@ namespace InventorySystem.Views.Login.Components
             }
             else { privLevel = 5; }
         }
+
         public void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(SettingsView), empID);
@@ -104,6 +107,7 @@ namespace InventorySystem.Views.Login.Components
 
             ContentDialogResult result = await inputError.ShowAsync();
         }
+
         private async void DisplayAddUserPasswordError()
         {
             ContentDialog addUserPasswordError = new ContentDialog
@@ -147,6 +151,7 @@ namespace InventorySystem.Views.Login.Components
                 AddUserButton_Click(sender, e);
             }
         }
+
         public void Clear()
         {
             employeeID.Text = "";

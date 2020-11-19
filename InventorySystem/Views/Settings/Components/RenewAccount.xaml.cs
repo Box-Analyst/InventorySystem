@@ -1,18 +1,10 @@
 ﻿using InventorySystem.Views.Login;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -26,6 +18,7 @@ namespace InventorySystem.Views.Settings.Components
     {
         private string empID, typeOfPage;
         private List<string> passedVars = new List<string>();
+
         public RenewAccount()
         {
             this.InitializeComponent();
@@ -37,7 +30,7 @@ namespace InventorySystem.Views.Settings.Components
             passedVars = e.Parameter as List<string>;
             empID = passedVars[0];
             typeOfPage = passedVars[1];
-            if(typeOfPage == "renew")
+            if (typeOfPage == "renew")
             {
                 HeaderText.Text = "Renew Account";
                 ButtonText.Content = "Renew Account";
@@ -45,7 +38,7 @@ namespace InventorySystem.Views.Settings.Components
             }
             else
             {
-                if(IsAdmin() == false)
+                if (IsAdmin() == false)
                 {
                     employeeID.Text = empID;
                 }
@@ -53,7 +46,6 @@ namespace InventorySystem.Views.Settings.Components
                 ButtonText.Content = "Reset Password";
                 ButtonText.Click += ResetButton_Click;
             }
-
         }
 
         private bool IsAdmin()
@@ -92,7 +84,6 @@ namespace InventorySystem.Views.Settings.Components
                             {
                                 Clear();
                                 DisplayPasswordCheckError();
-
                             }
                         }
                         else
@@ -100,7 +91,6 @@ namespace InventorySystem.Views.Settings.Components
                             Clear();
                             DisplayUserNotExpired();
                         }
-
                     }
                     else
                     {
@@ -114,8 +104,8 @@ namespace InventorySystem.Views.Settings.Components
                     DisplayInputError();
                 }
             }
-
         }
+
         public void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             //Checks if Admin is trying to change passwords, if true, allow changes to all empID numbers
@@ -225,6 +215,7 @@ namespace InventorySystem.Views.Settings.Components
 
             ContentDialogResult result = await inputError.ShowAsync();
         }
+
         private async void DisplayPasswordCheckError()
         {
             ContentDialog displayPasswordError = new ContentDialog
@@ -272,11 +263,12 @@ namespace InventorySystem.Views.Settings.Components
 
             ContentDialogResult result = await displayPasswordError.ShowAsync();
         }
+
         private void Password_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
             {
-                if(typeOfPage == "renew")
+                if (typeOfPage == "renew")
                 {
                     RenewButton_Click(sender, e);
                 }
@@ -284,7 +276,6 @@ namespace InventorySystem.Views.Settings.Components
                 {
                     ResetButton_Click(sender, e);
                 }
-                
             }
         }
 

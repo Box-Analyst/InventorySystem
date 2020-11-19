@@ -9,12 +9,11 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
     <StackPanel VerticalAlignment="Center">
-        <TextBlock Text="Login" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal"/>
-        <TextBox x:Name="employeeID" Header="Employee ID" Margin="0,24,0,0" MaxLength="12" Width="400" HorizontalAlignment="Center" InputScope="Number"/>
+        <TextBlock Text="Login" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Normal" />
+        <TextBox x:Name="employeeID" Header="Employee ID" Margin="0,24,0,0" MaxLength="12" Width="400" HorizontalAlignment="Center" InputScope="Number" />
         <PasswordBox x:Name="password" Header="Password" Margin=" 0,24,0,0" MaxLength="20" Width="400" HorizontalAlignment="Center" InputScope="Password" KeyUp="password_KeyUp" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Login" Margin="0,24" Click="LoginButton_Click"/>
+            <Button Content="Login" Margin="0,24" Click="LoginButton_Click" />
         </StackPanel>
     </StackPanel>
-
 </Page>

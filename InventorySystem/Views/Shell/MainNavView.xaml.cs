@@ -1,15 +1,12 @@
-﻿using System;
+﻿using InventorySystem.Views.Notifications;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Timers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using InventorySystem.Views.Notifications;
-using InventorySystem.Views.Samples;
-using System.Diagnostics;
 
 namespace InventorySystem.Views.Shell
 {
@@ -17,6 +14,7 @@ namespace InventorySystem.Views.Shell
     {
         private string empID;
         private List<string> passedVars = new List<string>();
+
         public MainNavView()
         {
             this.InitializeComponent();
@@ -121,6 +119,7 @@ namespace InventorySystem.Views.Shell
                 ContentFrame.Navigate(typeof(Samples.SamplesView), passedVars);
             }
         }
+
         // End AutoSuggestBox
 
         // Add Sample button
@@ -138,7 +137,6 @@ namespace InventorySystem.Views.Shell
                 Content = "This will sign you out of the app and return to the login screen.",
                 PrimaryButtonText = "Cancel",
                 CloseButtonText = "Yes"
-
             };
 
             ContentDialogResult result = await areYouSure.ShowAsync();
@@ -154,20 +152,21 @@ namespace InventorySystem.Views.Shell
                 Title = "Idle",
                 Content = "You have been idle for too long and have been signed out!",
                 CloseButtonText = "Okay"
-
             };
 
             ContentDialogResult result = await autoSignOut.ShowAsync();
             Frame.Navigate(typeof(LoginWindow));
         }
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             App.Current.IsIdleChanged -= onIsIdleChanged;
         }
+
         private void onIsIdleChanged(object sender, EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine($"IsIdle: {App.Current.IsIdle}");
-            if(App.Current.IsIdle) Automatic_Signout();
+            if (App.Current.IsIdle) Automatic_Signout();
         }
     }
 }

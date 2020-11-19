@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -24,6 +14,7 @@ namespace InventorySystem.Views.Settings.Components
     {
         private string empID;
         private int privLevel;
+
         public ChangePrivilege()
         {
             this.InitializeComponent();
@@ -36,59 +27,56 @@ namespace InventorySystem.Views.Settings.Components
 
         public void ChangePrivButton_Click(object sender, RoutedEventArgs e)
         {
-                try
+            try
+            {
+                //Check if the user account exists to renew
+                if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
                 {
-                    //Check if the user account exists to renew
-                    if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+                    if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == true)
                     {
-                        if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == true)
+                        if (CheckIfAdmin() == false)
                         {
-                            if (CheckIfAdmin() == false)
+                            if (privLevel == 1)
                             {
-
-                                if (privLevel == 1)
-                                {
-                                    SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
-                                    OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
-                                    OutputSuccess2.Text = "This user now has Doctor permissions.";
-                                }
-                                else if(privLevel == 2)
-                                {
-                                    SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
-                                    OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
-                                    OutputSuccess2.Text = "This user now has Standard permissions.";
-                                }
-                                else
-                                {
-                                    Clear();
-                                    DisplayInputError();
-                                }
+                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
+                                OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
+                                OutputSuccess2.Text = "This user now has Doctor permissions.";
+                            }
+                            else if (privLevel == 2)
+                            {
+                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
+                                OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
+                                OutputSuccess2.Text = "This user now has Standard permissions.";
                             }
                             else
                             {
                                 Clear();
-                                DisplayCannotChangeAdmin();
+                                DisplayInputError();
                             }
-
                         }
                         else
                         {
                             Clear();
-                            DisplayUserExpired();
+                            DisplayCannotChangeAdmin();
                         }
-
                     }
                     else
                     {
                         Clear();
-                        DisplayUserNotFound();
+                        DisplayUserExpired();
                     }
                 }
-                catch (Exception)
+                else
                 {
                     Clear();
-                    DisplayInputError();
+                    DisplayUserNotFound();
                 }
+            }
+            catch (Exception)
+            {
+                Clear();
+                DisplayInputError();
+            }
         }
 
         private bool CheckIfAdmin()
@@ -96,10 +84,12 @@ namespace InventorySystem.Views.Settings.Components
             string privEntry = SQL.ManageDB.Grab_Entries("Login", "PrivLevel", "Emp_id", employeeID.Text)[0];
             return privEntry == "0";
         }
+
         public void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(SettingsView), empID);
         }
+
         private void HandleCheck(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
@@ -125,6 +115,7 @@ namespace InventorySystem.Views.Settings.Components
 
             ContentDialogResult result = await inputError.ShowAsync();
         }
+
         private async void DisplayUserExpired()
         {
             ContentDialog displayUserExpiredError = new ContentDialog
@@ -148,6 +139,7 @@ namespace InventorySystem.Views.Settings.Components
 
             ContentDialogResult result = await userNotFoundError.ShowAsync();
         }
+
         private async void DisplayCannotChangeAdmin()
         {
             ContentDialog displayAdminError = new ContentDialog
@@ -159,6 +151,7 @@ namespace InventorySystem.Views.Settings.Components
 
             ContentDialogResult result = await displayAdminError.ShowAsync();
         }
+
         public void Clear()
         {
             employeeID.Text = "";

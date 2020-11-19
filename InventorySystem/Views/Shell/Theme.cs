@@ -2,7 +2,7 @@
 
 namespace InventorySystem.Views.Shell
 {
-    static class Theme
+    internal static class Theme
     {
         public static void InitializeTheme()
         {

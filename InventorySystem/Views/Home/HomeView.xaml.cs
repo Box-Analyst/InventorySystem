@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Data.Sqlite;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using InventorySystem.Views.Notifications;
-using InventorySystem.Views.Shell;
-using Microsoft.Data.Sqlite;
 
 namespace InventorySystem.Views.Home
 {
     public sealed partial class HomeView : Page
     {
         private string empID;
+
         public HomeView()
         {
             this.InitializeComponent();
@@ -161,12 +160,10 @@ namespace InventorySystem.Views.Home
         private static double GetWidth()
         {
             return ((Frame)Window.Current.Content).ActualWidth;
-
         }
 
         private void ExpireSoonButton_OnClick(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void ResolveExpiredButton_OnClick(object sender, RoutedEventArgs e)
