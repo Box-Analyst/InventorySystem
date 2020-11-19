@@ -60,6 +60,7 @@ namespace InventorySystem
             idleTimer.Interval = TimeSpan.FromSeconds(10);  // 10s idle delay
             idleTimer.Tick += onIdleTimerTick;
             Window.Current.CoreWindow.PointerMoved += onCoreWindowPointerMoved;
+            Window.Current.CoreWindow.KeyDown += onCoreWindowKeyboardPressed;
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -125,6 +126,13 @@ namespace InventorySystem
         }
 
         private void onCoreWindowPointerMoved(CoreWindow sender, PointerEventArgs args)
+        {
+            idleTimer.Stop();
+            idleTimer.Start();
+            IsIdle = false;
+        }
+
+        private void onCoreWindowKeyboardPressed(CoreWindow sender, KeyEventArgs args)
         {
             idleTimer.Stop();
             idleTimer.Start();
