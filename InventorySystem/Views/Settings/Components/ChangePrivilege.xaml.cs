@@ -34,14 +34,8 @@ namespace InventorySystem.Views.Settings.Components
             empID = e.Parameter?.ToString();
         }
 
-        public async void ChangePrivButton_Click(object sender, RoutedEventArgs e)
+        public void ChangePrivButton_Click(object sender, RoutedEventArgs e)
         {
-            if (employeeID.Text.ToString() == "")
-            {
-                DisplayInputError();
-            }
-            else
-            {
                 try
                 {
                     //Check if the user account exists to renew
@@ -51,17 +45,24 @@ namespace InventorySystem.Views.Settings.Components
                         {
                             if (CheckIfAdmin() == false)
                             {
-                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
-                                OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
+
                                 if (privLevel == 1)
                                 {
+                                    SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
+                                    OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
                                     OutputSuccess2.Text = "This user now has Doctor permissions.";
                                 }
-                                else if (privLevel == 2)
+                                else if(privLevel == 2)
                                 {
+                                    SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), privLevel);
+                                    OutputSuccess.Text = "Successfully changed Employee " + employeeID.Text + "'s permissions.";
                                     OutputSuccess2.Text = "This user now has Standard permissions.";
                                 }
-                                Clear();
+                                else
+                                {
+                                    Clear();
+                                    DisplayInputError();
+                                }
                             }
                             else
                             {
@@ -86,15 +87,8 @@ namespace InventorySystem.Views.Settings.Components
                 catch (Exception)
                 {
                     Clear();
-                    ContentDialog invalidInput = new ContentDialog
-                    {
-                        Title = "Invalid Input",
-                        Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await invalidInput.ShowAsync();
+                    DisplayInputError();
                 }
-            }
         }
 
         private bool CheckIfAdmin()
@@ -124,8 +118,8 @@ namespace InventorySystem.Views.Settings.Components
         {
             ContentDialog inputError = new ContentDialog
             {
-                Title = "Invalid Account Creation",
-                Content = "One or more fields are empty. Please enter \ninformation into all fields and try again.",
+                Title = "Invalid Account Modification",
+                Content = "One or more fields are empty or incorrect. Please enter \ninformation into all fields and try again.",
                 CloseButtonText = "Ok"
             };
 

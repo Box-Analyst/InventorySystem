@@ -59,9 +59,21 @@ namespace InventorySystem.Views.Samples
             if (NameandDosageText != null)
             {
                 SampleList = SampleDataSource.GetSearchedSample(NameandDosageText);
-                foreach (Sample s in SampleList)
+                if (SampleList.Count != 0)
                 {
-                    SampleNameDose.Add(s.NameandDosage);
+                    foreach (Sample s in SampleList)
+                    {
+                        SampleNameDose.Add(s.NameandDosage);
+                    }
+                }
+                else 
+                { 
+                    isSampleSearched = false;
+                    SampleList = SampleDataSource.GetSamples();
+                    foreach (Sample s in SampleList)
+                    {
+                        SampleNameDose.Add(s.NameandDosage);
+                    }
                 }
             }
             else

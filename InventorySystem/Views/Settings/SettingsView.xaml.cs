@@ -86,13 +86,13 @@ namespace InventorySystem.Views.Settings
 
         }
 
-        private async void AddNewUserButton_Click(object sender, RoutedEventArgs e)
+        private void AddNewUserButton_Click(object sender, RoutedEventArgs e)
         {
             if (IsAdmin()) Frame.Navigate(typeof(Login.Components.AddUsers), empID);
             else PrivilegeError();
         }
 
-        private async void RenewButton_Click(object sender, RoutedEventArgs e)
+        private void RenewButton_Click(object sender, RoutedEventArgs e)
         {
             passedVars.Add("renew");
             if (IsAdmin())

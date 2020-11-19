@@ -59,29 +59,29 @@ namespace InventorySystem.Views.Samples.Components
         //returns a list of samples matching the string search from autosuggest on MainNav
         public static List<Sample> GetSearchedSample(string nameDose)
         {
-            var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "NameandDosage", nameDose);
-            string sampleNames = string.Join("', '", samples);
-            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
-            {
-                db.Open();
-                SqliteCommand selectCommand = new SqliteCommand
+                var samples = SQL.ManageDB.Grab_Entries("Sample", "LotNum", "NameandDosage", nameDose);
+                string sampleNames = string.Join("', '", samples);
+                using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
                 {
-                    Connection = db,
-                    CommandText = "SELECT LotNum, NameandDosage, ExpirationDate, Count FROM Sample WHERE LotNum IN ('" + sampleNames + "')"
-                };
-                SqliteDataReader query;
-                try
-                {
-                    query = selectCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    Debug.WriteLine("Error: " + error);
-                    db.Close();
-                    return sampleList;
-                }
-                while (query.Read())
-                {
+                    db.Open();
+                    SqliteCommand selectCommand = new SqliteCommand
+                    {
+                        Connection = db,
+                        CommandText = "SELECT LotNum, NameandDosage, ExpirationDate, Count FROM Sample WHERE LotNum IN ('" + sampleNames + "')"
+                    };
+                    SqliteDataReader query;
+                    try
+                    {
+                        query = selectCommand.ExecuteReader();
+                    }
+                    catch (SqliteException error)
+                    {
+                        Debug.WriteLine("Error: " + error);
+                        db.Close();
+                        return sampleList;
+                    }
+                    while (query.Read())
+                    {
                         Sample sample = new Sample()
                         {
                             LotNum = query.GetString(0),
@@ -90,10 +90,10 @@ namespace InventorySystem.Views.Samples.Components
                             Count = int.Parse(query.GetString(3))
                         };
                         sampleList.Add(sample);
+                    }
+                    db.Close();
                 }
-                db.Close();
-            }
-            return sampleList;
+                return sampleList;
         }
 
 

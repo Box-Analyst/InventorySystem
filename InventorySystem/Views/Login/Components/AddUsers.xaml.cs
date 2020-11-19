@@ -26,7 +26,7 @@ namespace InventorySystem.Views.Login.Components
         {
             empID = e.Parameter?.ToString();
         }
-        public async void AddUserButton_Click(object sender, RoutedEventArgs e)
+        public void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
             if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
@@ -58,7 +58,6 @@ namespace InventorySystem.Views.Login.Components
                         }
                         else
                         {
-                            Clear();
                             DisplayAddUserPasswordError();
                         }
                     }
@@ -71,16 +70,9 @@ namespace InventorySystem.Views.Login.Components
                 catch (Exception)
                 {
                     Clear();
-                    ContentDialog invalidInput = new ContentDialog
-                    {
-                        Title = "Invalid Input",
-                        Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await invalidInput.ShowAsync();
+                    DisplayInputError();
                 }
             }
-
         }
 
         private void HandleCheck(object sender, RoutedEventArgs e)
@@ -106,7 +98,7 @@ namespace InventorySystem.Views.Login.Components
             ContentDialog inputError = new ContentDialog
             {
                 Title = "Invalid Account Creation",
-                Content = "One or more fields are empty. Please enter \ninformation into all fields and try again.",
+                Content = "One or more fields are empty or incorrect. Please enter \ninformation into all fields and try again.",
                 CloseButtonText = "Ok"
             };
 
