@@ -101,11 +101,13 @@ namespace InventorySystem.Views.Notifications
         private List<string> ExpireSoonList()
         {
             List<string> entries = new List<string>();
+            List<string> entryExpiryDate = new List<string>();
+            List<string> entriesExpireSoon = new List<string>();
 
             using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage FROM Sample WHERE isExpired = 0", db);
+                SqliteCommand selectCommand = new SqliteCommand("SELECT NameandDosage, ExpirationDate FROM Sample WHERE isExpired = 0", db);
                 SqliteDataReader query;
                 try
                 {
@@ -121,12 +123,22 @@ namespace InventorySystem.Views.Notifications
                 {
                     var tmp = query.GetString(0);
                     entries.Add(tmp);
+                    var tmp1 = query.GetString(1);
+                    entryExpiryDate.Add(tmp1);
                 }
                 db.Close();
+
+                for (int i = 0; i < entries.Count; i++)
+                {
+                    if (SQL.ManageDB.Check_ExpiresSoon(entryExpiryDate[i], -30))
+                    {
+                        entriesExpireSoon.Add(entries[i]);
+                    }
+                }
             }
 
-            if (entries.Count > 0) ExpireSoonFrame.Visibility = Visibility.Visible;
-            return entries;
+            if (entriesExpireSoon.Count > 0) ExpireSoonFrame.Visibility = Visibility.Visible;
+            return entriesExpireSoon;
         }
 
         // Method for constructing list of expired samples

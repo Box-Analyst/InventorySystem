@@ -14,7 +14,7 @@ namespace InventorySystem.Views.Settings
         List<string> passedVars = new List<string>();
         public SettingsView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             object currentTheme = Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"];
 
@@ -40,7 +40,7 @@ namespace InventorySystem.Views.Settings
             passedVars.Clear();
             empID = e.Parameter?.ToString();
             passedVars.Add(empID);
-            if(IsAdmin() == true)
+            if (IsAdmin() == true)
             {
                 PrivButton.Visibility = Visibility.Visible;
             }
@@ -62,7 +62,7 @@ namespace InventorySystem.Views.Settings
             if (result != ContentDialogResult.Primary)
             {
 
-                switch (ThemePicker.SelectedItem?.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
+                switch (ThemePicker.SelectedItem?.ToString().Split(new[] { ": " }, StringSplitOptions.None).Last())
                 {
                     case "Light":
                         Windows.Storage.ApplicationData.Current.LocalSettings.Values["userThemeSetting"] = 0;
@@ -78,7 +78,7 @@ namespace InventorySystem.Views.Settings
                 }
                 AppRestartFailureReason result2 = await CoreApplication.RequestRestartAsync("test");
             }
-            else { this.Frame.Navigate(typeof(SettingsView), empID); }
+            else { Frame.Navigate(typeof(SettingsView), empID); }
         }
 
         private void ThemePicker_DropDownClosed(object sender, object e)
@@ -88,40 +88,22 @@ namespace InventorySystem.Views.Settings
 
         private async void AddNewUserButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsAdmin() == true)
-            {
-                this.Frame.Navigate(typeof(Login.Components.AddUsers), empID);
-            }
-            else
-            {
-                ContentDialog noPrivilege = new ContentDialog
-                {
-                    Title = "Insufficient Privileges",
-                    Content = "You must be signed in to the Admin account to add/modify users.",
-                    CloseButtonText = "Ok"
-                };
-                await noPrivilege.ShowAsync();
-            }
+            if (IsAdmin()) Frame.Navigate(typeof(Login.Components.AddUsers), empID);
+            else PrivilegeError();
         }
 
         private async void RenewButton_Click(object sender, RoutedEventArgs e)
         {
             passedVars.Add("renew");
-            if (IsAdmin() == true)
+            if (IsAdmin())
             {
                 passedVars.Add("adminChange");
-                this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
+                Frame.Navigate(typeof(Components.RenewAccount), passedVars);
             }
             else
             {
                 passedVars.RemoveAt(1);
-                ContentDialog noPrivilege = new ContentDialog
-                {
-                    Title = "Insufficient Privileges",
-                    Content = "You must be signed in to the Admin account to add users.",
-                    CloseButtonText = "Ok"
-                };
-                await noPrivilege.ShowAsync();
+                PrivilegeError();
             }
         }
 
@@ -143,9 +125,20 @@ namespace InventorySystem.Views.Settings
             return privLevel == "0";
         }
 
+        private async void PrivilegeError()
+        {
+            ContentDialog noPrivilege = new ContentDialog
+            {
+                Title = "Insufficient Privileges",
+                Content = "You must be signed in to the Admin account to perform this action.",
+                CloseButtonText = "Ok"
+            };
+            await noPrivilege.ShowAsync();
+        }
+
         private async void ImportButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsAdmin() == true)
+            if (IsAdmin())
             {
                 ContentDialog importBakAlert = new ContentDialog
                 {
@@ -239,21 +232,12 @@ namespace InventorySystem.Views.Settings
 
                 ExportSuccess.Visibility = Visibility.Visible;
             }
-            else
-            {
-                ContentDialog noPrivilege = new ContentDialog
-                {
-                    Title = "Insufficient Privileges",
-                    Content = "You must be signed in to the Admin account to manage the database.",
-                    CloseButtonText = "Ok"
-                };
-                await noPrivilege.ShowAsync();
-            }
+            else PrivilegeError();
         }
 
         private async void ExportButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsAdmin() == true)
+            if (IsAdmin())
             {
                 var activeDB = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync("SamplesDB.db");
                 var buffer = await Windows.Storage.FileIO.ReadBufferAsync(activeDB);
@@ -297,16 +281,7 @@ namespace InventorySystem.Views.Settings
                 }
                 ExportSuccess.Visibility = Visibility.Visible;
             }
-            else
-            {
-                ContentDialog noPrivilege = new ContentDialog
-                {
-                    Title = "Insufficient Privileges",
-                    Content = "You must be signed in to the Admin account to manage the database.",
-                    CloseButtonText = "Ok"
-                };
-                await noPrivilege.ShowAsync();
-            }
+            else PrivilegeError();
         }
     }
 }
