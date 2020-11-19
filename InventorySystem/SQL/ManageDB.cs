@@ -48,7 +48,7 @@ namespace InventorySystem.SQL
                 {
                     Debug.WriteLine("Table error: " + e);
                 }
-                const string tableCommand3 = "CREATE TABLE IF NOT EXISTS Log (LogEntryId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Emp_id INTEGER CONSTRAINT Emp_idConstraint REFERENCES Login (Emp_id) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL, LotNum VARCHAR NOT NULL, WhenModifed DATETIME NOT NULL, Patient_id VARCHAR (12), Rep_id VARCHAR (12), LogType CHAR (1) NOT NULL)";
+                const string tableCommand3 = "CREATE TABLE IF NOT EXISTS Log (LogEntryId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Emp_id INTEGER NOT NULL, LotNum VARCHAR NOT NULL, WhenModifed DATETIME NOT NULL, Patient_id VARCHAR (12), Rep_id VARCHAR (12), LogType CHAR (1) NOT NULL)";
                 createTable = new SqliteCommand(tableCommand3, db);
                 try
                 {
@@ -59,6 +59,12 @@ namespace InventorySystem.SQL
                     Debug.WriteLine("Table error: " + e);
                 }
                 db.Close();
+            }
+
+            if (Views.Settings.Components.Settings.FetchSetting("firstRun")?.ToString() != "1")
+            {
+                PopulateTestData(0);
+                Views.Settings.Components.Settings.ModifySetting("firstRun", "1");
             }
         }
 
@@ -841,6 +847,56 @@ namespace InventorySystem.SQL
                 check = true;
             }
             return check;
+        }
+
+        // Temp method for testing purposes
+        private static void PopulateTestData(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                var random = new Random();
+                var boolList = new List<int> { 0, 1 };
+                int index = random.Next(boolList.Count);
+
+                DateTime start = new DateTime(2000, 1, 1);
+                DateTime end = new DateTime(2999, 12, 31);
+                int range = (end - start).Days;
+                var randDate = start.AddDays(random.Next(range));
+
+                var LotNumber = i.ToString();
+                var NameandDosage = "Test " + i + "mg";
+                var count = random.Next(1, int.MaxValue);
+                var expirationdate = randDate;
+                var isExpired = boolList[index];
+
+                Debug.WriteLine(i);
+
+                using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
+                {
+                    db.Open();
+                    SqliteCommand insertCommand = new SqliteCommand
+                    {
+                        Connection = db,
+
+                        //Use parameterized query to prevent SQL injection attacks
+                        CommandText = "INSERT INTO Sample VALUES (@Entry1, @Entry2, @Entry3, @Entry4, @Entry5);"
+                    };
+                    insertCommand.Parameters.AddWithValue("@Entry1", LotNumber);
+                    insertCommand.Parameters.AddWithValue("@Entry2", NameandDosage);
+                    insertCommand.Parameters.AddWithValue("@Entry3", count);
+                    insertCommand.Parameters.AddWithValue("@Entry4", expirationdate);
+                    insertCommand.Parameters.AddWithValue("@Entry5", isExpired);
+                    try
+                    {
+                        insertCommand.ExecuteReader();
+                    }
+                    catch (SqliteException error)
+                    {
+                        Debug.WriteLine("Exception: " + error);
+                    }
+                    db.Close();
+                }
+            }
         }
     }
 }
