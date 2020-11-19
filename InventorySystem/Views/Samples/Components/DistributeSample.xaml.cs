@@ -33,17 +33,30 @@ namespace InventorySystem.Views.Samples.Components
             {
                 if (SQL.ManageDB.Check_RepID_RegEx(PatientIDBox.Text))
                 {
-                    if (SQL.ManageDB.Update_Sample(sender, e, LotNumBox.Text, -Int32.Parse(DisAmountBox.Text)))
+                    if (SQL.ManageDB.Grab_Entries("Sample", "Count", "LotNum", LotNumBox.Text).Count == 1)
                     {
-                        SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(), PatientIDBox.Text, "NULL", "DISTRIBUTE");
-                        DistributeButton.Visibility = Visibility.Collapsed;
-                        ContinueButton.Visibility = Visibility.Visible;
-                        OutputSuccess.Text = "Successfully Distributed " + DisAmountBox.Text + " Units of " + LotNumBox.Text + " to " + PatientIDBox.Text;
-                        Clear();
-                    }
-                    else
+                        int count = int.Parse(SQL.ManageDB.Grab_Entries("Sample", "Count", "LotNum", LotNumBox.Text)[0]);
+                        if (count - int.Parse(DisAmountBox.Text) >= 0)
+                        {
+                            if (SQL.ManageDB.Update_Sample(sender, e, LotNumBox.Text, -Int32.Parse(DisAmountBox.Text)))
+                            {
+                                SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(), PatientIDBox.Text, "NULL", "DISTRIBUTE");
+                                DistributeButton.Visibility = Visibility.Collapsed;
+                                ContinueButton.Visibility = Visibility.Visible;
+                                OutputSuccess.Text = "Successfully Distributed " + DisAmountBox.Text + " Units of " + LotNumBox.Text + " to " + PatientIDBox.Text;
+                                Clear();
+                            }
+                            else
+                            {
+                                OutputSuccess.Text = "Failed to Distribute!";
+                            }
+                        } else
+                        {
+                            DisplayError("Distribution Amount Too High!", "There is not enough existing medication to distribute that amount!");
+                        }
+                    } else
                     {
-                        OutputSuccess.Text = "Failed to Distribute!";
+                        OutputSuccess.Text = "Failed to Distribute";
                     }
                 }
                 else
