@@ -5,6 +5,7 @@ using System.Globalization;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using InventorySystem.Views.Settings;
 using Microsoft.Data.Sqlite;
 
@@ -12,6 +13,7 @@ namespace InventorySystem.Views.Notifications
 {
     public sealed partial class NotifyView : Page
     {
+        private string empID;
         public NotifyView()
         {
             this.InitializeComponent();
@@ -19,6 +21,11 @@ namespace InventorySystem.Views.Notifications
             ExpireSoonList();
             ConstructExpiredList();
             ConstructExpireSoonList();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            empID = e.Parameter?.ToString();
         }
 
         // Method for getting a list of expired samples
@@ -236,7 +243,7 @@ namespace InventorySystem.Views.Notifications
                 var samples = ExpiryListLot();
                 foreach (var sample in samples)
                 {
-                    SQL.ManageDB.Add_Log(sender, e, "test", sample, DateTime.Now.ToString(CultureInfo.CurrentCulture), "NULL", "NULL", "DELETE");
+                    SQL.ManageDB.Add_Log(sender, e, empID, sample, DateTime.Now.ToString(CultureInfo.CurrentCulture), "NULL", "NULL", "DELETE");
                 }
                 SQL.ManageDB.Delete_Expired(sender, e);
             }
