@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System.Collections.Generic;
 using System.Globalization;
+using Windows.UI;
+//using Windows.UI.WindowManagement;
+using Windows.UI.Xaml.Hosting;
 
 namespace InventorySystem.Views.Samples.Components
 {
