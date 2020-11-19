@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="704c98f6-3551-4a96-b6f6-f78cdab03ea8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>InventorySystem</DisplayName>
+    <DisplayName>Inventory System</DisplayName>
     <PublisherDisplayName>Box Analyst</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
