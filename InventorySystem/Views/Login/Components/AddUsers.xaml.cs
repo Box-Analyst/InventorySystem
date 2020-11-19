@@ -17,6 +17,7 @@ namespace InventorySystem.Views.Login.Components
     public sealed partial class AddUsers : Page
     {
         private string empID;
+        private int privLevel;
         public AddUsers()
         {
             this.InitializeComponent();
@@ -25,39 +26,92 @@ namespace InventorySystem.Views.Login.Components
         {
             empID = e.Parameter?.ToString();
         }
-        public void AddUserButton_Click(object sender, RoutedEventArgs e)
+        public async void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
-            //If checkEmployee is false (user doesn't exist), create user account
-            if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
+            if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
             {
-                if (password.Password == passwordRetype.Password)
-                {
-                    hash.SetHash();
-                    var hashedPW = hash.GetHash();
-                    var salt = hash.GetSalt();
-                    SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
-                    OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
-                    Clear();
-                }
-                else
-                {
-                    Clear();
-                    DisplayAddUserPasswordError();
-                }
+                DisplayInputError();
             }
             else
             {
-                Clear();
-                DisplayAddUserError();
+                try
+                {
+                    //If checkEmployee is false (user doesn't exist), create user account
+                    if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
+                    {
+                        if (password.Password == passwordRetype.Password)
+                        {
+                            if (privLevel == 1 || privLevel == 2)
+                            {
+                                hash.SetHash();
+                                var hashedPW = hash.GetHash();
+                                var salt = hash.GetSalt();
+                                SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now, privLevel);
+                                OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
+                                Clear();
+                            }
+                            else
+                            {
+                                DisplayNoOptionSelected();
+                            }
+                        }
+                        else
+                        {
+                            Clear();
+                            DisplayAddUserPasswordError();
+                        }
+                    }
+                    else
+                    {
+                        Clear();
+                        DisplayAddUserError();
+                    }
+                }
+                catch (Exception)
+                {
+                    Clear();
+                    ContentDialog invalidInput = new ContentDialog
+                    {
+                        Title = "Invalid Input",
+                        Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await invalidInput.ShowAsync();
+                }
             }
 
+        }
+
+        private void HandleCheck(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb?.Name == "DoctorChoice")
+            {
+                privLevel = 1;
+            }
+            else if (rb?.Name == "StandardChoice")
+            {
+                privLevel = 2;
+            }
+            else { privLevel = 5; }
         }
         public void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(SettingsView), empID);
         }
 
+        private async void DisplayInputError()
+        {
+            ContentDialog inputError = new ContentDialog
+            {
+                Title = "Invalid Account Creation",
+                Content = "One or more fields are empty. Please enter \ninformation into all fields and try again.",
+                CloseButtonText = "Ok"
+            };
+
+            ContentDialogResult result = await inputError.ShowAsync();
+        }
         private async void DisplayAddUserPasswordError()
         {
             ContentDialog addUserPasswordError = new ContentDialog
@@ -80,6 +134,18 @@ namespace InventorySystem.Views.Login.Components
             };
 
             ContentDialogResult result = await addUserError.ShowAsync();
+        }
+
+        private async void DisplayNoOptionSelected()
+        {
+            ContentDialog noOptionError = new ContentDialog
+            {
+                Title = "Invalid Account Creation",
+                Content = "Account Type not selected. Please select an option and try again.",
+                CloseButtonText = "Ok"
+            };
+
+            ContentDialogResult result = await noOptionError.ShowAsync();
         }
 
         private void Password_KeyUp(object sender, KeyRoutedEventArgs e)

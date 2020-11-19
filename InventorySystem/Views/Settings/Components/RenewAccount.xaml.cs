@@ -24,7 +24,7 @@ namespace InventorySystem.Views.Settings.Components
     /// </summary>
     public sealed partial class RenewAccount : Page
     {
-        private string empID, typeOfPage, changeType;
+        private string empID, typeOfPage;
         private List<string> passedVars = new List<string>();
         public RenewAccount()
         {
@@ -37,7 +37,6 @@ namespace InventorySystem.Views.Settings.Components
             passedVars = e.Parameter as List<string>;
             empID = passedVars[0];
             typeOfPage = passedVars[1];
-            changeType = passedVars?[2];
             if(typeOfPage == "renew")
             {
                 HeaderText.Text = "Renew Account";
@@ -46,7 +45,7 @@ namespace InventorySystem.Views.Settings.Components
             }
             else
             {
-                if(changeType == "nonAdminChange")
+                if(IsAdmin() == false)
                 {
                     employeeID.Text = empID;
                 }
@@ -56,70 +55,50 @@ namespace InventorySystem.Views.Settings.Components
             }
 
         }
-      
+
+        private bool IsAdmin()
+        {
+            string privLevel = SQL.ManageDB.Grab_Entries("Login", "PrivLevel", "Emp_id", empID)[0];
+            return privLevel == "0";
+        }
+
         public void RenewButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
-            //Check if the user account exists to renew
-            if(SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+            if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
             {
-                if(SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == false)
-                {
-                    if (password.Password == passwordRetype.Password)
-                    {
-                        hash.SetHash();
-                        var hashedPW = hash.GetHash();
-                        var salt = hash.GetSalt();
-                        SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
-                        OutputSuccess.Text = "Successfully renewed Employee " + employeeID.Text + ".";
-                        OutputSuccess2.Text = "This employee now has access to this application.";
-                        Clear();
-                    }
-                    else
-                    {
-                        Clear();
-                        DisplayPasswordCheckError();
-
-                    }
-                }
-                else
-                {
-                    Clear();
-                    DisplayUserNotExpired();
-                }
-
+                DisplayInputError();
             }
             else
             {
-                Clear();
-                DisplayUserNotFound();
-            }
-
-        }
-        public void ResetButton_Click(object sender, RoutedEventArgs e)
-        {
-            //Checks if Admin is trying to change passwords, if true, allow changes to all empID numbers
-            if (changeType == "adminChange")
-            {
-                PasswordHash hash = new PasswordHash(password.Password);
                 //Check if the user account exists to renew
                 if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
                 {
-                    if (password.Password == passwordRetype.Password)
+                    if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == false)
                     {
-                        hash.SetHash();
-                        var hashedPW = hash.GetHash();
-                        var salt = hash.GetSalt();
-                        SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
-                        OutputSuccess.Text = "Successfully reset Employee " + employeeID.Text + "'s password.";
-                        Clear();
+                        if (password.Password == passwordRetype.Password)
+                        {
+                            hash.SetHash();
+                            var hashedPW = hash.GetHash();
+                            var salt = hash.GetSalt();
+                            SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
+                            OutputSuccess.Text = "Successfully renewed Employee " + employeeID.Text + ".";
+                            OutputSuccess2.Text = "This employee now has access to this application.";
+                            Clear();
+                        }
+                        else
+                        {
+                            Clear();
+                            DisplayPasswordCheckError();
+
+                        }
                     }
                     else
                     {
                         Clear();
-                        DisplayPasswordCheckError();
-
+                        DisplayUserNotExpired();
                     }
+
                 }
                 else
                 {
@@ -127,31 +106,109 @@ namespace InventorySystem.Views.Settings.Components
                     DisplayUserNotFound();
                 }
             }
-            //Checks if a nonAdmin is trying to change passwords, only allows change if employee is changing their own password
-            else if (changeType == "nonAdminChange")
+
+        }
+        public async void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Checks if Admin is trying to change passwords, if true, allow changes to all empID numbers
+            if (IsAdmin() == true)
             {
                 PasswordHash hash = new PasswordHash(password.Password);
-                if (employeeID.Text == empID)
+                if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
                 {
-                    if(password.Password == passwordRetype.Password)
-                    {
-                        hash.SetHash();
-                        var hashedPW = hash.GetHash();
-                        var salt = hash.GetSalt();
-                        SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
-                        OutputSuccess.Text = "Successfully reset Employee " + employeeID.Text + "'s password.";
-                        Clear();
-                    }
-                    else
-                    {
-                        Clear();
-                        DisplayPasswordCheckError();
-                    }
+                    DisplayInputError();
                 }
                 else
                 {
-                    Clear();
-                    DisplayNoPrivilege();
+                    try
+                    {
+                        //Check if the user account exists to renew
+                        if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+                        {
+                            if (password.Password == passwordRetype.Password)
+                            {
+                                hash.SetHash();
+                                var hashedPW = hash.GetHash();
+                                var salt = hash.GetSalt();
+                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
+                                OutputSuccess.Text = "Successfully reset Employee " + employeeID.Text + "'s password.";
+                                Clear();
+                            }
+                            else
+                            {
+                                string temp = employeeID.Text;
+                                Clear();
+                                DisplayPasswordCheckError();
+                                employeeID.Text = temp;
+                            }
+                        }
+                        else
+                        {
+                            Clear();
+                            DisplayUserNotFound();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Clear();
+                        ContentDialog invalidInput = new ContentDialog
+                        {
+                            Title = "Invalid Input",
+                            Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await invalidInput.ShowAsync();
+                    }
+                }
+            }
+            //Checks if a nonAdmin is trying to change passwords, only allows change if employee is changing their own password
+            else
+            {
+                PasswordHash hash = new PasswordHash(password.Password);
+                if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
+                {
+                    DisplayInputError();
+                }
+                else
+                {
+                    try
+                    {
+                        if (employeeID.Text == empID)
+                        {
+                            if (password.Password == passwordRetype.Password)
+                            {
+                                hash.SetHash();
+                                var hashedPW = hash.GetHash();
+                                var salt = hash.GetSalt();
+                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
+                                OutputSuccess.Text = "Password reset successfully!";
+                                Clear();
+                            }
+                            else
+                            {
+                                string temp = employeeID.Text;
+                                Clear();
+                                DisplayPasswordCheckError();
+                                employeeID.Text = temp;
+                            }
+                        }
+                        else
+                        {
+                            Clear();
+                            DisplayNoPrivilege();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Clear();
+                        ContentDialog invalidInput = new ContentDialog
+                        {
+                            Title = "Invalid Input",
+                            Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await invalidInput.ShowAsync();
+                    }
                 }
             }
         }
@@ -161,6 +218,17 @@ namespace InventorySystem.Views.Settings.Components
             Frame.Navigate(typeof(SettingsView), empID);
         }
 
+        private async void DisplayInputError()
+        {
+            ContentDialog inputError = new ContentDialog
+            {
+                Title = "Invalid Account Creation",
+                Content = "One or more fields are empty. Please enter \ninformation into all fields and try again.",
+                CloseButtonText = "Ok"
+            };
+
+            ContentDialogResult result = await inputError.ShowAsync();
+        }
         private async void DisplayPasswordCheckError()
         {
             ContentDialog displayPasswordError = new ContentDialog

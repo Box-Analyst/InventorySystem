@@ -40,6 +40,10 @@ namespace InventorySystem.Views.Settings
             passedVars.Clear();
             empID = e.Parameter?.ToString();
             passedVars.Add(empID);
+            if(IsAdmin() == true)
+            {
+                PrivButton.Visibility = Visibility.Visible;
+            }
         }
 
         private async void ThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -124,23 +128,19 @@ namespace InventorySystem.Views.Settings
         private void ResetPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             passedVars.Add("reset");
-            if (IsAdmin() == true)
-            {
-                passedVars.Add("adminChange");
-                this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
-            }
-            else
-            {
-                passedVars.Add("nonAdminChange");
-                this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
-            }
+            this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
+        }
+
+        private void ChangePrivButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Components.ChangePrivilege), empID);
         }
 
         //Checks if the empID is the designated admin account number
         private bool IsAdmin()
         {
-            bool isAdmin = empID == "1";
-            return isAdmin;
+            string privLevel = SQL.ManageDB.Grab_Entries("Login", "PrivLevel", "Emp_id", empID)[0];
+            return privLevel == "0";
         }
 
         private async void ImportButton_Click(object sender, RoutedEventArgs e)

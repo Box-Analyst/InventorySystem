@@ -157,13 +157,37 @@ namespace InventorySystem.Views.Samples
         }
         private void DistButton_Click(object sender, RoutedEventArgs e)
         {
-            passedVars.Add(currentSampleNo);
-            passedVars.Add(currentSampleName);
-            Frame.Navigate(typeof(DistributeSample), passedVars);
+            if(HasClearance() == true)
+            {
+                passedVars.Add(currentSampleNo);
+                passedVars.Add(currentSampleName);
+                Frame.Navigate(typeof(DistributeSample), passedVars);
+            }
+            else
+            {
+                DisplayNoPrivilege();
+            }
+        }
+
+        private async void DisplayNoPrivilege()
+        {
+            ContentDialog noPrivilege = new ContentDialog
+            {
+                Title = "Insufficient Privileges",
+                Content = "This account does not have the privileges associated with distributing samples to patients.",
+                CloseButtonText = "Ok"
+            };
+            await noPrivilege.ShowAsync();
         }
         private void ClearDetailsPanel()
         {
                 detailsPanel.Children.Clear();
+        }
+
+        private bool HasClearance()
+        {
+            string privLevel = SQL.ManageDB.Grab_Entries("Login", "PrivLevel", "Emp_id", empID)[0];
+            return (privLevel == "0" || privLevel == "1");
         }
 
     }
