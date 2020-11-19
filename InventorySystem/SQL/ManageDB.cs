@@ -119,12 +119,12 @@ namespace InventorySystem.SQL
         public static void SetAcctsExpired()
         {
             List<string> expAccts = Grab_Entries("Login", "lastLoggedIn", "lastLoggedIn", null);
-            bool isActive = true;
             var cultureInfo = new CultureInfo("en-US");
             DateTime localDate = DateTime.Now;
             foreach (string s in expAccts)
             {
                 DateTime expDate = DateTime.Parse(s, cultureInfo);
+                var isActive = true;
                 if (localDate >= expDate.AddDays(90))
                 {
                     isActive = false;
@@ -391,7 +391,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message);
                 check = false;
             }
             return check;
@@ -418,7 +418,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message);
                 check = false;
             }
             return check;
@@ -445,7 +445,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message);
                 check = false;
             }
             return check;
@@ -472,7 +472,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message);
                 check = false;
             }
             return check;
@@ -499,7 +499,7 @@ namespace InventorySystem.SQL
             catch (ArgumentException error)
             {
                 // Validation failed.
-                Debug.WriteLine("Error: {0}", error.Message.ToString());
+                Debug.WriteLine("Error: {0}", error.Message);
                 check = false;
             }
             return check;
@@ -816,11 +816,10 @@ namespace InventorySystem.SQL
                 db.Open();
                 SqliteCommand selectCommand = new SqliteCommand("Select COUNT(*) from Sample", db);
                 SqliteDataReader query = selectCommand.ExecuteReader();
-                int numRows;
                 bool check = true;
                 if (query.Read())
                 {
-                    numRows = int.Parse($"{query[0]}");
+                    var numRows = int.Parse($"{query[0]}");
                     if (numRows > 0)
                     {
                         check = false;
@@ -855,8 +854,8 @@ namespace InventorySystem.SQL
                 var boolList = new List<int> { 0, 1 };
                 int index = random.Next(boolList.Count);
 
-                DateTime start = new DateTime(2000, 1, 1);
-                DateTime end = new DateTime(2999, 12, 31);
+                DateTime start = new DateTime(2020, 1, 1);
+                DateTime end = new DateTime(2021, 12, 31);
                 int range = (end - start).Days;
                 var randDate = start.AddDays(random.Next(range));
 

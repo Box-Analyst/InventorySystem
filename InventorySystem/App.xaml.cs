@@ -17,7 +17,7 @@ namespace InventorySystem
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public static new App Current => (App)Application.Current;
+        public new static App Current => (App)Application.Current;
 
         public event EventHandler IsIdleChanged;
 
@@ -27,10 +27,7 @@ namespace InventorySystem
 
         public bool IsIdle
         {
-            get
-            {
-                return isIdle;
-            }
+            get => isIdle;
 
             private set
             {
@@ -44,8 +41,8 @@ namespace InventorySystem
 
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
             Views.Shell.Theme.InitializeTheme();
             SQL.ManageDB.InitializeDB();
             Views.Notifications.Alerts.InitializeAlerts();
@@ -59,8 +56,7 @@ namespace InventorySystem
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-            idleTimer = new DispatcherTimer();
-            idleTimer.Interval = TimeSpan.FromMinutes(10);  // 10m idle delay
+            idleTimer = new DispatcherTimer { Interval = TimeSpan.FromMinutes(10) }; // 10m idle delay
             idleTimer.Tick += onIdleTimerTick;
             Window.Current.CoreWindow.PointerMoved += onCoreWindowPointerMoved;
             Window.Current.CoreWindow.KeyDown += onCoreWindowKeyboardPressed;

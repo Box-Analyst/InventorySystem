@@ -16,7 +16,7 @@ namespace InventorySystem.Views.Samples.Components
 
         public AddSample()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -18,7 +18,7 @@ namespace InventorySystem.Views.Samples
 
         public SamplesView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -31,15 +31,15 @@ namespace InventorySystem.Views.Samples
             else
             {
                 passedVars = e.Parameter as List<string>;
-                empID = passedVars[0];
+                empID = passedVars?[0];
                 NameandDosageText = passedVars?[1];
                 isSampleSearched = true;
-                passedVars.Clear();
+                passedVars?.Clear();
             }
-            passedVars.Add(empID);
+            passedVars?.Add(empID);
             SampleList.Clear();
             ConstructSamplesList();
-            if (isSampleSearched == true)
+            if (isSampleSearched)
             {
                 OnSearchedSamplesList();
             }
@@ -87,7 +87,7 @@ namespace InventorySystem.Views.Samples
             if (SQL.ManageDB.IsEmpty()) return;
             sampleListView.ItemsSource = SampleNameDose;
 
-            sampleListView.ItemClick += new ItemClickEventHandler(SampleClick);
+            sampleListView.ItemClick += SampleClick;
         }
 
         private void OnSearchedSamplesList()
@@ -107,33 +107,32 @@ namespace InventorySystem.Views.Samples
             ListView samplesList = (ListView)sender;
             string clickedMenuItem = (string)e.ClickedItem;
 
-            int itemNum = samplesList.Items.IndexOf(clickedMenuItem);
-            currentSampleNo = SampleList[itemNum].LotNum;
-            currentSampleName = SampleList[itemNum].NameandDosage;
-            currentSampleCount = SampleList[itemNum].Count;
-            currentSampleExpDate = SampleList[itemNum].ExpirationDate;
+            if (samplesList.Items != null)
+            {
+                int itemNum = samplesList.Items.IndexOf(clickedMenuItem);
+                currentSampleNo = SampleList[itemNum].LotNum;
+                currentSampleName = SampleList[itemNum].NameandDosage;
+                currentSampleCount = SampleList[itemNum].Count;
+                currentSampleExpDate = SampleList[itemNum].ExpirationDate;
+            }
+
             DisplaySampleInformation();
         }
 
         private void DisplaySampleInformation()
         {
-            TextBlock nameDoseText = new TextBlock();
-            nameDoseText.Name = "nameDose";
-            nameDoseText.Text = currentSampleName;
-            nameDoseText.FontSize = 24;
-            nameDoseText.Margin = new Thickness(0, 0, 0, 25);
-            TextBlock lotNumText = new TextBlock();
-            lotNumText.Text = "Lot Number: " + currentSampleNo;
-            lotNumText.FontSize = 16;
-            TextBlock countText = new TextBlock();
-            countText.Text = "Count: " + currentSampleCount;
-            countText.FontSize = 16;
-            TextBlock expDateText = new TextBlock();
-            expDateText.Text = "Expiration Date: " + currentSampleExpDate;
-            expDateText.FontSize = 16;
+            TextBlock nameDoseText = new TextBlock
+            {
+                Name = "nameDose",
+                Text = currentSampleName,
+                FontSize = 24,
+                Margin = new Thickness(0, 0, 0, 25)
+            };
+            TextBlock lotNumText = new TextBlock { Text = "Lot Number: " + currentSampleNo, FontSize = 16 };
+            TextBlock countText = new TextBlock { Text = "Count: " + currentSampleCount, FontSize = 16 };
+            TextBlock expDateText = new TextBlock { Text = "Expiration Date: " + currentSampleExpDate, FontSize = 16 };
 
-            StackPanel buttonPanel = new StackPanel();
-            buttonPanel.Orientation = Orientation.Horizontal;
+            StackPanel buttonPanel = new StackPanel { Orientation = Orientation.Horizontal };
             Button recButton = new Button
             {
                 Name = "recButton",
@@ -169,7 +168,7 @@ namespace InventorySystem.Views.Samples
 
         private void DistButton_Click(object sender, RoutedEventArgs e)
         {
-            if (HasClearance() == true)
+            if (HasClearance())
             {
                 passedVars.Add(currentSampleNo);
                 passedVars.Add(currentSampleName);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -18,7 +19,7 @@ namespace InventorySystem.Views.Samples.Components
 
         public DistributeSample()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -38,7 +39,7 @@ namespace InventorySystem.Views.Samples.Components
                 {
                     if (SQL.ManageDB.Update_Sample(sender, e, LotNumBox.Text, -Int32.Parse(DisAmountBox.Text)))
                     {
-                        SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(), PatientIDBox.Text, "NULL", "DISTRIBUTE");
+                        SQL.ManageDB.Add_Log(sender, e, empID, LotNumBox.Text, DateTime.Now.ToString(CultureInfo.CurrentCulture), PatientIDBox.Text, "NULL", "DISTRIBUTE");
                         DistributeButton.Visibility = Visibility.Collapsed;
                         ContinueButton.Visibility = Visibility.Visible;
                         OutputSuccess.Text = "Successfully Distributed " + DisAmountBox.Text + " Units of " + LotNumBox.Text + " to " + PatientIDBox.Text;
@@ -88,7 +89,7 @@ namespace InventorySystem.Views.Samples.Components
 
         private void NavBack(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Samples.SamplesView), empID);
+            Frame.Navigate(typeof(SamplesView), empID);
         }
     }
 }

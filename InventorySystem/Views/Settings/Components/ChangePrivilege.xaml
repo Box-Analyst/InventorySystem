@@ -2,7 +2,6 @@
     x:Class="InventorySystem.Views.Settings.Components.ChangePrivilege"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:InventorySystem.Views.Settings.Components"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -13,16 +12,16 @@ Background="{ThemeResource SystemControlAcrylicWindowBrush}">
         <TextBox x:Name="employeeID" Header="Employee ID" Margin="0,24,0,0" MaxLength="12" Width="400" HorizontalAlignment="Center" />
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
-            <TextBlock Text="Account Type:" HorizontalAlignment="Center" Margin="0,5,70,0"></TextBlock>
-            <RadioButton x:Name="DoctorChoice" Content="Doctor" Checked="HandleCheck"></RadioButton>
-            <RadioButton x:Name="StandardChoice" Content="Standard User" Checked="HandleCheck"></RadioButton>
+            <TextBlock Text="Account Type:" HorizontalAlignment="Center" Margin="0,5,70,0" />
+            <RadioButton x:Name="DoctorChoice" Content="Doctor" Checked="HandleCheck" />
+            <RadioButton x:Name="StandardChoice" Content="Standard User" Checked="HandleCheck" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Cancel" Click="CancelButton_Click" Margin="0,24,8,0" Width="80" />
             <Button Content="Update Privileges" Click="ChangePrivButton_Click" Margin="8,24,0,0" />
         </StackPanel>
         <TextBlock Text="&#x0a;" />
-        <TextBlock x:Name="OutputSuccess" HorizontalAlignment="Center"></TextBlock>
-        <TextBlock x:Name="OutputSuccess2" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock x:Name="OutputSuccess" HorizontalAlignment="Center" />
+        <TextBlock x:Name="OutputSuccess2" HorizontalAlignment="Center" />
     </StackPanel>
 </Page>

@@ -21,15 +21,15 @@ namespace InventorySystem.Views.Settings.Components
 
         public RenewAccount()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             passedVars.Clear();
             passedVars = e.Parameter as List<string>;
-            empID = passedVars[0];
-            typeOfPage = passedVars[1];
+            empID = passedVars?[0];
+            typeOfPage = passedVars?[1];
             if (typeOfPage == "renew")
             {
                 HeaderText.Text = "Renew Account";
@@ -57,7 +57,7 @@ namespace InventorySystem.Views.Settings.Components
         public void RenewButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
-            if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
+            if (employeeID.Text == "" || password.Password == "")
             {
                 DisplayInputError();
             }
@@ -66,7 +66,7 @@ namespace InventorySystem.Views.Settings.Components
                 try
                 {
                     //Check if the user account exists to renew
-                    if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+                    if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)))
                     {
                         if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == false)
                         {
@@ -109,10 +109,10 @@ namespace InventorySystem.Views.Settings.Components
         public void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             //Checks if Admin is trying to change passwords, if true, allow changes to all empID numbers
-            if (IsAdmin() == true)
+            if (IsAdmin())
             {
                 PasswordHash hash = new PasswordHash(password.Password);
-                if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
+                if (employeeID.Text == "" || password.Password == "")
                 {
                     DisplayInputError();
                 }
@@ -121,7 +121,7 @@ namespace InventorySystem.Views.Settings.Components
                     try
                     {
                         //Check if the user account exists to renew
-                        if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+                        if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)))
                         {
                             if (password.Password == passwordRetype.Password)
                             {
@@ -157,7 +157,7 @@ namespace InventorySystem.Views.Settings.Components
             else
             {
                 PasswordHash hash = new PasswordHash(password.Password);
-                if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
+                if (employeeID.Text == "" || password.Password == "")
                 {
                     DisplayInputError();
                 }

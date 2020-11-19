@@ -20,7 +20,7 @@ namespace InventorySystem.Views.Login.Components
 
         public AddUsers()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -31,7 +31,7 @@ namespace InventorySystem.Views.Login.Components
         public void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             PasswordHash hash = new PasswordHash(password.Password);
-            if (employeeID.Text.ToString() == "" || password.Password.ToString() == "")
+            if (employeeID.Text == "" || password.Password == "")
             {
                 DisplayInputError();
             }
@@ -93,7 +93,7 @@ namespace InventorySystem.Views.Login.Components
 
         public void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(SettingsView), empID);
+            Frame.Navigate(typeof(SettingsView), empID);
         }
 
         private async void DisplayInputError()

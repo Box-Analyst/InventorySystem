@@ -6,7 +6,7 @@ namespace InventorySystem.Views.Samples.Components
 {
     public class SampleDataSource
     {
-        private static List<Sample> sampleList = new List<Sample>();
+        private static readonly List<Sample> sampleList = new List<Sample>();
 
         //returns a list of all samples that aren't expired
         public static List<Sample> GetSamples()

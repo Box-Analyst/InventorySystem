@@ -13,25 +13,25 @@
     <StackPanel Orientation="Vertical">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".9*"></ColumnDefinition>
-                <ColumnDefinition Width=".1*"></ColumnDefinition>
+                <ColumnDefinition Width=".9*" />
+                <ColumnDefinition Width=".1*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="ExpireSoonFrame" Grid.Column="0" Grid.Row="0" Orientation="Horizontal"
                         Margin="0 -10 0 0">
                 <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
-                <TextBlock x:Name="ExpireSoonAlert" Margin="0,24,0,4"></TextBlock>
+                <TextBlock x:Name="ExpireSoonAlert" Margin="0,24,0,4" />
             </StackPanel>
             <!--<Button x:Name="ExpireSoonButton" Click="ExpireSoonButton_OnClick" Grid.Row="0" Grid.Column="1">View All</Button>-->
 
             <StackPanel x:Name="ExpiredFrame" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
                 <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
-                <TextBlock x:Name="ExpiredAlert" Margin="0,24,0,4"></TextBlock>
+                <TextBlock x:Name="ExpiredAlert" Margin="0,24,0,4" />
             </StackPanel>
             <Button x:Name="ResolveExpiredButton" Click="ResolveExpiredButton_OnClick" Grid.Row="1" Grid.Column="1">Resolve</Button>
 
@@ -40,8 +40,7 @@
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto"
                           HorizontalContentAlignment="Stretch">
-                <Grid Name ="ExpiryListGrid" VerticalAlignment="Top">
-                </Grid>
+                <Grid Name ="ExpiryListGrid" VerticalAlignment="Top" />
             </ScrollViewer>
         </Grid>
     </StackPanel>

@@ -15,7 +15,7 @@ namespace InventorySystem.Views.Notifications
 
         public NotifyView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ExpiryList();
             ExpireSoonList();
             ConstructExpiredList();
@@ -156,8 +156,8 @@ namespace InventorySystem.Views.Notifications
             {
                 return;
             }
-            ColumnDefinition sampleCol = new ColumnDefinition();
-            sampleCol.Width = new GridLength(10, GridUnitType.Star);
+
+            ColumnDefinition sampleCol = new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star) };
             ExpiryListGrid.ColumnDefinitions.Add(sampleCol);
 
             foreach (string sample in samples)
@@ -191,8 +191,8 @@ namespace InventorySystem.Views.Notifications
             {
                 return;
             }
-            ColumnDefinition sampleCol = new ColumnDefinition();
-            sampleCol.Width = new GridLength(10, GridUnitType.Star);
+
+            ColumnDefinition sampleCol = new ColumnDefinition { Width = new GridLength(10, GridUnitType.Star) };
             ExpiringListGrid.ColumnDefinitions.Add(sampleCol);
 
             foreach (string sample in samples)

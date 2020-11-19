@@ -17,7 +17,7 @@ namespace InventorySystem.Views.Settings.Components
 
         public ChangePrivilege()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -30,9 +30,9 @@ namespace InventorySystem.Views.Settings.Components
             try
             {
                 //Check if the user account exists to renew
-                if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+                if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)))
                 {
-                    if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == true)
+                    if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)))
                     {
                         if (CheckIfAdmin() == false)
                         {
@@ -87,7 +87,7 @@ namespace InventorySystem.Views.Settings.Components
 
         public void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(SettingsView), empID);
+            Frame.Navigate(typeof(SettingsView), empID);
         }
 
         private void HandleCheck(object sender, RoutedEventArgs e)

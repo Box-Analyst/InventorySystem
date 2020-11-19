@@ -16,7 +16,7 @@ namespace InventorySystem
     {
         public LoginWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             SQL.ManageDB.SetAcctsExpired();
         }
 
@@ -36,7 +36,7 @@ namespace InventorySystem
                     {
                         SQL.ManageDB.Update_IsExpired();
                         SQL.ManageDB.UpdateAcctLoggedIn(empID);
-                        this.Frame.Navigate(typeof(Views.Shell.MainNavView), empID);
+                        Frame.Navigate(typeof(Views.Shell.MainNavView), empID);
                     }
                     else
                     {

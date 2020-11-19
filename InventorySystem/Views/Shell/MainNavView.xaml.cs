@@ -13,11 +13,11 @@ namespace InventorySystem.Views.Shell
     public sealed partial class MainNavView
     {
         private string empID;
-        private List<string> passedVars = new List<string>();
+        private readonly List<string> passedVars = new List<string>();
 
         public MainNavView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         //When MainNavView is navigated to, empID is passed to this function and stored in private class variable empID
@@ -62,7 +62,7 @@ namespace InventorySystem.Views.Shell
             switch (item.Tag)
             {
                 case "alerts":
-                    ContentFrame.Navigate(typeof(Notifications.NotifyView), empID);
+                    ContentFrame.Navigate(typeof(NotifyView), empID);
                     break;
 
                 case "samples":
@@ -165,7 +165,7 @@ namespace InventorySystem.Views.Shell
 
         private void onIsIdleChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine($"IsIdle: {App.Current.IsIdle}");
+            Debug.WriteLine($"IsIdle: {App.Current.IsIdle}");
             if (App.Current.IsIdle) Automatic_Signout();
         }
     }

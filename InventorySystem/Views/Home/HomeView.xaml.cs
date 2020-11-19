@@ -13,7 +13,7 @@ namespace InventorySystem.Views.Home
 
         public HomeView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ExpiryList();
             ExpireSoonList();
             ConstructExpiredList();

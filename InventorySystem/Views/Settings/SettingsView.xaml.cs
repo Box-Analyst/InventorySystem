@@ -11,7 +11,7 @@ namespace InventorySystem.Views.Settings
     public sealed partial class SettingsView : Page
     {
         private string empID;
-        private List<string> passedVars = new List<string>();
+        private readonly List<string> passedVars = new List<string>();
 
         public SettingsView()
         {
@@ -41,7 +41,7 @@ namespace InventorySystem.Views.Settings
             passedVars.Clear();
             empID = e.Parameter?.ToString();
             passedVars.Add(empID);
-            if (IsAdmin() == true)
+            if (IsAdmin())
             {
                 PrivButton.Visibility = Visibility.Visible;
             }
@@ -108,12 +108,12 @@ namespace InventorySystem.Views.Settings
         private void ResetPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             passedVars.Add("reset");
-            this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
+            Frame.Navigate(typeof(Components.RenewAccount), passedVars);
         }
 
         private void ChangePrivButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Components.ChangePrivilege), empID);
+            Frame.Navigate(typeof(Components.ChangePrivilege), empID);
         }
 
         //Checks if the empID is the designated admin account number
