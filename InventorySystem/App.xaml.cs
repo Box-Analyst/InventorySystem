@@ -57,7 +57,7 @@ namespace InventorySystem
         {
             Frame rootFrame = Window.Current.Content as Frame;
             idleTimer = new DispatcherTimer();
-            idleTimer.Interval = TimeSpan.FromSeconds(10);  // 10s idle delay
+            idleTimer.Interval = TimeSpan.FromMinutes(10);  // 10m idle delay
             idleTimer.Tick += onIdleTimerTick;
             Window.Current.CoreWindow.PointerMoved += onCoreWindowPointerMoved;
             Window.Current.CoreWindow.KeyDown += onCoreWindowKeyboardPressed;
