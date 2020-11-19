@@ -67,13 +67,14 @@ namespace InventorySystem
             catch (Exception)
             {
                 Clear();
-                ContentDialog invalidInput = new ContentDialog
+                ContentDialog inputError = new ContentDialog
                 {
                     Title = "Invalid Input",
-                    Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
+                    Content = "One or more fields are empty or incorrect. Please enter \ninformation into all fields and try again.",
                     CloseButtonText = "Ok"
                 };
-                ContentDialogResult result = await invalidInput.ShowAsync();
+
+                ContentDialogResult result = await inputError.ShowAsync();
             }
 
 

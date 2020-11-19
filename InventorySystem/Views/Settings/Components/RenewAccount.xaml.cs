@@ -71,44 +71,52 @@ namespace InventorySystem.Views.Settings.Components
             }
             else
             {
-                //Check if the user account exists to renew
-                if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
+                try
                 {
-                    if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == false)
+                    //Check if the user account exists to renew
+                    if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == true)
                     {
-                        if (password.Password == passwordRetype.Password)
+                        if (SQL.ManageDB.CheckAcctActive(int.Parse(employeeID.Text)) == false)
                         {
-                            hash.SetHash();
-                            var hashedPW = hash.GetHash();
-                            var salt = hash.GetSalt();
-                            SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
-                            OutputSuccess.Text = "Successfully renewed Employee " + employeeID.Text + ".";
-                            OutputSuccess2.Text = "This employee now has access to this application.";
-                            Clear();
+                            if (password.Password == passwordRetype.Password)
+                            {
+                                hash.SetHash();
+                                var hashedPW = hash.GetHash();
+                                var salt = hash.GetSalt();
+                                SQL.ManageDB.Update_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
+                                OutputSuccess.Text = "Successfully renewed Employee " + employeeID.Text + ".";
+                                OutputSuccess2.Text = "This employee now has access to this application.";
+                                Clear();
+                            }
+                            else
+                            {
+                                Clear();
+                                DisplayPasswordCheckError();
+
+                            }
                         }
                         else
                         {
                             Clear();
-                            DisplayPasswordCheckError();
-
+                            DisplayUserNotExpired();
                         }
+
                     }
                     else
                     {
                         Clear();
-                        DisplayUserNotExpired();
+                        DisplayUserNotFound();
                     }
-
                 }
-                else
+                catch (Exception)
                 {
                     Clear();
-                    DisplayUserNotFound();
+                    DisplayInputError();
                 }
             }
 
         }
-        public async void ResetButton_Click(object sender, RoutedEventArgs e)
+        public void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             //Checks if Admin is trying to change passwords, if true, allow changes to all empID numbers
             if (IsAdmin() == true)
@@ -151,13 +159,7 @@ namespace InventorySystem.Views.Settings.Components
                     catch (Exception)
                     {
                         Clear();
-                        ContentDialog invalidInput = new ContentDialog
-                        {
-                            Title = "Invalid Input",
-                            Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
-                            CloseButtonText = "Ok"
-                        };
-                        ContentDialogResult result = await invalidInput.ShowAsync();
+                        DisplayInputError();
                     }
                 }
             }
@@ -201,13 +203,7 @@ namespace InventorySystem.Views.Settings.Components
                     catch (Exception)
                     {
                         Clear();
-                        ContentDialog invalidInput = new ContentDialog
-                        {
-                            Title = "Invalid Input",
-                            Content = "Please enter your Employee ID. \n\nReminder: Employee IDs consist of \nnumeric characters only",
-                            CloseButtonText = "Ok"
-                        };
-                        ContentDialogResult result = await invalidInput.ShowAsync();
+                        DisplayInputError();
                     }
                 }
             }
@@ -222,8 +218,8 @@ namespace InventorySystem.Views.Settings.Components
         {
             ContentDialog inputError = new ContentDialog
             {
-                Title = "Invalid Account Creation",
-                Content = "One or more fields are empty. Please enter \ninformation into all fields and try again.",
+                Title = "Invalid Account Modification",
+                Content = "One or more fields are empty or incorrect. Please enter \ninformation into all fields and try again.",
                 CloseButtonText = "Ok"
             };
 
