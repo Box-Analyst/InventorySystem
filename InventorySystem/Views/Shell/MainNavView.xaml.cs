@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Timers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -22,6 +23,7 @@ namespace InventorySystem.Views.Shell
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             empID = e.Parameter?.ToString();
+            App.Current.IsIdleChanged += onIsIdleChanged;
         }
 
         // NavView stuff
@@ -144,6 +146,29 @@ namespace InventorySystem.Views.Shell
             if (result == ContentDialogResult.Primary) return;
             NavView.SelectedItem = null;
             Frame.Navigate(typeof(LoginWindow));
+        }
+
+        private async void Automatic_Signout()
+        {
+            ContentDialog autoSignOut = new ContentDialog
+            {
+                Title = "Idle",
+                Content = "You have been idle for too long and have been signed out!",
+                CloseButtonText = "Okay"
+
+            };
+
+            ContentDialogResult result = await autoSignOut.ShowAsync();
+            Frame.Navigate(typeof(LoginWindow));
+        }
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            App.Current.IsIdleChanged -= onIsIdleChanged;
+        }
+        private void onIsIdleChanged(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"IsIdle: {App.Current.IsIdle}");
+            if(App.Current.IsIdle) Automatic_Signout();
         }
     }
 }
