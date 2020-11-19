@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using InventorySystem.Views.Shell;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Text;
-using System.Collections.Generic;
 using System.Diagnostics;
 using InventorySystem.Views.Samples.Components;
 
@@ -16,7 +15,7 @@ namespace InventorySystem.Views.Samples
     public sealed partial class SamplesView : Page
     {
         private string empID, currentSampleNo, currentSampleName, currentSampleExpDate, NameandDosageText;
-        private string isSampleSearched = "false";
+        private bool isSampleSearched = false;
         private int currentSampleCount;
         private List<string> passedVars = new List<string>();
         private static List<Sample> SampleList = new List<Sample>();
@@ -38,13 +37,13 @@ namespace InventorySystem.Views.Samples
                 passedVars = e.Parameter as List<string>;
                 empID = passedVars[0];
                 NameandDosageText = passedVars?[1];
-                isSampleSearched = passedVars[2];
+                isSampleSearched = true;
                 passedVars.Clear();
             }
             passedVars.Add(empID);
             SampleList.Clear();
             ConstructSamplesList();
-            if(isSampleSearched == "true")
+            if(isSampleSearched == true)
             {
                 OnSearchedSamplesList();
             }
@@ -87,10 +86,9 @@ namespace InventorySystem.Views.Samples
             currentSampleCount = SearchedSample[0].Count;
             currentSampleExpDate = SearchedSample[0].ExpirationDate;
             DisplaySampleInformation();
-
-
-
+            isSampleSearched = false;
         }
+
         public void SampleClick(object sender, ItemClickEventArgs e)
         {
             ClearDetailsPanel();

@@ -31,12 +31,12 @@ namespace InventorySystem.Views.Login.Components
             //If checkEmployee is false (user doesn't exist), create user account
             if (SQL.ManageDB.CheckEmployee(int.Parse(employeeID.Text)) == false)
             {
-                //If checkPassword is true (password and retyped password matches), continue with account creation)
                 if (password.Password == passwordRetype.Password)
                 {
                     hash.SetHash();
                     var hashedPW = hash.GetHash();
-                    SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), hashedPW, "True");
+                    var salt = hash.GetSalt();
+                    SQL.ManageDB.Add_Employee(sender, e, int.Parse(employeeID.Text), salt, hashedPW, true, DateTime.Now);
                     OutputSuccess.Text = "Successfully added Employee " + employeeID.Text + " to the list of authorized users for this application.";
                     Clear();
                 }
@@ -45,9 +45,6 @@ namespace InventorySystem.Views.Login.Components
                     Clear();
                     DisplayAddUserPasswordError();
                 }
-
-
-
             }
             else
             {
@@ -85,7 +82,7 @@ namespace InventorySystem.Views.Login.Components
             ContentDialogResult result = await addUserError.ShowAsync();
         }
 
-        private void password_KeyUp(object sender, KeyRoutedEventArgs e)
+        private void Password_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
             {

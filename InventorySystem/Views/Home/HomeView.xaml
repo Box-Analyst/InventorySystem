@@ -27,7 +27,7 @@
                 <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
                 <TextBlock x:Name="ExpireSoonAlert" Margin="0,24,0,4"></TextBlock>
             </StackPanel>
-            <Button x:Name="ExpireSoonButton" Click="ExpireSoonButton_OnClick" Grid.Row="0" Grid.Column="1">View All</Button>
+            <!--<Button x:Name="ExpireSoonButton" Click="ExpireSoonButton_OnClick" Grid.Row="0" Grid.Column="1">View All</Button>-->
 
             <StackPanel x:Name="ExpiredFrame" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
                 <fa:FontAwesome Icon="ExclamationTriangle" FontSize="32" Margin="16 16 16 16" HorizontalAlignment="Left" />
@@ -47,3 +47,4 @@
     </StackPanel>
 
 </Page>
+    

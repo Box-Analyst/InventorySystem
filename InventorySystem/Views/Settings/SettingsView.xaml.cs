@@ -11,6 +11,7 @@ namespace InventorySystem.Views.Settings
     public sealed partial class SettingsView : Page
     {
         private string empID;
+        List<string> passedVars = new List<string>();
         public SettingsView()
         {
             this.InitializeComponent();
@@ -36,7 +37,9 @@ namespace InventorySystem.Views.Settings
         //When Settings is navigated to, empID is passed to this function and stored in private class variable empID
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            passedVars.Clear();
             empID = e.Parameter?.ToString();
+            passedVars.Add(empID);
         }
 
         private async void ThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,10 +93,46 @@ namespace InventorySystem.Views.Settings
                 ContentDialog noPrivilege = new ContentDialog
                 {
                     Title = "Insufficient Privileges",
+                    Content = "You must be signed in to the Admin account to add/modify users.",
+                    CloseButtonText = "Ok"
+                };
+                await noPrivilege.ShowAsync();
+            }
+        }
+
+        private async void RenewButton_Click(object sender, RoutedEventArgs e)
+        {
+            passedVars.Add("renew");
+            if (IsAdmin() == true)
+            {
+                passedVars.Add("adminChange");
+                this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
+            }
+            else
+            {
+                passedVars.RemoveAt(1);
+                ContentDialog noPrivilege = new ContentDialog
+                {
+                    Title = "Insufficient Privileges",
                     Content = "You must be signed in to the Admin account to add users.",
                     CloseButtonText = "Ok"
                 };
                 await noPrivilege.ShowAsync();
+            }
+        }
+
+        private void ResetPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            passedVars.Add("reset");
+            if (IsAdmin() == true)
+            {
+                passedVars.Add("adminChange");
+                this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
+            }
+            else
+            {
+                passedVars.Add("nonAdminChange");
+                this.Frame.Navigate(typeof(Components.RenewAccount), passedVars);
             }
         }
 
