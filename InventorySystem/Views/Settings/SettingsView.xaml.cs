@@ -163,7 +163,7 @@ namespace InventorySystem.Views.Settings
                     SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.ComputerFolder
                 };
                 // Dropdown of file types the user can save the file as
-                savePicker.FileTypeChoices.Add("Backup File", new List<string>() { ".bak" });
+                savePicker.FileTypeChoices.Add("SQLite Database", new List<string>() { ".db" });
                 // Default file name if the user does not type one in or select a file to replace
                 savePicker.SuggestedFileName = bakDB;
 

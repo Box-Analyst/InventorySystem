@@ -63,7 +63,7 @@ namespace InventorySystem.SQL
 
             if (Views.Settings.Components.Settings.FetchSetting("firstRun")?.ToString() != "1")
             {
-                PopulateTestData(0);
+                PopulateTestData(1000);
                 Views.Settings.Components.Settings.ModifySetting("firstRun", "1");
             }
         }
