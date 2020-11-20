@@ -1,4 +1,11 @@
-﻿using Windows.UI.Xaml;
+﻿#region copyright
+
+// Copyright (c) Box Analyst. All rights reserved.
+// This code is licensed under the GNU AGPLv3 License.
+
+#endregion copyright
+
+using Windows.UI.Xaml;
 
 namespace InventorySystem.Views.Shell
 {

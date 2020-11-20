@@ -1,4 +1,11 @@
-﻿using System;
+﻿#region copyright
+
+// Copyright (c) Box Analyst. All rights reserved.
+// This code is licensed under the GNU AGPLv3 License.
+
+#endregion copyright
+
+using System;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;

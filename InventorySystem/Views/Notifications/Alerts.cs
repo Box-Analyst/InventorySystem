@@ -1,4 +1,11 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
+﻿#region copyright
+
+// Copyright (c) Box Analyst. All rights reserved.
+// This code is licensed under the GNU AGPLv3 License.
+
+#endregion copyright
+
+using Microsoft.Toolkit.Uwp.Notifications; // Notifications library
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 

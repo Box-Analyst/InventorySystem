@@ -1,4 +1,11 @@
-﻿using InventorySystem.Views.Login;
+﻿#region copyright
+
+// Copyright (c) Box Analyst. All rights reserved.
+// This code is licensed under the GNU AGPLv3 License.
+
+#endregion copyright
+
+using InventorySystem.Views.Login;
 using System;
 using Windows.System;
 using Windows.UI.Xaml;

@@ -1,4 +1,11 @@
-﻿using InventorySystem.Views.Samples.Components;
+﻿#region copyright
+
+// Copyright (c) Box Analyst. All rights reserved.
+// This code is licensed under the GNU AGPLv3 License.
+
+#endregion copyright
+
+using InventorySystem.Views.Samples.Components;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;

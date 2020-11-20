@@ -1,10 +1,15 @@
-﻿using InventorySystem.Views.Login;
+﻿#region copyright
+
+// Copyright (c) Box Analyst. All rights reserved.
+// This code is licensed under the GNU AGPLv3 License.
+
+#endregion copyright
+
+using InventorySystem.Views.Login;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-
-//using Windows.UI.WindowManagement;
 using System.Diagnostics;
 using System.Globalization;
 using Windows.UI.Xaml;

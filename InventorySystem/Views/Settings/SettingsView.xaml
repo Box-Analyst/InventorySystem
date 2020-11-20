@@ -37,7 +37,7 @@
             <TextBlock>
                 <Hyperlink NavigateUri="https://github.com/Box-Analyst/">https://github.com/Box-Analyst/</Hyperlink>
             </TextBlock>
-            <TextBlock Margin="0,12,0,0">Licensed under the xyz license.</TextBlock>
+            <TextBlock Margin="0,12,0,0">Licensed under the <Hyperlink NavigateUri="https://github.com/Box-Analyst/InventorySystem/blob/master/LICENSE">GNU AGPLv3 License.</Hyperlink></TextBlock>
         </StackPanel>
     </ScrollViewer>
 </Page>

@@ -1,4 +1,11 @@
-﻿namespace InventorySystem.Views.Settings.Components
+﻿#region copyright
+
+// Copyright (c) Box Analyst. All rights reserved.
+// This code is licensed under the GNU AGPLv3 License.
+
+#endregion copyright
+
+namespace InventorySystem.Views.Settings.Components
 {
     internal static class Settings
     {
