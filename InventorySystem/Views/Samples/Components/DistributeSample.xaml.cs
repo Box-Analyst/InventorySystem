@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -61,11 +60,13 @@ namespace InventorySystem.Views.Samples.Components
                             {
                                 OutputSuccess.Text = "Failed to Distribute!";
                             }
-                        } else
+                        }
+                        else
                         {
                             DisplayError("Distribution Amount Too High!", "There is not enough existing medication to distribute that amount!");
                         }
-                    } else
+                    }
+                    else
                     {
                         OutputSuccess.Text = "Failed to Distribute";
                     }
