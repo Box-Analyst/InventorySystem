@@ -17,7 +17,7 @@
                       VerticalScrollBarVisibility="Auto"
                       Grid.Row="1" HorizontalContentAlignment="Stretch">
                 <StackPanel x:Name="sampleView" VerticalAlignment="Top">
-                    <ListView x:Name="sampleListView" SelectionMode="None" IsItemClickEnabled="True" Background="DimGray" >
+                    <ListView x:Name="sampleListView" SelectionMode="None" IsItemClickEnabled="True">
                     </ListView>
                 </StackPanel>
             </ScrollViewer>
