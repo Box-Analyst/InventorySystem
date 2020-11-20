@@ -35,7 +35,7 @@ This project utilizes the following NuGet packages:
 - [QueryString.NET](https://github.com/WindowsNotifications/QueryString.NET)
 - [System.Configuration.ConfigurationManager](https://github.com/dotnet/runtime)
 
-Thanks to [Jim Moua](https://jimmoua.github.io/) for the awesome [guide he made](https://github.com/jimmoua/system_analysis_tutorials) for our class.
+Thanks to [Jim Moua](https://jimmoua.github.io/) for the awesome [guide they made](https://github.com/jimmoua/system_analysis_tutorials) for our class.
 
 ## License
 
