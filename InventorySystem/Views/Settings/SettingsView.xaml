@@ -21,7 +21,8 @@
             <TextBlock Margin="0,24,0,4">Manage Database*</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <Button Click="ImportButton_Click" Content="Import Database" Margin="0,0,10,0" />
-                <Button Click="ExportButton_Click" Content="Export Database" />
+                <Button Click="ExportButton_Click" Content="Export Database" Margin="0,0,10,0" />
+                <Button Click="ExportLogs_Click" Content="Export Logs" />
             </StackPanel>
             <TextBlock x:Name="ExportSuccess" Margin="0,24,0,4" Visibility="Collapsed" />
             <TextBlock Text ="Add an Employee account*" Margin="0,24,0,4" FontSize="14" />
