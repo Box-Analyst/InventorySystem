@@ -7,11 +7,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using InventorySystem.Views.Settings.Components;
 
 namespace InventorySystem.Views.Settings
 {
@@ -306,7 +308,14 @@ namespace InventorySystem.Views.Settings
                 savePicker.SuggestedFileName = "LOGS";
 
                 // Fetch list of all logs
-                List<string> logs = SQL.ManageDB.Grab_Entries("Log", "LogEntryID", "LogEntryID", null);
+                //List<string> logs = LogDataSource.GetLogs();
+                var LogList = LogDataSource.GetLogs();
+                List<string> logs = new List<string>();
+                logs.Add("LogEntryId, Emp_id, LotNum, WhenModifed, Patient_id, Rep_id, LogType");
+                foreach (Log l in LogList)
+                {
+                    logs.Add(l.empID + ", " + l.LotNum + ", " + l.LastModified + ", " + l.PatientID + ", " + l.RepID + ", " + l.LogType);
+                }
 
                 Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
                 if (file != null)

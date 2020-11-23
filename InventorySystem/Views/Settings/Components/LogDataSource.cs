@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InventorySystem.Views.Settings.Components
 {
-    class LogDataSource
+    internal class LogDataSource
     {
         private static List<Log> logList = new List<Log>();
 
@@ -20,7 +20,7 @@ namespace InventorySystem.Views.Settings.Components
                 SqliteCommand selectCommand = new SqliteCommand
                 {
                     Connection = db,
-                    CommandText = "SELECT Emp_id, LotNum, WhenModified, Patient_id, Rep_id, LogType FROM Log WHERE LotNum"
+                    CommandText = "SELECT Emp_id, LotNum, WhenModifed, Patient_id, Rep_id, LogType FROM Log"
                 };
                 SqliteDataReader query;
                 try
