@@ -92,8 +92,16 @@ namespace InventorySystem
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
+                    if (Views.Settings.Components.Settings.FetchSetting("firstRun")?.ToString() != "1")
+                    {
+                        rootFrame.Navigate(typeof(Views.Login.Components.AddAdminPage), e.Arguments);
+                        Views.Settings.Components.Settings.ModifySetting("firstRun", "1");
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(LoginWindow), e.Arguments);
+                    }
 
-                    rootFrame.Navigate(typeof(LoginWindow), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
