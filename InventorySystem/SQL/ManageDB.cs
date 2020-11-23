@@ -47,7 +47,7 @@ namespace InventorySystem.SQL
                 {
                     Debug.WriteLine("Table error: " + e);
                 }
-                const string tableCommand3 = "CREATE TABLE IF NOT EXISTS Log (LogEntryId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Emp_id INTEGER NOT NULL, LotNum VARCHAR NOT NULL, WhenModifed DATETIME NOT NULL, Patient_id VARCHAR (12), Rep_id VARCHAR (12), LogType CHAR (1) NOT NULL)";
+                const string tableCommand3 = "CREATE TABLE IF NOT EXISTS Log (LogEntryId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Emp_id INTEGER NOT NULL, LotNum VARCHAR NOT NULL, WhenModified DATETIME NOT NULL, Patient_id VARCHAR (12), Rep_id VARCHAR (12), LogType CHAR (1) NOT NULL)";
                 createTable = new SqliteCommand(tableCommand3, db);
                 try
                 {

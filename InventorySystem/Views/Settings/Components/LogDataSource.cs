@@ -20,7 +20,7 @@ namespace InventorySystem.Views.Settings.Components
                 SqliteCommand selectCommand = new SqliteCommand
                 {
                     Connection = db,
-                    CommandText = "SELECT Emp_id, LotNum, WhenModified, Patient_id, Rep_id, LogType FROM Log WHERE LotNum"
+                    CommandText = "SELECT Emp_id, LotNum, WhenModified, Patient_id, Rep_id, LogType FROM Log"
                 };
                 SqliteDataReader query;
                 try
@@ -48,6 +48,8 @@ namespace InventorySystem.Views.Settings.Components
                 }
                 db.Close();
             }
+            foreach(Log l in )
+            Debug.WriteLine(l.empID + ", " + l.LotNum + ", " + l.LastModified + ", " + l.PatientID + ", " + l.RepID + ", " + l.LogType)
             return logList;
         }
     }
