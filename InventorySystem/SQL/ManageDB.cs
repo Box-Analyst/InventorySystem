@@ -59,11 +59,6 @@ namespace InventorySystem.SQL
                 }
                 db.Close();
             }
-
-            if (Views.Settings.Components.Settings.FetchSetting("firstRun")?.ToString() != "1")
-            {
-                PopulateTestData(1000);
-            }
         }
 
         //Sets accounts inactive if they aren't used for 90 days

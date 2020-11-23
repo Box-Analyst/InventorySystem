@@ -131,6 +131,8 @@
     <Compile Include="Views\Settings\Components\ChangePrivilege.xaml.cs">
       <DependentUpon>ChangePrivilege.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\Components\Log.cs" />
+    <Compile Include="Views\Settings\Components\LogDataSource.cs" />
     <Compile Include="Views\Settings\Components\RenewAccount.xaml.cs">
       <DependentUpon>RenewAccount.xaml</DependentUpon>
     </Compile>
