@@ -48,8 +48,6 @@ namespace InventorySystem.Views.Settings.Components
                 }
                 db.Close();
             }
-            foreach(Log l in )
-            Debug.WriteLine(l.empID + ", " + l.LotNum + ", " + l.LastModified + ", " + l.PatientID + ", " + l.RepID + ", " + l.LogType)
             return logList;
         }
     }
