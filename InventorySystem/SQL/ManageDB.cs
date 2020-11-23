@@ -37,7 +37,6 @@ namespace InventorySystem.SQL
                 {
                     Debug.WriteLine("Table error: " + e);
                 }
-                AddAdminAccount();
                 const string tableCommand2 = "CREATE TABLE IF NOT EXISTS Sample (LotNum VARCHAR PRIMARY KEY NOT NULL UNIQUE, NameandDosage VARCHAR(50) NOT NULL, Count INTEGER NOT NULL, ExpirationDate VARCHAR NOT NULL, isExpired BOOLEAN NOT NULL)";
                 createTable = new SqliteCommand(tableCommand2, db);
                 try
@@ -63,60 +62,7 @@ namespace InventorySystem.SQL
 
             if (Views.Settings.Components.Settings.FetchSetting("firstRun")?.ToString() != "1")
             {
-                PopulateTestData(0);
-                Views.Settings.Components.Settings.ModifySetting("firstRun", "1");
-            }
-        }
-
-        private static void AddAdminAccount()
-        {
-            int empID = 1;
-            PasswordHash hash = new PasswordHash("password");
-            hash.SetHash();
-            string hashedPW = hash.GetHash();
-            string salt = hash.GetSalt();
-            int privLevel = 0;
-
-            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
-            {
-                db.Open();
-                SqliteCommand selectCommand = new SqliteCommand("Select * from Login", db);
-                SqliteDataReader query;
-                try
-                {
-                    query = selectCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    Debug.WriteLine("Error: " + error);
-                    db.Close();
-                    return;
-                }
-                if (query.HasRows == false)
-                {
-                    SqliteCommand insertCommand = new SqliteCommand
-                    {
-                        Connection = db,
-
-                        //Use parameterized query to prevent SQL injection attacks
-                        CommandText = "Insert into Login Values(@employeeID, @salt, @pw, @isActive, @lastLoggedIn, @privLevel);"
-                    };
-                    insertCommand.Parameters.AddWithValue("@employeeID", empID);
-                    insertCommand.Parameters.AddWithValue("@salt", salt);
-                    insertCommand.Parameters.AddWithValue("@pw", hashedPW);
-                    insertCommand.Parameters.AddWithValue("@isActive", true);
-                    insertCommand.Parameters.AddWithValue("@lastLoggedIn", DateTime.Now);
-                    insertCommand.Parameters.AddWithValue("@privLevel", privLevel);
-                    try
-                    {
-                        insertCommand.ExecuteReader();
-                    }
-                    catch (SqliteException error)
-                    {
-                        Debug.WriteLine("Exception: " + error);
-                    }
-                }
-                db.Close();
+                PopulateTestData(1000);
             }
         }
 
@@ -642,38 +588,7 @@ namespace InventorySystem.SQL
             }
             return check;
         }
-        public static bool Update_Employee(object sender, RoutedEventArgs e, int empID, string salt, string pin, bool isActive, DateTime lastLoggedIn, int privLevel)
-        {
-            bool check = true;
-            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
-            {
-                db.Open();
-                SqliteCommand insertCommand = new SqliteCommand
-                {
-                    Connection = db,
 
-                    //Use parameterized query to prevent SQL injection attacks
-                    CommandText = "UPDATE Login SET salt = @Entry2, pin = @Entry3, isActive = @Entry4, lastLoggedIn = @Entry5, PrivLevel = @Entry6 WHERE Emp_id = @Entry1;"
-                };
-                insertCommand.Parameters.AddWithValue("@Entry1", empID);
-                insertCommand.Parameters.AddWithValue("@Entry2", salt);
-                insertCommand.Parameters.AddWithValue("@Entry3", pin);
-                insertCommand.Parameters.AddWithValue("@Entry4", isActive);
-                insertCommand.Parameters.AddWithValue("@Entry5", lastLoggedIn);
-                insertCommand.Parameters.AddWithValue("@Entry6", privLevel);
-                try
-                {
-                    insertCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    Debug.WriteLine(error);
-                    check = false;
-                }
-                db.Close();
-            }
-            return check;
-        }
         public static bool Update_Employee(object sender, RoutedEventArgs e, int empID, int privLevel)
         {
             bool check = true;
@@ -736,33 +651,6 @@ namespace InventorySystem.SQL
                 db.Close();
             }
             return check;
-        }
-
-        // Method to insert text into the SQLite database
-        public static void Add_Text(object sender, RoutedEventArgs e, string inputVal)
-        {
-            using (SqliteConnection db = new SqliteConnection("Filename=SamplesDB.db"))
-            {
-                db.Open();
-                SqliteCommand insertCommand = new SqliteCommand
-                {
-                    Connection = db,
-
-                    //Use parameterized query to prevent SQL injection attacks
-                    CommandText = "INSERT INTO Sample VALUES (NULL, @Entry);"
-                };
-                insertCommand.Parameters.AddWithValue("@Entry", inputVal);
-                try
-                {
-                    insertCommand.ExecuteReader();
-                }
-                catch (SqliteException error)
-                {
-                    Debug.WriteLine(error);
-                    return;
-                }
-                db.Close();
-            }
         }
 
         public static bool CheckEmployee(int employeeID)
