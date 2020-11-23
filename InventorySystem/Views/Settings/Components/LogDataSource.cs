@@ -20,7 +20,7 @@ namespace InventorySystem.Views.Settings.Components
                 SqliteCommand selectCommand = new SqliteCommand
                 {
                     Connection = db,
-                    CommandText = "SELECT Emp_id, LotNum, WhenModifed, Patient_id, Rep_id, LogType FROM Log"
+                    CommandText = "SELECT Emp_id, LotNum, WhenModified, Patient_id, Rep_id, LogType FROM Log"
                 };
                 SqliteDataReader query;
                 try

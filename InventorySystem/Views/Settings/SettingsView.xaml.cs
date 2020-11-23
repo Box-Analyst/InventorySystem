@@ -311,7 +311,7 @@ namespace InventorySystem.Views.Settings
                 //List<string> logs = LogDataSource.GetLogs();
                 var LogList = LogDataSource.GetLogs();
                 List<string> logs = new List<string>();
-                logs.Add("LogEntryId, Emp_id, LotNum, WhenModifed, Patient_id, Rep_id, LogType");
+                logs.Add("LogEntryId, Emp_id, LotNum, WhenModified, Patient_id, Rep_id, LogType");
                 foreach (Log l in LogList)
                 {
                     logs.Add(l.empID + ", " + l.LotNum + ", " + l.LastModified + ", " + l.PatientID + ", " + l.RepID + ", " + l.LogType);
