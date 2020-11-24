@@ -1,6 +1,6 @@
 # 🏥 Inventory System
 
-**Inventory System** is a medical sample inventory management system written for Windows 10 using the Universal Windows Platform. This project was originally created by [Box Analyst](https://github.com/Box-Analyst) for [Conway Reigonal](#) in the [COMS 4043](https://www.atu.edu/catalog/descriptions/courses.php?catalog=U&subj=COMS#Search:~:text=COMS%204043%3A%20Systems%20Analysis%20and%20Design%20II) course at Arkansas Tech University.
+**Inventory System** is a medical sample inventory management system written for Windows 10 using the Universal Windows Platform. This project was originally created by [Box Analyst](https://github.com/Box-Analyst) for Conway Reigonal as our senior project in the [COMS 4043](https://www.atu.edu/catalog/descriptions/courses.php?catalog=U&subj=COMS#Search:~:text=COMS%204043%3A%20Systems%20Analysis%20and%20Design%20II) course at Arkansas Tech University.
 
 ![Inventory System](./screenshot.png)
 
