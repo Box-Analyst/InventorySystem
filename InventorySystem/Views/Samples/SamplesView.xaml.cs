@@ -170,6 +170,7 @@ namespace InventorySystem.Views.Samples
         {
             passedVars.Add(currentSampleNo);
             passedVars.Add(currentSampleName);
+            passedVars.Add(currentSampleExpDate);
             Frame.Navigate(typeof(AddSample), passedVars);
         }
 
