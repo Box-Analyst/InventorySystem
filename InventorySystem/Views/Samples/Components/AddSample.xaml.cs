@@ -33,6 +33,7 @@ namespace InventorySystem.Views.Samples.Components
                 empID = passedVars?[0];
                 LotNumBox.Text = passedVars?[1] ?? string.Empty;
                 NameAndDosageBox.Text = passedVars?[2] ?? string.Empty;
+                ExpirationDateBox.Text = passedVars?[3] ?? string.Empty;
                 //Debug.WriteLine(LotNumBox.Text);
             }
 
