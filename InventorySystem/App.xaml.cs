@@ -101,7 +101,6 @@ namespace InventorySystem
                     {
                         rootFrame.Navigate(typeof(LoginWindow), e.Arguments);
                     }
-
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
